@@ -1,0 +1,208 @@
+---
+title: "Matching 1940 Census and SocSec Deaths: A minimal example for California"
+author: "Joshua R. Goldstein"
+date: "Dec. 13, 2016"
+output:
+  pdf_document:
+    fig_width: 7
+    fig_height: 9
+    fig_caption: true
+---
+
+
+# A minimal example for doing California match
+
+Here's an outline of what we do:
+
+1. Read in the Census data
+2. Read in the SocSec data
+3. Clean data and create unique keys
+4. Match and report matching rates
+5. A regression to check data
+6. Save results
+
+
+# 0. Preliminaries
+
+Here we load libraries and any custom functions
+
+```{r}
+library(data.table)                # we will use lots of data.table
+library(readr)                     # for reading in fwf of SocSec data
+library(memisc)                    # for regression table mtable()
+library(stringr)                   # for str_to_upper()
+
+# My function for getting first word of a sentence or compound name
+# Much faster than stringr::word(x, 1)
+get.first.word <- function(x)   
+    {
+        x.split <- strsplit(x, split = " ")
+        x1.list <- lapply(x.split,`[`, 1) # returns NA if no name
+        x1 <- unlist(x1.list)
+        return(x1)
+    }
+```
+
+# 1. Read in the Census data
+```{r}
+
+setwd("~/progs/ssdm")
+
+census <- fread("~/Private/my1940/CA_clean.txt") # cleaned version has \' instead of '
+# attach variable names for ca (Carl Boe's state files don't have headers)
+system("head ~/Private/my1940/NORTHEAST_head.txt > tmp.txt")
+names.census <- fread("tmp.txt", nrows = 10) # generates headers for this little data set
+setnames(census, names(names.census))
+census.orig <- census # set aside so we don't have to re-read if a problem with "census"
+```
+
+# 2. Read in the SocSec data
+
+```{r}
+## we read it in as fixed width (ssdm3 has the california geography as part of it)
+tt <- readr::read_fwf("ssdm3",
+                      fwf_widths(c(1,9, 20, 4, 15, 15, 1, 8, 8),
+                                 col_names = c("mode", "ssn", "lname",
+                                               "name_suffix", "fname", "mname",
+                                               "vorpcode", "dod", "dob")))
+socsec <- as.data.table(tt)             # convert to data.table
+## restrict to CA using the SSN geography codes
+socsec[, "ssn.geo" := as.numeric(substr(ssn, 1, 3))]
+socsec <- socsec[ssn.geo >= 545 & ssn.geo <= 573,]
+```
+
+
+# 3. Clean data and create unique keys
+
+```{r}
+## A. clean the socsec data
+## note: we can't restrict to Males, since no sex.
+## shorten names by removing blank space at end
+socsec[,lname := gsub(pattern = "\\s*$",
+                  replacement = "", x = lname)]
+socsec[,fname := gsub(pattern = "\\s*$",
+                  replacement = "", x = fname)]
+## now get birth and death year
+socsec[,"byear" := as.numeric(substr(dob, 5, 9))]
+socsec[,"dyear" := as.numeric(substr(dod, 5, 9))]
+## birth and death month
+socsec[,"bmonth" := as.numeric(substr(dob, 1, 2))]
+socsec[,"dmonth" := as.numeric(substr(dob, 1, 2))]
+## now get census_age (hopefully census was on April 1)
+socsec[,"census_age" := ifelse(bmonth < 4,
+                           1940 - byear,
+                           1939 - byear)]
+
+## B. clean the census data
+census <- census.orig
+census[,"fname" := str_to_upper(self_empty_name_given)]
+census[,"lname" := str_to_upper(self_empty_name_surname)]
+census[,"age" := as.numeric(self_residence_info_age)]
+census[,"census_age" := age]
+census[,"sex" := self_empty_info_gender]
+census[,"fname" := get.first.word(fname)]
+# income (just to take an example of one covariate)
+census[,"income" := general_income,]
+census[,"income" := gsub(",", "", income)]
+census[,"income" := as.numeric(income)]
+## HHID_NUMERIC is unique HHID for each household
+## HHORDER is the order of the person in unique HH
+census[,"hhid" := HHID_NUMERIC]
+census[,"recno" := HHORDER]
+
+## Keep only a minimal subset of the census variables
+census <- census[,.(hhid, recno, fname, lname, age, census_age, sex,
+                    income)]
+dim(census)
+
+```
+
+## 4. Match
+
+```{r}
+## Create keys for matching, triplets of last name, first name and
+## age in census
+socsec[,"tmp_key" := paste0(lname, fname, census_age)]
+census[,"tmp_key" := paste0(lname, fname, census_age)]
+## Drop if not unique
+socsec[,"n_tmp_key" := .N, by = tmp_key]
+socsec.uniq <- socsec[n_tmp_key == 1,]
+census[,"n_tmp_key" := .N, by = tmp_key]
+census.uniq <- census[n_tmp_key == 1,]
+print(nrow(socsec.uniq))
+## [1] 4870219
+print(nrow(census.uniq))
+## [1] 6123351
+
+## Drop if tmp_key contains weird characterrs (e.g., ??)
+census.uniq <- census.uniq[!grepl("\\?", tmp_key),]
+socsec.uniq <- socsec.uniq[!grepl("\\?", tmp_key),]
+print(nrow(socsec.uniq))
+## [1] 4870219
+print(nrow(census.uniq))
+## [1] 6121620, so we got rid of some (1,731 people)
+
+## Drop if not male
+
+census.uniq.male <- census.uniq[sex == "Male",]
+print(nrow(census.uniq.male))
+## Reset keys
+setkey(socsec.uniq, tmp_key)
+setkey(census.uniq.male, tmp_key)
+
+
+
+## Merge on unique keys
+out <- socsec.uniq[census.uniq.male]
+```
+
+# Report on sample sizes
+```{r}
+nrow(socsec)
+nrow(socsec.uniq)
+nrow(census)
+nrow(census.uniq.male)                  #[1] 3061687
+nrow(out)                               #[1] 3061687
+## so there is one record for every uniq male in census (even those that didn't match)
+out.matched <- out[!is.na(ssn),]
+nrow(out.matched)
+## [1] 581921
+```
+
+# 5. A regression to check data
+
+Here we do a simple regression of income on age of death to make sure
+we get something plausible.
+
+```{r}
+## we call our matched data set censoc ("[cen]sus" + "[soc]sec")
+censoc <- out.matched
+## create approximate age at death (without accounting for exact dates)
+censoc[, age.at.death := dyear - byear]
+
+## regress age at death on log income
+censoc[, log.inc := log(income)]
+
+m <- lm(age.at.death ~ log.inc, 
+        data = censoc,
+        subset = census_age >= 20 & census_age <= 40 &
+            income > 0 & !is.na(income))
+mtable(m)
+```
+So a 10 percent increase in income, increases log income by about 0.1, which would increase life expectancy by about 0.12 years.
+
+
+
+# 6. Save results
+
+```{r}
+write.csv(out.matched, file = "ca_out_matched.csv")
+```
+
+# To do
+
+* check names for weird characters
+* check keys of those who are matched
+* calculate match rates in various ways
+* look at income of those matched and not-matched
+
