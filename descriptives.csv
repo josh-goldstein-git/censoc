@@ -1,0 +1,8 @@
+"data","no.obs","med.age","iqr.age","med.aad","iqr.aad","med.income","prop.income.missing","prop.income.zero"
+"Matched",595009,30,21,76,16,900,0.17158395923423,0.222729404093047
+"Unmatched unique census",2426005,34,33,NA,NA,495,0.233114523671633,0.276398853258753
+"Unmatched unique socsec",3555167,29,21,79,16,NA,NA,NA
+"Unmatched unique all",5981172,31,25,NA,NA,NA,NA,NA
+"Unmatched non-unique census",461132,32,29,NA,NA,600,0.232423687794384,0.244840956602448
+"Unmatched non-unique socsec",478211,29,19,78,16,NA,NA,NA
+"Unmatched non-unique all",939343,31,25,NA,NA,NA,NA,NA
