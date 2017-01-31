@@ -1,7 +1,10 @@
 create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA_clean.txt",
                           names.file = "/home/ipums/monica-ipums/censoc/tmp.txt",
                           socsec.file = "/home/ipums/josh-ipums/progs/ssdm/ssdm3",
+                          ssn.min, ssn.max, # http://www.stevemorse.org/ssn/ssn.html
                           sex.to.keep = "Male",
+                          counts.file.name = "counts.txt",
+                          descriptives.file.name = "descriptives.csv",
                           return.unmatched = FALSE){
   
   ######### 1. READ IN DATA ######### 
@@ -20,9 +23,9 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                                                  "vorpcode", "dod", "dob")))
   socsec <- as.data.table(tt) 
   rm(tt)
-  ## restrict to CA using the SSN geography codes (TODO: make for general state)
+  ## restrict to the SSN geography codes of interest
   socsec[, "ssn.geo" := as.numeric(substr(ssn, 1, 3))] # creates a new column with geo codes
-  socsec <- socsec[ssn.geo >= 545 & ssn.geo <= 573,]
+  socsec <- socsec[ssn.geo >= ssn.min & ssn.geo <= ssn.max,]
   
   ## METRIC: raw data counts
   n.census.raw <- nrow(census)
@@ -225,12 +228,12 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   )
   
   cat("Saving counts of matched and unmatched datasets.\n")
-  fileConn<-file("counts.txt")
+  fileConn<-file(counts.file.name)
   writeLines(c(capture.output(cat(diagnostics))), fileConn)
   close(fileConn)
   
   cat("Saving descriptives of matched and unmatched datasets.\n")
-  write.csv(df, file = "descriptives.csv", row.names = F)
+  write.csv(df, file = descriptives.file.name, row.names = F)
 
   if(return.unmatched){
     to.return <- list(censoc = out, census = census, socsec = socsec)
