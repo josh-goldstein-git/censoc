@@ -5,14 +5,18 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           sex.to.keep = "Male",
                           counts.file.name = "counts.txt",
                           descriptives.file.name = "descriptives.csv",
+                          matched.file.name = "matched.csv",
                           return.unmatched = FALSE){
   
   ######### 1. READ IN DATA ######### 
   cat("Reading census data.\n")
   ## read in census
   census <- fread(census.file)
-  names.census <- fread(names.file, nrows = 10)
+  names.census <- fread(names.file, nrows = 2)
   setnames(census, names(names.census))
+  ## only keep variables of interest for now
+  ## state, own/rent, name, gender, race, age, schooling, citizenship, income, HHID, HHORDER
+  census <- census[,c(3,22,26,27,32,33,34,37,41,56,84,85)]
   
   cat("Reading socsec data.\n")
   ## read in socsec
@@ -73,16 +77,27 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census[,"census_age" := age]
   census[,"sex" := self_empty_info_gender]
   census[,"fname" := get.first.word(fname)]
-  # income (just to take an example of one covariate)
+  ## covariates
+  # income 
   census[,"income" := general_income,]
   census[,"income" := gsub(",", "", income)]
   census[,"income" := as.numeric(income)]
+  # race recode
+  census[,"race":=self_empty_info_race]
+  census[race=="Negro",race:="Black"]
+  census[!(race %in% c("Black", "White", "Chinese", "Japanese", "Filipino", "")), race:="Other"]
+  census[race=="", race:=NA]
+  # own/rent recode
+  census[,"own_rent":=general_homeownrent]
+  census[!(own_rent%in%c("Owned", "Rented", "")), own_rent:="Other"]
+  census[own_rent=="", own_rent:=NA]
+  
   ## HHID_NUMERIC is unique HHID for each household
   ## HHORDER is the order of the person in unique HH
   census[,"hhid" := HHID_NUMERIC]
   census[,"recno" := HHORDER]
   
-  census <- census[,.(hhid, recno, fname, lname, age, census_age, sex,
+  census <- census[,.(hhid, recno, fname, lname, age, census_age, sex, race, own_rent,
                       income)]
   
   # remove those without ages
@@ -193,6 +208,11 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   prop.income.missing.unmatched.nonuniq <- sum(is.na(census.nonuniq.unmatched$income))/nrow(census.nonuniq.unmatched)
   prop.income.zero.unmatched.nonuniq <- sum(census.nonuniq.unmatched$income==0, na.rm=T)/nrow(census.nonuniq.unmatched)
   
+  ## condition income calculates on mode age of matched dataset
+  mode.age <- as.numeric(names(sort(table(censoc$census_age.x), decreasing = T)[1]))
+  med.income.matched.mode <- median(censoc$income[censoc$census_age.x==mode.age], na.rm = T)
+  med.income.unmatched.uniq.mode <- median(census.uniq.unmatched$income[census.uniq.unmatched$census_age==mode.age], na.rm=T)
+  med.income.unmatched.nonuniq.mode <- median(census.nonuniq.unmatched$income[census.nonuniq.unmatched$census_age==mode.age], na.rm=T)
   ## Put everything in a dataframe
   
   df <- data.frame(data = c("Matched", 
@@ -201,15 +221,29 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                    no.obs = rep(NA,7),
                    med.age = rep(NA, 7), iqr.age = rep(NA,7), 
                    med.aad = rep(NA, 7), iqr.aad = rep(NA,7),
-                   med.income = rep(NA,7), prop.income.missing = rep(NA,7), prop.income.zero = rep(NA,7))
+                   med.income = rep(NA,7), med.income.mode.age = rep(NA,7), prop.income.missing = rep(NA,7), prop.income.zero = rep(NA,7))
   
-  df[1,2:9] <- c(nrow(censoc),med.age.matched, iqr.age.matched, med.aad.matched, iqr.aad.matched, med.income.matched, prop.income.missing.matched, prop.income.zero.matched)
-  df[2,2:9] <- c(nrow(census.uniq.unmatched),med.age.unmatched.census.uniq, iqr.age.unmatched.census.uniq, NA, NA, med.income.unmatched.uniq, prop.income.missing.unmatched.uniq, prop.income.zero.unmatched.uniq)
-  df[3,2:9] <- c(nrow(socsec.uniq.unmatched),med.age.unmatched.socsec.uniq, iqr.age.unmatched.socsec.uniq, med.aad.unmatched.uniq, iqr.aad.unmatched.uniq,NA, NA, NA)
-  df[4,2:9] <- c(nrow(census.uniq.unmatched)+nrow(socsec.uniq.unmatched),med.age.unmatched.all.uniq, iqr.age.unmatched.all.uniq, NA,NA,NA, NA, NA)
-  df[5,2:9] <- c(nrow(census.nonuniq.unmatched),med.age.unmatched.census.nonuniq, iqr.age.unmatched.census.nonuniq, NA, NA, med.income.unmatched.nonuniq, prop.income.missing.unmatched.nonuniq, prop.income.zero.unmatched.nonuniq)
-  df[6,2:9] <- c(nrow(socsec[socsec$n_clean_key>1]),med.age.unmatched.socsec.nonuniq, iqr.age.unmatched.socsec.nonuniq, med.aad.unmatched.nonuniq, iqr.aad.unmatched.nonuniq,NA, NA, NA)
-  df[7,2:9] <- c(nrow(census.nonuniq.unmatched)+nrow(socsec[socsec$n_clean_key>1]),med.age.unmatched.all.uniq, iqr.age.unmatched.all.uniq, NA,NA,NA, NA, NA)
+  df[1,2:10] <- c(nrow(censoc),med.age.matched, iqr.age.matched, 
+                 med.aad.matched, iqr.aad.matched, 
+                 med.income.matched, med.income.matched.mode, prop.income.missing.matched, prop.income.zero.matched)
+  df[2,2:10] <- c(nrow(census.uniq.unmatched),med.age.unmatched.census.uniq, iqr.age.unmatched.census.uniq, 
+                 NA, NA, 
+                 med.income.unmatched.uniq, med.income.unmatched.uniq.mode, prop.income.missing.unmatched.uniq, prop.income.zero.unmatched.uniq)
+  df[3,2:10] <- c(nrow(socsec.uniq.unmatched),med.age.unmatched.socsec.uniq, iqr.age.unmatched.socsec.uniq, 
+                 med.aad.unmatched.uniq, iqr.aad.unmatched.uniq,
+                 NA,NA, NA, NA)
+  df[4,2:10] <- c(nrow(census.uniq.unmatched)+nrow(socsec.uniq.unmatched),med.age.unmatched.all.uniq, iqr.age.unmatched.all.uniq, 
+                 NA,NA,
+                 NA, NA, NA, NA)
+  df[5,2:10] <- c(nrow(census.nonuniq.unmatched),med.age.unmatched.census.nonuniq, iqr.age.unmatched.census.nonuniq, 
+                 NA, NA, 
+                 med.income.unmatched.nonuniq, med.income.unmatched.nonuniq.mode, prop.income.missing.unmatched.nonuniq, prop.income.zero.unmatched.nonuniq)
+  df[6,2:10] <- c(nrow(socsec[socsec$n_clean_key>1]),med.age.unmatched.socsec.nonuniq, iqr.age.unmatched.socsec.nonuniq, 
+                 med.aad.unmatched.nonuniq, iqr.aad.unmatched.nonuniq,
+                 NA, NA, NA, NA)
+  df[7,2:10] <- c(nrow(census.nonuniq.unmatched)+nrow(socsec[socsec$n_clean_key>1]),med.age.unmatched.all.uniq, iqr.age.unmatched.all.uniq, 
+                 NA,NA,
+                 NA, NA, NA, NA)
   
   ######### 5. SAVE #############
   
@@ -224,7 +258,8 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                    paste0("Number of unique keys in census: ", n.census.uniq, "\n"),
                    paste0("Number of unique keys in socsec: ", n.socsec.uniq, "\n"),
                    paste0("Number of unique keys in census for ", sex.to.keep, ": ", n.census.sex.uniq, "\n"),
-                   paste0("Number of matches: ", n.censoc, "\n")
+                   paste0("Number of matches: ", n.censoc, "\n"),
+                   paste0("Match rate: ", n.censoc/n.census.sex.uniq, "\n")
   )
   
   cat("Saving counts of matched and unmatched datasets.\n")
@@ -234,9 +269,16 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   
   cat("Saving descriptives of matched and unmatched datasets.\n")
   write.csv(df, file = descriptives.file.name, row.names = F)
-
+  
+  ## just want to keep unique identifier, byear, dyear, bmonth, dmonth
+  censoc[,"id":=as.numeric(paste0(hhid, recno))]
+  censoc <- censoc[,.(id, byear, bmonth, dyear, dmonth)]
+  
+  cat("Saving matched dataset (ID and birth/death info). \n")
+  write.csv(censoc, file = matched.file.name, row.names = F)
+  
   if(return.unmatched){
-    to.return <- list(censoc = out, census = census, socsec = socsec)
+    to.return <- list(censoc = censoc, census = census, socsec = socsec)
   }
   else{
     to.return <- list(censoc = censoc)
