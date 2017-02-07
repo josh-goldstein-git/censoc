@@ -33,7 +33,6 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
     assign(paste0("socsec",i) , as.data.table(tt))
     socsec.list[[i]] <-eval(parse(text = paste0("socsec",i)))
     rm(tt)
-    rm(eval(parse(text = paste0("socsec",i))))
   }
   
   socsec <- rbindlist(socsec.list)
