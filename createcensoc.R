@@ -1,6 +1,8 @@
 create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA_clean.txt",
                           names.file = "/home/ipums/monica-ipums/censoc/tmp.txt",
-                          socsec.file = "/home/ipums/josh-ipums/progs/ssdm/ssdm3",
+                          socsec.file.list = c("/home/ipums/josh-ipums/progs/ssdm/ssdm1", 
+                                               "/home/ipums/josh-ipums/progs/ssdm/ssdm2",
+                                               "/home/ipums/josh-ipums/progs/ssdm/ssdm3"),
                           ssn.min, ssn.max, # http://www.stevemorse.org/ssn/ssn.html
                           sex.to.keep = "Male",
                           counts.file.name = "counts.txt",
@@ -20,13 +22,22 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   
   cat("Reading socsec data.\n")
   ## read in socsec
-  tt <- readr::read_fwf(socsec.file,
-                        fwf_widths(c(1,9, 20, 4, 15, 15, 1, 8, 8),
-                                   col_names = c("mode", "ssn", "lname",
-                                                 "name_suffix", "fname", "mname",
-                                                 "vorpcode", "dod", "dob")))
-  socsec <- as.data.table(tt) 
-  rm(tt)
+  socsec.list<- list()
+  for(i in 1:length(socsec.file.list)){
+    socsec.file <- socsec.file.list[i]
+    tt <- readr::read_fwf(socsec.file,
+                          fwf_widths(c(1,9, 20, 4, 15, 15, 1, 8, 8),
+                                     col_names = c("mode", "ssn", "lname",
+                                                   "name_suffix", "fname", "mname",
+                                                   "vorpcode", "dod", "dob")))
+    assign(paste0("socsec",i) , as.data.table(tt))
+    socsec.list[[i]] <-eval(parse(text = paste0("socsec",i)))
+    rm(tt)
+    rm(eval(parse(text = paste0("socsec",i))))
+  }
+  
+  socsec <- rbindlist(socsec.list)
+  rm(socsec.list)
   ## restrict to the SSN geography codes of interest
   socsec[, "ssn.geo" := as.numeric(substr(ssn, 1, 3))] # creates a new column with geo codes
   socsec <- socsec[ssn.geo >= ssn.min & ssn.geo <= ssn.max,]
@@ -148,6 +159,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   # METRIC
   n.censoc <- nrow(out)
   censoc <- out
+  rm(out)
   
   ############ 4. DESCRIPTIVES #############
   
@@ -252,14 +264,14 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   
   diagnostics <- c(paste0("Raw number of people in census: ", n.census.raw, "\n"),
                    paste0("Raw number of people in socsec: ", n.socsec.raw, "\n"),
-                   paste0("Number of people born after 1940 in socsec: ", n.socsec.post.1940, "(proportion:", round(n.socsec.post.1940/n.socsec.raw, 3), ")", "\n"),
-                   paste0("Number of people with age info missing in socsec: ", n.socsec.age.missing, "(proportion:", round(n.socsec.age.missing/n.socsec.raw, 3), ")","\n"),
-                   paste0("Number of people with age info missing in census: ", n.census.age.missing, "(proportion:", round(n.census.age.missing/n.census.raw, 3), ")", "\n"),
-                   paste0("Number of people with name info missing in census: ", n.census.names.missing, "(proportion:", round(n.census.names.missing/n.census.raw, 3), ")","\n"),
-                   paste0("Number in census after cleaning: ", n.census, "(proportion:", round(n.census/n.census.raw, 3), ")", "\n"),
-                   paste0("Number in census after cleaning: ", n.socsec, "(proportion:", round(n.socsec/n.socsec.raw, 3), ")","\n"),
-                   paste0("Number of unique keys in census: ", n.census.uniq, "(proportion:", round(n.census.uniq/n.census, 3), ")","\n"),
-                   paste0("Number of unique keys in socsec: ", n.socsec.uniq, "(proportion:", round(n.socsec.uniq/n.socsec, 3), ")","\n"),
+                   paste0("Number of people born after 1940 in socsec: ", n.socsec.post.1940, " (proportion:", round(n.socsec.post.1940/n.socsec.raw, 3), ")", "\n"),
+                   paste0("Number of people with age info missing in socsec: ", n.socsec.age.missing, " (proportion:", round(n.socsec.age.missing/n.socsec.raw, 3), ")","\n"),
+                   paste0("Number of people with age info missing in census: ", n.census.age.missing, " (proportion:", round(n.census.age.missing/n.census.raw, 3), ")", "\n"),
+                   paste0("Number of people with name info missing in census: ", n.census.names.missing, " (proportion:", round(n.census.names.missing/n.census.raw, 3), ")","\n"),
+                   paste0("Number in census after cleaning: ", n.census, " (proportion:", round(n.census/n.census.raw, 3), ")", "\n"),
+                   paste0("Number in census after cleaning: ", n.socsec, " (proportion:", round(n.socsec/n.socsec.raw, 3), ")","\n"),
+                   paste0("Number of unique keys in census: ", n.census.uniq, " (proportion:", round(n.census.uniq/n.census, 3), ")","\n"),
+                   paste0("Number of unique keys in socsec: ", n.socsec.uniq, " (proportion:", round(n.socsec.uniq/n.socsec, 3), ")","\n"),
                    paste0("Number of unique keys in census for ", sex.to.keep, ": ", n.census.sex.uniq, "\n"),
                    paste0("Number of matches: ", n.censoc, "\n"),
                    paste0("Match rate: ", round(n.censoc/n.census.sex.uniq, 3), "\n")
