@@ -14,7 +14,7 @@ get.match.descriptives <- function(censoc,
   des.unmatched.all.nonuniq <- c()
   
   des.rownames <- c("median age", "IQR age", "median AAD", "IQR AAD")
-  
+    
   ##### AGE CHARACTERISTICS
   # median age
   med.age.matched <- median(censoc$census_age.x)
@@ -105,10 +105,35 @@ get.match.descriptives <- function(censoc,
   
   ######## RACE
   
+  if("race" %in% covariates){
+    des.list <- list(des.matched, des.unmatched.census.uniq, des.unmatched.socsec.uniq, des.unmatched.all.uniq, 
+                     des.unmatched.census.nonuniq, des.unmatched.socsec.nonuniq, des.unmatched.all.nonuniq)
+    
+    des.rownames <- c(des.rownames, "Prop white", "Prop black", "Prop other", "Prop race missing")
+    df.names <- c("censoc", "census.uniq.unmatched", "socsec.uniq.unmatched", "unmatched.uniq.all", 
+                  "census.nonuniq.unmatched", "socsec.uniq.unmatched", "unmatched.nonuniq.all")
+    
+    for(i in 1:length(df.names)){
+      if(!grepl("all|socsec", df.names[i])){
+        this.df <- eval(parse(text = df.names[i]))
+        white <- sum(this.df$race=="White", na.rm = T)/nrow(this.df)
+        black <- sum(this.df$race=="Black", na.rm = T)/nrow(this.df)
+        race.missing <- sum(is.na(this.df$race))/nrow(this.df)
+        other.race <- 1- sum(white, black, race.missing)
+      }
+      else{
+        white <- NA
+        black <- NA
+        race.missing <- NA
+        other.race <- NA
+      }
+      des.list[[i]] <- rbind(des.list[[i]], white, black, race.missing, other.race)
+    }
+  }
+  
   ## Put everything in a dataframe
   
-  des.df <- round(as.data.frame(cbind(des.matched, des.unmatched.census.uniq, des.unmatched.socsec.uniq, des.unmatched.all.uniq,
-                                des.unmatched.census.nonuniq, des.unmatched.socsec.nonuniq, des.unmatched.all.nonuniq)), 3)
+  des.df <- round(as.data.frame(do.call(cbind, des.list)), 3)
   
   rownames(des.df) <- des.rownames
   colnames(des.df) <- c("Matched", 
