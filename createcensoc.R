@@ -11,12 +11,12 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   ######### 1. READ IN DATA ######### 
   cat("Reading census data.\n")
   ## read in census
-  census <- fread(census.file)
+  census <- fread(census.file,fill = T)
   names.census <- fread(names.file, nrows = 2)
   setnames(census, names(names.census))
   ## only keep variables of interest for now
-  ## state, own/rent, name, gender, race, age, schooling, citizenship, income, HHID, HHORDER
-  census <- census[,c(3,22,26,27,32,33,34,37,41,56,84,85)]
+  ## state, own/rent, name, gender, race, age, schooling, citizenship, city/rural, income, HHID, HHORDER
+  census <- census[,c(3,22,26,27,32,33,34,37,41,42, 56,84,85)]
   
   cat("Reading socsec data.\n")
   ## read in socsec
@@ -91,13 +91,16 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census[,"own_rent":=general_homeownrent]
   census[!(own_rent%in%c("Owned", "Rented", "")), own_rent:="Other"]
   census[own_rent=="", own_rent:=NA]
-  
+  # rural/urban recode
+  census[,"rural":=NA]
+  census[self_residence_place_city_multiple_1=="Rural",rural:=TRUE]
+  census[!(self_residence_place_city_multiple_1 %in% c("Rural", "")), rural:=FALSE]
   ## HHID_NUMERIC is unique HHID for each household
   ## HHORDER is the order of the person in unique HH
   census[,"hhid" := HHID_NUMERIC]
   census[,"recno" := HHORDER]
   
-  census <- census[,.(hhid, recno, fname, lname, age, census_age, sex, race, own_rent,
+  census <- census[,.(hhid, recno, fname, lname, age, census_age, sex, race, own_rent, rural,
                       income)]
   
   # remove those without ages
@@ -249,17 +252,17 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   
   diagnostics <- c(paste0("Raw number of people in census: ", n.census.raw, "\n"),
                    paste0("Raw number of people in socsec: ", n.socsec.raw, "\n"),
-                   paste0("Number of people born after 1940 in socsec: ", n.socsec.post.1940, "\n"),
-                   paste0("Number of people with age info missing in socsec: ", n.socsec.age.missing, "\n"),
-                   paste0("Number of people with age info missing in census: ", n.census.age.missing, "\n"),
-                   paste0("Number of people with name info missing in census: ", n.census.names.missing, "\n"),
-                   paste0("Number in census after cleaning: ", n.census, "\n"),
-                   paste0("Number in census after cleaning: ", n.socsec, "\n"),
-                   paste0("Number of unique keys in census: ", n.census.uniq, "\n"),
-                   paste0("Number of unique keys in socsec: ", n.socsec.uniq, "\n"),
+                   paste0("Number of people born after 1940 in socsec: ", n.socsec.post.1940, "(proportion:", round(n.socsec.post.1940/n.socsec.raw, 3), ")", "\n"),
+                   paste0("Number of people with age info missing in socsec: ", n.socsec.age.missing, "(proportion:", round(n.socsec.age.missing/n.socsec.raw, 3), ")","\n"),
+                   paste0("Number of people with age info missing in census: ", n.census.age.missing, "(proportion:", round(n.census.age.missing/n.census.raw, 3), ")", "\n"),
+                   paste0("Number of people with name info missing in census: ", n.census.names.missing, "(proportion:", round(n.census.names.missing/n.census.raw, 3), ")","\n"),
+                   paste0("Number in census after cleaning: ", n.census, "(proportion:", round(n.census/n.census.raw, 3), ")", "\n"),
+                   paste0("Number in census after cleaning: ", n.socsec, "(proportion:", round(n.socsec/n.socsec.raw, 3), ")","\n"),
+                   paste0("Number of unique keys in census: ", n.census.uniq, "(proportion:", round(n.census.uniq/n.census, 3), ")","\n"),
+                   paste0("Number of unique keys in socsec: ", n.socsec.uniq, "(proportion:", round(n.socsec.uniq/n.socsec, 3), ")","\n"),
                    paste0("Number of unique keys in census for ", sex.to.keep, ": ", n.census.sex.uniq, "\n"),
                    paste0("Number of matches: ", n.censoc, "\n"),
-                   paste0("Match rate: ", n.censoc/n.census.sex.uniq, "\n")
+                   paste0("Match rate: ", round(n.censoc/n.census.sex.uniq, 3), "\n")
   )
   
   cat("Saving counts of matched and unmatched datasets.\n")
