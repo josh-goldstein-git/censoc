@@ -8,6 +8,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           counts.file.name = "counts.txt",
                           descriptives.file.name = "descriptives.csv",
                           matched.file.name = "matched.csv",
+                          des.covs = c("income","race", "renter", "rural"),
                           return.unmatched = FALSE){
   
   ######### 1. READ IN DATA ######### 
@@ -159,6 +160,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   n.censoc <- nrow(out)
   censoc <- out
   rm(out)
+  mode.age <- as.numeric(names(sort(table(censoc$census_age.x), decreasing = T)[1]))
   
   ############ 4. DESCRIPTIVES #############
   
@@ -169,111 +171,33 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   # number of unique keys not matched
   ## summaries for matched, non-matched unique, non-matched non-unique
   
-  # median age
-  med.age.matched <- median(censoc$census_age.x)
-  iqr.age.matched <- quantile(censoc$census_age.x, 0.75) - quantile(censoc$census_age.x, 0.25)
-  
-  med.age.unmatched.census.uniq <- median(census.uniq.unmatched$census_age)
-  iqr.age.unmatched.census.uniq <- quantile(census.uniq.unmatched$census_age, 0.75) - quantile(census.uniq.unmatched$census_age, 0.25)
-  
-  med.age.unmatched.socsec.uniq <- median(socsec.uniq.unmatched$census_age)
-  iqr.age.unmatched.socsec.uniq <- quantile(socsec.uniq.unmatched$census_age, 0.75) - quantile(socsec.uniq.unmatched$census_age, 0.25)
-  
-  med.age.unmatched.all.uniq <- median(c(census.uniq.unmatched$census_age, socsec.uniq.unmatched$census_age))
-  iqr.age.unmatched.all.uniq <- quantile(c(census.uniq.unmatched$census_age, socsec.uniq.unmatched$census_age), 0.75) - quantile(c(census.uniq.unmatched$census_age, socsec.uniq.unmatched$census_age), 0.25)
-  
-  med.age.unmatched.census.nonuniq <- median(census.nonuniq.unmatched$census_age)
-  iqr.age.unmatched.census.nonuniq <- quantile(census.nonuniq.unmatched$census_age, 0.75) - quantile(census$census_age[census$n_clean_key>1], 0.25)
-  
-  med.age.unmatched.socsec.nonuniq <- median(socsec$census_age[socsec$n_clean_key>1])
-  iqr.age.unmatched.socsec.nonuniq <- quantile(socsec$census_age[socsec$n_clean_key>1], 0.75) - quantile(socsec$census_age[socsec$n_clean_key>1], 0.25)
-  
-  med.age.unmatched.all.nonuniq <- median(c(census.nonuniq.unmatched$census_age,
-                                            socsec$census_age[socsec$n_clean_key>1]))
-  iqr.age.unmatched.all.nonuniq <- quantile(c(census.nonuniq.unmatched$census_age,
-                                              socsec$census_age[socsec$n_clean_key>1]), 0.75) - quantile(c(census.nonuniq.unmatched$census_age,
-                                                                                                           socsec$census_age[socsec$n_clean_key>1]), 0.25)
-  
-  ## age at death
-  censoc[, age.at.death := dyear - byear]
-  socsec[, age.at.death := dyear - byear]
-  socsec.uniq.unmatched[, age.at.death := dyear - byear]
-  
-  med.aad.matched <- median(censoc$age.at.death)
-  iqr.aad.matched <- quantile(censoc$age.at.death, 0.75) - quantile(censoc$age.at.death, 0.25)
-  
-  med.aad.unmatched.uniq <- median(socsec.uniq.unmatched$age.at.death)
-  iqr.aad.unmatched.uniq <- quantile(socsec.uniq.unmatched$age.at.death, 0.75) - quantile(socsec.uniq.unmatched$age.at.death, 0.25)
-  
-  med.aad.unmatched.nonuniq <- median(socsec$age.at.death[socsec$n_clean_key>1])
-  iqr.aad.unmatched.nonuniq <- quantile(socsec$age.at.death[socsec$n_clean_key>1], 0.75) - quantile(socsec$age.at.death[socsec$n_clean_key>1], 0.25)
-  
-  ## median income
-  
-  med.income.matched <- median(censoc$income, na.rm = T)
-  prop.income.missing.matched <- sum(is.na(censoc$income))/nrow(censoc)
-  prop.income.zero.matched <- sum(censoc$income==0, na.rm=T)/nrow(censoc)
-  
-  med.income.unmatched.uniq <- median(census.uniq.unmatched$income, na.rm=T)
-  prop.income.missing.unmatched.uniq <- sum(is.na(census.uniq.unmatched$income))/nrow(census.uniq.unmatched)
-  prop.income.zero.unmatched.uniq <- sum(census.uniq.unmatched$income==0, na.rm=T)/nrow(census.uniq.unmatched)
-  
-  med.income.unmatched.nonuniq <- median(census.nonuniq.unmatched$income, na.rm=T)
-  prop.income.missing.unmatched.nonuniq <- sum(is.na(census.nonuniq.unmatched$income))/nrow(census.nonuniq.unmatched)
-  prop.income.zero.unmatched.nonuniq <- sum(census.nonuniq.unmatched$income==0, na.rm=T)/nrow(census.nonuniq.unmatched)
-  
-  ## condition income calculates on mode age of matched dataset
-  mode.age <- as.numeric(names(sort(table(censoc$census_age.x), decreasing = T)[1]))
-  med.income.matched.mode <- median(censoc$income[censoc$census_age.x==mode.age], na.rm = T)
-  med.income.unmatched.uniq.mode <- median(census.uniq.unmatched$income[census.uniq.unmatched$census_age==mode.age], na.rm=T)
-  med.income.unmatched.nonuniq.mode <- median(census.nonuniq.unmatched$income[census.nonuniq.unmatched$census_age==mode.age], na.rm=T)
-  ## Put everything in a dataframe
-  
-  df <- data.frame(data = c("Matched", 
-                            "Unmatched unique census", "Unmatched unique socsec", "Unmatched unique all", 
-                            "Unmatched non-unique census", "Unmatched non-unique socsec", "Unmatched non-unique all"),
-                   no.obs = rep(NA,7),
-                   med.age = rep(NA, 7), iqr.age = rep(NA,7), 
-                   med.aad = rep(NA, 7), iqr.aad = rep(NA,7),
-                   med.income = rep(NA,7), med.income.mode.age = rep(NA,7), prop.income.missing = rep(NA,7), prop.income.zero = rep(NA,7))
-  
-  df[1,2:10] <- c(nrow(censoc),med.age.matched, iqr.age.matched, 
-                 med.aad.matched, iqr.aad.matched, 
-                 med.income.matched, med.income.matched.mode, prop.income.missing.matched, prop.income.zero.matched)
-  df[2,2:10] <- c(nrow(census.uniq.unmatched),med.age.unmatched.census.uniq, iqr.age.unmatched.census.uniq, 
-                 NA, NA, 
-                 med.income.unmatched.uniq, med.income.unmatched.uniq.mode, prop.income.missing.unmatched.uniq, prop.income.zero.unmatched.uniq)
-  df[3,2:10] <- c(nrow(socsec.uniq.unmatched),med.age.unmatched.socsec.uniq, iqr.age.unmatched.socsec.uniq, 
-                 med.aad.unmatched.uniq, iqr.aad.unmatched.uniq,
-                 NA,NA, NA, NA)
-  df[4,2:10] <- c(nrow(census.uniq.unmatched)+nrow(socsec.uniq.unmatched),med.age.unmatched.all.uniq, iqr.age.unmatched.all.uniq, 
-                 NA,NA,
-                 NA, NA, NA, NA)
-  df[5,2:10] <- c(nrow(census.nonuniq.unmatched),med.age.unmatched.census.nonuniq, iqr.age.unmatched.census.nonuniq, 
-                 NA, NA, 
-                 med.income.unmatched.nonuniq, med.income.unmatched.nonuniq.mode, prop.income.missing.unmatched.nonuniq, prop.income.zero.unmatched.nonuniq)
-  df[6,2:10] <- c(nrow(socsec[socsec$n_clean_key>1]),med.age.unmatched.socsec.nonuniq, iqr.age.unmatched.socsec.nonuniq, 
-                 med.aad.unmatched.nonuniq, iqr.aad.unmatched.nonuniq,
-                 NA, NA, NA, NA)
-  df[7,2:10] <- c(nrow(census.nonuniq.unmatched)+nrow(socsec[socsec$n_clean_key>1]),med.age.unmatched.all.uniq, iqr.age.unmatched.all.uniq, 
-                 NA,NA,
-                 NA, NA, NA, NA)
+  df <- get.match.descriptives(censoc, census.uniq.unmatched, census.nonuniq.unmatched, socsec.uniq.unmatched, des.covs)
   
   ######### 5. SAVE #############
   
   diagnostics <- c(paste0("Raw number of people in census: ", n.census.raw, "\n"),
                    paste0("Raw number of people in socsec: ", n.socsec.raw, "\n"),
-                   paste0("Number of people born after 1940 in socsec: ", n.socsec.post.1940, " (proportion:", round(n.socsec.post.1940/n.socsec.raw, 3), ")", "\n"),
-                   paste0("Number of people with age info missing in socsec: ", n.socsec.age.missing, " (proportion:", round(n.socsec.age.missing/n.socsec.raw, 3), ")","\n"),
-                   paste0("Number of people with age info missing in census: ", n.census.age.missing, " (proportion:", round(n.census.age.missing/n.census.raw, 3), ")", "\n"),
-                   paste0("Number of people with name info missing in census: ", n.census.names.missing, " (proportion:", round(n.census.names.missing/n.census.raw, 3), ")","\n"),
-                   paste0("Number in census after cleaning: ", n.census, " (proportion:", round(n.census/n.census.raw, 3), ")", "\n"),
-                   paste0("Number in census after cleaning: ", n.socsec, " (proportion:", round(n.socsec/n.socsec.raw, 3), ")","\n"),
-                   paste0("Number of unique keys in census: ", n.census.uniq, " (proportion:", round(n.census.uniq/n.census, 3), ")","\n"),
-                   paste0("Number of unique keys in socsec: ", n.socsec.uniq, " (proportion:", round(n.socsec.uniq/n.socsec, 3), ")","\n"),
-                   paste0("Number of unique keys in census for ", sex.to.keep, ": ", n.census.sex.uniq, "\n"),
+                   paste0("Number of people born after 1940 in socsec: ", 
+                          n.socsec.post.1940, " (proportion:", round(n.socsec.post.1940/n.socsec.raw, 3), ")", "\n"),
+                   paste0("Number of people with age info missing in socsec: ", 
+                          n.socsec.age.missing, " (proportion:", round(n.socsec.age.missing/n.socsec.raw, 3), ")","\n"),
+                   paste0("Number of people with age info missing in census: ", 
+                          n.census.age.missing, " (proportion:", round(n.census.age.missing/n.census.raw, 3), ")", "\n"),
+                   paste0("Number of people with name info missing in census: ", 
+                          n.census.names.missing, " (proportion:", round(n.census.names.missing/n.census.raw, 3), ")","\n"),
+                   paste0("Number in census after cleaning: ", 
+                          n.census, " (proportion:", round(n.census/n.census.raw, 3), ")", "\n"),
+                   paste0("Number in census after cleaning: ", 
+                          n.socsec, " (proportion:", round(n.socsec/n.socsec.raw, 3), ")","\n"),
+                   paste0("Number of unique keys in census: ", 
+                          n.census.uniq, " (proportion:", round(n.census.uniq/n.census, 3), ")","\n"),
+                   paste0("Number of unique keys in socsec: ", 
+                          n.socsec.uniq, " (proportion:", round(n.socsec.uniq/n.socsec, 3), ")","\n"),
+                   paste0("Number of unique keys in census for ", 
+                          sex.to.keep, ": ", n.census.sex.uniq, "\n"),
                    paste0("Number of matches: ", n.censoc, "\n"),
-                   paste0("Match rate: ", round(n.censoc/n.census.sex.uniq, 3), "\n")
+                   paste0("Match rate: ", round(n.censoc/n.census.sex.uniq, 3), "\n"),
+                   paste0("Modal age of matched people: ", modal.age)
   )
   
   cat("Saving counts of matched and unmatched datasets.\n")
