@@ -206,7 +206,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   close(fileConn)
   
   cat("Saving descriptives of matched and unmatched datasets.\n")
-  write.csv(df, file = descriptives.file.name, row.names = F)
+  write.csv(df, file = descriptives.file.name)
   
   ## just want to keep unique identifier, byear, dyear, bmonth, dmonth
   censoc[,"id":=as.numeric(paste0(hhid, recno))]
