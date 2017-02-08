@@ -197,7 +197,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           sex.to.keep, ": ", n.census.sex.uniq, "\n"),
                    paste0("Number of matches: ", n.censoc, "\n"),
                    paste0("Match rate: ", round(n.censoc/n.census.sex.uniq, 3), "\n"),
-                   paste0("Modal age of matched people: ", modal.age)
+                   paste0("Modal age of matched people: ", mode.age, "\n")
   )
   
   cat("Saving counts of matched and unmatched datasets.\n")
