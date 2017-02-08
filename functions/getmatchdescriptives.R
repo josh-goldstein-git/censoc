@@ -36,7 +36,7 @@ get.match.descriptives <- function(censoc,
   des.unmatched.all.uniq <- rbind(des.unmatched.all.uniq, med.age.unmatched.all.uniq, iqr.age.unmatched.all.uniq)
   
   med.age.unmatched.census.nonuniq <- median(census.nonuniq.unmatched$census_age)
-  iqr.age.unmatched.census.nonuniq <- quantile(census.nonuniq.unmatched$census_age, 0.75) - quantile(census$census_age[census$n_clean_key>1], 0.25)
+  iqr.age.unmatched.census.nonuniq <- quantile(census.nonuniq.unmatched$census_age, 0.75) - quantile(census.nonuniq.unmatched$census_age, 0.25)
   des.unmatched.census.nonuniq <- rbind(des.unmatched.census.nonuniq, med.age.unmatched.census.nonuniq, iqr.age.unmatched.census.nonuniq)
   
   med.age.unmatched.socsec.nonuniq <- median(socsec$census_age[socsec$n_clean_key>1])

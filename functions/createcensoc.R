@@ -210,7 +210,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   
   ## just want to keep unique identifier, byear, dyear, bmonth, dmonth
   censoc[,"id":=as.numeric(paste0(hhid, recno))]
-  censoc <- censoc[,.(id, byear, bmonth, dyear, dmonth)]
+  censoc <- censoc[,.(id, census_age.x,byear, bmonth, dyear, dmonth)]
   
   cat("Saving matched dataset (ID and birth/death info). \n")
   write.csv(censoc, file = matched.file.name, row.names = F)

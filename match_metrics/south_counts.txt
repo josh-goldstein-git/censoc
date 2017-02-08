@@ -11,3 +11,4 @@ Raw number of people in census: 13619161
  Number of unique keys in census for Male: 5060984
  Number of matches: 837810
  Match rate: 0.166
+ Modal age of matched people: 18

@@ -1,8 +1,20 @@
-"data","no.obs","med.age","iqr.age","med.aad","iqr.aad","med.income","med.income.mode.age","prop.income.missing","prop.income.zero"
-"Matched",837810,24,23,74,17,260,0,0.316126568076294,0.245792005347274
-"Unmatched unique census",4223174,27,32,NA,NA,180,0,0.334386648525493,0.269274720861608
-"Unmatched unique socsec",48923466,28,22,78,16,NA,NA,NA,NA
-"Unmatched unique all",53146640,28,23,NA,NA,NA,NA,NA,NA
-"Unmatched non-unique census",1577877,23,27,NA,NA,200,0,0.374718054702616,0.235063316088643
-"Unmatched non-unique socsec",26173780,27,19,77,16,NA,NA,NA,NA
-"Unmatched non-unique all",27751657,28,23,NA,NA,NA,NA,NA,NA
+"","Matched","Unmatched unique census","Unmatched unique socsec","Unmatched unique all","Unmatched non-unique census","Unmatched non-unique socsec","Unmatched non-unique all"
+"median age",24,27,28,28,23,27,28
+"IQR age",23,32,22,23,28,19,20
+"median AAD",74,NA,78,NA,NA,77,NA
+"IQR AAD",17,NA,78,NA,NA,77,NA
+"median income",260,180,NA,NA,200,NA,NA
+"med inc modal age",0,0,NA,NA,0,NA,NA
+"prop inc missing",0.316,0.334,NA,NA,0.375,NA,NA
+"prop inc zero",0.246,0.269,NA,NA,0.235,NA,NA
+"Prop white",0.801,0.725,NA,NA,0.637,NA,NA
+"prop black",0.196,0.27,NA,NA,0.356,NA,NA
+"prop other",0.002,0.003,NA,NA,0.004,NA,NA
+"prop race missing",0.002,0.003,NA,NA,0.003,NA,NA
+"prop own",0.152,0.171,NA,NA,0.13,NA,NA
+"prop rent",0.26,0.263,NA,NA,0.246,NA,NA
+"prop own/rent missing",0.585,0.564,NA,NA,0.622,NA,NA
+"prop rural",0.163,0.16,NA,NA,0.16,NA,NA
+"prop urban",0.69,0.675,NA,NA,0.665,NA,NA
+"prop rural/urban missing",0.147,0.165,NA,NA,0.175,NA,NA
+"# obs",837810,4223174,48923466,53146640,1577877,26173780,27751657
