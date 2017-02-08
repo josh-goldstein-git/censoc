@@ -137,12 +137,12 @@ get.match.descriptives <- function(censoc,
   des.rownames <- c(des.rownames, "# obs")
   df.combinations <- c("censoc", "census.uniq.unmatched", "socsec.uniq.unmatched", 
                        "c(census.uniq.unmatched[,1],socsec.uniq.unmatched[,1])", 
-                       "census.nonuniq.unmatched", "socsec.uniq.unmatched", 
-                       "c(census.nonuniq.unmatched[,1],socsec[socsec$n_clean_key>1][,1])")
+                       "census.nonuniq.unmatched", "socsec[socsec$n_clean_key>1]", 
+                       "c(census.nonuniq.unmatched[,1],socsec[socsec$n_clean_key>1,1])")
   for(i in 1:length(df.combinations)){
     this.df <- eval(parse(text = df.combinations[i]))
     if(is.vector(this.df)){
-      des.list[[i]] <- rbind(des.list[[i]], length(this.df))
+      des.list[[i]] <- rbind(des.list[[i]], length(unlist(this.df)))
     }
     else{
       des.list[[i]] <- rbind(des.list[[i]], nrow(this.df))
