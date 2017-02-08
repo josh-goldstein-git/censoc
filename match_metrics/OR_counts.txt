@@ -1,12 +1,14 @@
 Raw number of people in census: 1093220
  Raw number of people in socsec: 725550
- Number of people born after 1940 in socsec: 82127
- Number of people with age info missing in socsec: 1048
- Number of people with age info missing in census: 16469
- Number of people with name info missing in census: 2638
- Number in census after cleaning: 1074113
- Number in census after cleaning: 642375
- Number of unique keys in census: 1026213
- Number of unique keys in socsec: 621966
+ Number of people born after 1940 in socsec: 82127 (proportion:0.113)
+ Number of people with age info missing in socsec: 1048 (proportion:0.001)
+ Number of people with age info missing in census: 16469 (proportion:0.015)
+ Number of people with name info missing in census: 2638 (proportion:0.002)
+ Number in census after cleaning: 1074113 (proportion:0.983)
+ Number in census after cleaning: 642375 (proportion:0.885)
+ Number of unique keys in census: 1026213 (proportion:0.955)
+ Number of unique keys in socsec: 621966 (proportion:0.968)
  Number of unique keys in census for Male: 524973
  Number of matches: 114859
+ Match rate: 0.219
+ Modal age of matched people: 30

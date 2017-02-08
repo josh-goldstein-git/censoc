@@ -1,8 +1,13 @@
-"data","no.obs","med.age","iqr.age","med.aad","iqr.aad","med.income","prop.income.missing","prop.income.zero"
-"Matched",114859,29,22,77,15,600,0.185975848649213,0.22235088238623
-"Unmatched unique census",410114,35,36,NA,NA,360,0.262468484372638,0.267837723169655
-"Unmatched unique socsec",507107,29,22,80,16,NA,NA,NA
-"Unmatched unique all",917221,31,28,NA,NA,NA,NA,NA
-"Unmatched non-unique census",28651,30,34,NA,NA,425,0.267809151513036,0.233988342466232
-"Unmatched non-unique socsec",20409,28,19,78,16,NA,NA,NA
-"Unmatched non-unique all",49060,31,28,NA,NA,NA,NA,NA
+"Matched","Unmatched unique census","Unmatched unique socsec","Unmatched unique all","Unmatched non-unique census","Unmatched non-unique socsec","Unmatched non-unique all"
+29,35,29,31,30,28,31
+22,36,22,28,34,19,27
+77,NA,80,NA,NA,78,NA
+15,NA,80,NA,NA,78,NA
+600,360,NA,NA,425,NA,NA
+1021,900,NA,NA,960,NA,NA
+0.186,0.262,NA,NA,0.268,NA,NA
+0.222,0.268,NA,NA,0.234,NA,NA
+0.994,0.983,NA,NA,0.99,NA,NA
+0.001,0.003,NA,NA,0.004,NA,NA
+0.001,0.001,NA,NA,0.001,NA,NA
+0.005,0.014,NA,NA,0.005,NA,NA
