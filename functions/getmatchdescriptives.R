@@ -107,17 +107,23 @@ get.match.descriptives <- function(censoc,
   
   ######## RACE
   
+  ## note to self: need to clean up function above in which case this stuff will go up the top
+  des.list <- list(des.matched, des.unmatched.census.uniq, des.unmatched.socsec.uniq, des.unmatched.all.uniq, 
+                   des.unmatched.census.nonuniq, des.unmatched.socsec.nonuniq, des.unmatched.all.nonuniq)
+  
+  #df.names <- c("censoc", "census.uniq.unmatched", "socsec.uniq.unmatched", "unmatched.uniq.all", 
+  #              "census.nonuniq.unmatched", "socsec.uniq.unmatched", "unmatched.nonuniq.all")
+  
+  df.combinations <- c("censoc", "census.uniq.unmatched", "socsec.uniq.unmatched", 
+                       "c(census.uniq.unmatched[,1],socsec.uniq.unmatched[,1])", 
+                       "census.nonuniq.unmatched", "socsec[socsec$n_clean_key>1]", 
+                       "c(census.nonuniq.unmatched[,1],socsec[socsec$n_clean_key>1,1])")
+  
   if("race" %in% covariates){
-    des.list <- list(des.matched, des.unmatched.census.uniq, des.unmatched.socsec.uniq, des.unmatched.all.uniq, 
-                     des.unmatched.census.nonuniq, des.unmatched.socsec.nonuniq, des.unmatched.all.nonuniq)
-    
-    des.rownames <- c(des.rownames, "Prop white", "Prop black", "Prop other", "Prop race missing")
-    df.names <- c("censoc", "census.uniq.unmatched", "socsec.uniq.unmatched", "unmatched.uniq.all", 
-                  "census.nonuniq.unmatched", "socsec.uniq.unmatched", "unmatched.nonuniq.all")
-    
-    for(i in 1:length(df.names)){
-      if(!grepl("all|socsec", df.names[i])){
-        this.df <- eval(parse(text = df.names[i]))
+    des.rownames <- c(des.rownames, "Prop white", "prop black", "prop other", "prop race missing")
+    for(i in 1:length(df.combinations)){
+      if(!grepl("socsec", df.combinations[i])){
+        this.df <- eval(parse(text = df.combinations[i]))
         white <- sum(this.df$race=="White", na.rm = T)/nrow(this.df)
         black <- sum(this.df$race=="Black", na.rm = T)/nrow(this.df)
         race.missing <- sum(is.na(this.df$race))/nrow(this.df)
@@ -133,12 +139,48 @@ get.match.descriptives <- function(censoc,
     }
   }
   
+  ######### OWNED/ RENTED
+  
+  if("renter" %in% covariates){
+    des.rownames <- c(des.rownames, "prop own", "prop rent", "prop own/rent missing")
+    for(i in 1:length(df.combinations)){
+      if(!grepl("socsec", df.combinations[i])){
+        this.df <- eval(parse(text = df.combinations[i]))
+        own <- sum(this.df$own_rent=="Owned", na.rm = T)/nrow(this.df)
+        rent <- sum(this.df$own=="Rented", na.rm = T)/nrow(this.df)
+        or.missing <- sum(is.na(this.df$own_rent))/nrow(this.df)
+      }
+      else{
+        own <- NA
+        rent <- NA
+        or.missing <- NA
+      }
+      des.list[[i]] <- rbind(des.list[[i]], own, rent, or.missing)
+    }
+  }
+  
+  ######### RURAL
+  
+  if("rural" %in% covariates){
+    des.rownames <- c(des.rownames, "prop rural", "prop urban", "prop rural/urban missing")
+    for(i in 1:length(df.combinations)){
+      if(!grepl("socsec", df.combinations[i])){
+        this.df <- eval(parse(text = df.combinations[i]))
+        rural <- sum(this.df$rural==TRUE, na.rm = T)/nrow(this.df)
+        urban <- sum(this.df$rural==FALSE, na.rm = T)/nrow(this.df)
+        ru.missing <- sum(is.na(this.df$rural))/nrow(this.df)
+      }
+      else{
+        rural <- NA
+        urban <- NA
+        ru.missing <- NA
+      }
+      des.list[[i]] <- rbind(des.list[[i]], rural, urban, ru.missing)
+    }
+  }
+  
   ######### N OBSERVATIONS
   des.rownames <- c(des.rownames, "# obs")
-  df.combinations <- c("censoc", "census.uniq.unmatched", "socsec.uniq.unmatched", 
-                       "c(census.uniq.unmatched[,1],socsec.uniq.unmatched[,1])", 
-                       "census.nonuniq.unmatched", "socsec[socsec$n_clean_key>1]", 
-                       "c(census.nonuniq.unmatched[,1],socsec[socsec$n_clean_key>1,1])")
   for(i in 1:length(df.combinations)){
     this.df <- eval(parse(text = df.combinations[i]))
     if(is.vector(this.df)){
@@ -148,7 +190,6 @@ get.match.descriptives <- function(censoc,
       des.list[[i]] <- rbind(des.list[[i]], nrow(this.df))
     }
   }
-  
   
   ## Put everything in a dataframe
   
