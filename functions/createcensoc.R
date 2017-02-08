@@ -171,7 +171,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   # number of unique keys not matched
   ## summaries for matched, non-matched unique, non-matched non-unique
   
-  df <- get.match.descriptives(censoc, census.uniq.unmatched, census.nonuniq.unmatched, socsec.uniq.unmatched, des.covs)
+  df <- get.match.descriptives(censoc, socsec, census.uniq.unmatched, census.nonuniq.unmatched, socsec.uniq.unmatched, des.covs)
   
   ######### 5. SAVE #############
   

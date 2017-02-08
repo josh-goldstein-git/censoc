@@ -1,4 +1,5 @@
 get.match.descriptives <- function(censoc, 
+                                   socsec,
                                    census.uniq.unmatched,
                                    census.nonuniq.unmatched,
                                    socsec.uniq.unmatched,
@@ -14,6 +15,7 @@ get.match.descriptives <- function(censoc,
   des.unmatched.all.nonuniq <- c()
   
   des.rownames <- c("median age", "IQR age", "median AAD", "IQR AAD")
+  
     
   ##### AGE CHARACTERISTICS
   # median age
@@ -130,6 +132,23 @@ get.match.descriptives <- function(censoc,
       des.list[[i]] <- rbind(des.list[[i]], white, black, race.missing, other.race)
     }
   }
+  
+  ######### N OBSERVATIONS
+  des.rownames <- c(des.rownames, "# obs")
+  df.combinations <- c("censoc", "census.uniq.unmatched", "socsec.uniq.unmatched", 
+                       "c(census.uniq.unmatched[,1],socsec.uniq.unmatched[,1])", 
+                       "census.nonuniq.unmatched", "socsec.uniq.unmatched", 
+                       "c(census.nonuniq.unmatched[,1],socsec[socsec$n_clean_key>1][,1])")
+  for(i in 1:length(df.combinations)){
+    this.df <- eval(parse(text = df.combinations[i]))
+    if(is.vector(this.df)){
+      des.list[[i]] <- rbind(des.list[[i]], length(this.df))
+    }
+    else{
+      des.list[[i]] <- rbind(des.list[[i]], nrow(this.df))
+    }
+  }
+  
   
   ## Put everything in a dataframe
   
