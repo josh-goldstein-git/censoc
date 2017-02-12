@@ -3,7 +3,8 @@ get.match.descriptives <- function(censoc,
                                    census.uniq.unmatched,
                                    census.nonuniq.unmatched,
                                    socsec.uniq.unmatched,
-                                   covariates = c("income","race", "renter", "rural")){
+                                   covariates = c("income","race", "renter", "rural"),
+                                   condition.age = 25){
   
   ## create a vector for each type of data set (to cbind at the end)
   des.matched <- c()
@@ -16,6 +17,8 @@ get.match.descriptives <- function(censoc,
   
   des.rownames <- c("median age", "IQR age", "median AAD", "IQR AAD")
   
+  ## rename age in censoc
+  censoc[, census_age := census_age.x]
     
   ##### AGE CHARACTERISTICS
   # median age
@@ -74,39 +77,6 @@ get.match.descriptives <- function(censoc,
   
   ######## INCOME
   
-  if("income" %in% covariates){
-    
-    des.rownames <- c(des.rownames, "median income", "med inc modal age", "prop inc missing", "prop inc zero")
-    
-    med.income.matched <- median(censoc$income, na.rm = T)
-    prop.income.missing.matched <- sum(is.na(censoc$income))/nrow(censoc)
-    prop.income.zero.matched <- sum(censoc$income==0, na.rm=T)/nrow(censoc)
-    
-    med.income.unmatched.uniq <- median(census.uniq.unmatched$income, na.rm=T)
-    prop.income.missing.unmatched.uniq <- sum(is.na(census.uniq.unmatched$income))/nrow(census.uniq.unmatched)
-    prop.income.zero.unmatched.uniq <- sum(census.uniq.unmatched$income==0, na.rm=T)/nrow(census.uniq.unmatched)
-    
-    med.income.unmatched.nonuniq <- median(census.nonuniq.unmatched$income, na.rm=T)
-    prop.income.missing.unmatched.nonuniq <- sum(is.na(census.nonuniq.unmatched$income))/nrow(census.nonuniq.unmatched)
-    prop.income.zero.unmatched.nonuniq <- sum(census.nonuniq.unmatched$income==0, na.rm=T)/nrow(census.nonuniq.unmatched)
-    
-    ## condition income calculates on mode age of matched dataset
-    mode.age <- as.numeric(names(sort(table(censoc$census_age.x), decreasing = T)[1]))
-    med.income.matched.mode <- median(censoc$income[censoc$census_age.x==mode.age], na.rm = T)
-    med.income.unmatched.uniq.mode <- median(census.uniq.unmatched$income[census.uniq.unmatched$census_age==mode.age], na.rm=T)
-    med.income.unmatched.nonuniq.mode <- median(census.nonuniq.unmatched$income[census.nonuniq.unmatched$census_age==mode.age], na.rm=T)
-  
-    des.matched <- rbind(des.matched, med.income.matched, med.income.matched.mode, prop.income.missing.matched, prop.income.zero.matched)
-    des.unmatched.census.uniq <- rbind(des.unmatched.census.uniq, med.income.unmatched.uniq, med.income.unmatched.uniq.mode, prop.income.missing.unmatched.uniq, prop.income.zero.unmatched.uniq)
-    des.unmatched.census.nonuniq <- rbind(des.unmatched.census.nonuniq, med.income.unmatched.nonuniq, med.income.unmatched.nonuniq.mode, prop.income.missing.unmatched.nonuniq, prop.income.zero.unmatched.nonuniq)
-    des.unmatched.socsec.uniq <- rbind(des.unmatched.socsec.uniq, NA, NA, NA, NA)
-    des.unmatched.all.uniq <- rbind(des.unmatched.all.uniq, NA, NA, NA, NA)
-    des.unmatched.socsec.nonuniq <- rbind(des.unmatched.socsec.nonuniq, NA, NA, NA, NA)
-    des.unmatched.all.nonuniq <- rbind(des.unmatched.all.nonuniq, NA, NA, NA, NA)
-  }
-  
-  ######## RACE
-  
   ## note to self: need to clean up function above in which case this stuff will go up the top
   des.list <- list(des.matched, des.unmatched.census.uniq, des.unmatched.socsec.uniq, des.unmatched.all.uniq, 
                    des.unmatched.census.nonuniq, des.unmatched.socsec.nonuniq, des.unmatched.all.nonuniq)
@@ -119,14 +89,60 @@ get.match.descriptives <- function(censoc,
                        "census.nonuniq.unmatched", "socsec[socsec$n_clean_key>1]", 
                        "c(census.nonuniq.unmatched[,1],socsec[socsec$n_clean_key>1,1])")
   
+  if("income" %in% covariates){
+    des.rownames <- c(des.rownames, "median income", "prop inc missing", "prop inc zero")
+    for(i in 1:length(df.combinations)){
+      if(!grepl("socsec", df.combinations[i])){
+        this.df <- eval(parse(text = df.combinations[i]))
+        med.income <- median(this.df$income[this.df$census_age==condition.age], na.rm=T)
+        prop.income.missing <- sum(is.na(this.df$income[this.df$census_age==condition.age]))/nrow(this.df[this.df$census_age==condition.age,])
+        prop.income.zero <- sum(this.df$income[this.df$census_age==condition.age]==0, na.rm=T)/nrow(this.df[this.df$census_age==condition.age,])
+      }
+      else{
+        med.income <- NA
+        prop.income.missing <- NA
+        prop.income.zero <- NA
+      }
+      des.list[[i]] <- rbind(des.list[[i]], med.income, prop.income.missing, prop.income.zero)
+    }
+    
+    # med.income.matched <- median(censoc$income, na.rm = T)
+    # prop.income.missing.matched <- sum(is.na(censoc$income))/nrow(censoc)
+    # prop.income.zero.matched <- sum(censoc$income==0, na.rm=T)/nrow(censoc)
+    # 
+    # med.income.unmatched.uniq <- median(census.uniq.unmatched$income, na.rm=T)
+    # prop.income.missing.unmatched.uniq <- sum(is.na(census.uniq.unmatched$income))/nrow(census.uniq.unmatched)
+    # prop.income.zero.unmatched.uniq <- sum(census.uniq.unmatched$income==0, na.rm=T)/nrow(census.uniq.unmatched)
+    # 
+    # med.income.unmatched.nonuniq <- median(census.nonuniq.unmatched$income, na.rm=T)
+    # prop.income.missing.unmatched.nonuniq <- sum(is.na(census.nonuniq.unmatched$income))/nrow(census.nonuniq.unmatched)
+    # prop.income.zero.unmatched.nonuniq <- sum(census.nonuniq.unmatched$income==0, na.rm=T)/nrow(census.nonuniq.unmatched)
+    # 
+    # ## condition income calculates on mode age of matched dataset
+    # mode.age <- as.numeric(names(sort(table(censoc$census_age.x), decreasing = T)[1]))
+    # med.income.matched.mode <- median(censoc$income[censoc$census_age.x==mode.age], na.rm = T)
+    # med.income.unmatched.uniq.mode <- median(census.uniq.unmatched$income[census.uniq.unmatched$census_age==mode.age], na.rm=T)
+    # med.income.unmatched.nonuniq.mode <- median(census.nonuniq.unmatched$income[census.nonuniq.unmatched$census_age==mode.age], na.rm=T)
+    # 
+    # des.matched <- rbind(des.matched, med.income.matched, med.income.matched.mode, prop.income.missing.matched, prop.income.zero.matched)
+    # des.unmatched.census.uniq <- rbind(des.unmatched.census.uniq, med.income.unmatched.uniq, med.income.unmatched.uniq.mode, prop.income.missing.unmatched.uniq, prop.income.zero.unmatched.uniq)
+    # des.unmatched.census.nonuniq <- rbind(des.unmatched.census.nonuniq, med.income.unmatched.nonuniq, med.income.unmatched.nonuniq.mode, prop.income.missing.unmatched.nonuniq, prop.income.zero.unmatched.nonuniq)
+    # des.unmatched.socsec.uniq <- rbind(des.unmatched.socsec.uniq, NA, NA, NA, NA)
+    # des.unmatched.all.uniq <- rbind(des.unmatched.all.uniq, NA, NA, NA, NA)
+    # des.unmatched.socsec.nonuniq <- rbind(des.unmatched.socsec.nonuniq, NA, NA, NA, NA)
+    # des.unmatched.all.nonuniq <- rbind(des.unmatched.all.nonuniq, NA, NA, NA, NA)
+  }
+  
+  ######## RACE
+  
   if("race" %in% covariates){
     des.rownames <- c(des.rownames, "Prop white", "prop black", "prop other", "prop race missing")
     for(i in 1:length(df.combinations)){
       if(!grepl("socsec", df.combinations[i])){
         this.df <- eval(parse(text = df.combinations[i]))
-        white <- sum(this.df$race=="White", na.rm = T)/nrow(this.df)
-        black <- sum(this.df$race=="Black", na.rm = T)/nrow(this.df)
-        race.missing <- sum(is.na(this.df$race))/nrow(this.df)
+        white <- sum(this.df$race[this.df$census_age==condition.age]=="White", na.rm = T)/nrow(this.df[this.df$census_age==condition.age])
+        black <- sum(this.df$race[this.df$census_age==condition.age]=="Black", na.rm = T)/nrow(this.df[this.df$census_age==condition.age])
+        race.missing <- sum(is.na(this.df$race[this.df$census_age==condition.age]))/nrow(this.df[this.df$census_age==condition.age])
         other.race <- 1- sum(white, black, race.missing)
       }
       else{
@@ -146,9 +162,9 @@ get.match.descriptives <- function(censoc,
     for(i in 1:length(df.combinations)){
       if(!grepl("socsec", df.combinations[i])){
         this.df <- eval(parse(text = df.combinations[i]))
-        own <- sum(this.df$own_rent=="Owned", na.rm = T)/nrow(this.df)
-        rent <- sum(this.df$own=="Rented", na.rm = T)/nrow(this.df)
-        or.missing <- sum(is.na(this.df$own_rent))/nrow(this.df)
+        own <- sum(this.df$own_rent[this.df$census_age==condition.age]=="Owned", na.rm = T)/nrow(this.df[this.df$census_age==condition.age])
+        rent <- sum(this.df$own[this.df$census_age==condition.age]=="Rented", na.rm = T)/nrow(this.df[this.df$census_age==condition.age])
+        or.missing <- sum(is.na(this.df$own_rent[this.df$census_age==condition.age]))/nrow(this.df[this.df$census_age==condition.age])
       }
       else{
         own <- NA
@@ -166,9 +182,9 @@ get.match.descriptives <- function(censoc,
     for(i in 1:length(df.combinations)){
       if(!grepl("socsec", df.combinations[i])){
         this.df <- eval(parse(text = df.combinations[i]))
-        rural <- sum(this.df$rural==TRUE, na.rm = T)/nrow(this.df)
-        urban <- sum(this.df$rural==FALSE, na.rm = T)/nrow(this.df)
-        ru.missing <- sum(is.na(this.df$rural))/nrow(this.df)
+        rural <- sum(this.df$rural[this.df$census_age==condition.age]==TRUE, na.rm = T)/nrow(this.df[this.df$census_age==condition.age])
+        urban <- sum(this.df$rural[this.df$census_age==condition.age]==FALSE, na.rm = T)/nrow(this.df[this.df$census_age==condition.age])
+        ru.missing <- sum(is.na(this.df$rural[this.df$census_age==condition.age]))/nrow(this.df[this.df$census_age==condition.age])
       }
       else{
         rural <- NA
@@ -199,7 +215,7 @@ get.match.descriptives <- function(censoc,
   colnames(des.df) <- c("Matched", 
                         "Unmatched unique census", "Unmatched unique socsec", "Unmatched unique all", 
                         "Unmatched non-unique census", "Unmatched non-unique socsec", "Unmatched non-unique all")
-  
+  des.df$conditionage = condition.age
   return(des.df)
 
 }

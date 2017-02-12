@@ -1,20 +1,19 @@
-"","Matched","Unmatched unique census","Unmatched unique socsec","Unmatched unique all","Unmatched non-unique census","Unmatched non-unique socsec","Unmatched non-unique all"
-"median age",29,35,29,31,30,28,31
-"IQR age",22,36,22,28,34,19,27
-"median AAD",77,NA,80,NA,NA,78,NA
-"IQR AAD",15,NA,80,NA,NA,78,NA
-"median income",600,360,NA,NA,425,NA,NA
-"med inc modal age",1021,900,NA,NA,960,NA,NA
-"prop inc missing",0.186,0.262,NA,NA,0.268,NA,NA
-"prop inc zero",0.222,0.268,NA,NA,0.234,NA,NA
-"Prop white",0.994,0.983,NA,NA,0.99,NA,NA
-"prop black",0.001,0.003,NA,NA,0.004,NA,NA
-"prop other",0.001,0.001,NA,NA,0.001,NA,NA
-"prop race missing",0.005,0.014,NA,NA,0.005,NA,NA
-"prop own",0.299,0.29,NA,NA,0.252,NA,NA
-"prop rent",0.248,0.226,NA,NA,0.218,NA,NA
-"prop own/rent missing",0.452,0.482,NA,NA,0.527,NA,NA
-"prop rural",0.159,0.146,NA,NA,0.148,NA,NA
-"prop urban",0.776,0.746,NA,NA,0.75,NA,NA
-"prop rural/urban missing",0.065,0.108,NA,NA,0.102,NA,NA
-"# obs",114859,410114,507107,917221,28651,20409,49060
+"","Matched","Unmatched unique census","Unmatched unique socsec","Unmatched unique all","Unmatched non-unique census","Unmatched non-unique socsec","Unmatched non-unique all","conditionage"
+"median age",29,35,29,31,30,28,31,25
+"IQR age",22,36,22,28,34,19,27,25
+"median AAD",77,NA,80,NA,NA,78,NA,25
+"IQR AAD",15,NA,16,NA,NA,16,NA,25
+"median income",800,720,NA,NA,700,NA,NA,25
+"prop inc missing",0.04,0.053,NA,NA,0.049,NA,NA,25
+"prop inc zero",0.122,0.118,NA,NA,0.117,NA,NA,25
+"Prop white",0.993,0.981,NA,NA,0.987,NA,NA,25
+"prop black",0,0.003,NA,NA,0.004,NA,NA,25
+"prop other",0,0.001,NA,NA,0,NA,NA,25
+"prop race missing",0.006,0.015,NA,NA,0.009,NA,NA,25
+"prop own",0.159,0.124,NA,NA,0.104,NA,NA,25
+"prop rent",0.38,0.345,NA,NA,0.355,NA,NA,25
+"prop own/rent missing",0.46,0.527,NA,NA,0.54,NA,NA,25
+"prop rural",0.188,0.208,NA,NA,0.151,NA,NA,25
+"prop urban",0.778,0.753,NA,NA,0.802,NA,NA,25
+"prop rural/urban missing",0.034,0.039,NA,NA,0.047,NA,NA,25
+"# obs",114859,410114,507107,917221,28651,20409,49060,25
