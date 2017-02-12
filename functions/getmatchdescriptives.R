@@ -61,11 +61,11 @@ get.match.descriptives <- function(censoc,
   
   med.aad.unmatched.uniq <- median(socsec.uniq.unmatched$age.at.death)
   iqr.aad.unmatched.uniq <- quantile(socsec.uniq.unmatched$age.at.death, 0.75) - quantile(socsec.uniq.unmatched$age.at.death, 0.25)
-  des.unmatched.socsec.uniq <- rbind(des.unmatched.socsec.uniq, med.aad.unmatched.uniq, med.aad.unmatched.uniq)
+  des.unmatched.socsec.uniq <- rbind(des.unmatched.socsec.uniq, med.aad.unmatched.uniq, iqr.aad.unmatched.uniq)
   
   med.aad.unmatched.nonuniq <- median(socsec$age.at.death[socsec$n_clean_key>1])
   iqr.aad.unmatched.nonuniq <- quantile(socsec$age.at.death[socsec$n_clean_key>1], 0.75) - quantile(socsec$age.at.death[socsec$n_clean_key>1], 0.25)
-  des.unmatched.socsec.nonuniq <- rbind(des.unmatched.socsec.nonuniq, med.aad.unmatched.nonuniq, med.aad.unmatched.nonuniq)
+  des.unmatched.socsec.nonuniq <- rbind(des.unmatched.socsec.nonuniq, med.aad.unmatched.nonuniq, iqr.aad.unmatched.nonuniq)
   
   des.unmatched.census.uniq <- rbind(des.unmatched.census.uniq, NA, NA)
   des.unmatched.census.nonuniq <- rbind(des.unmatched.census.nonuniq, NA, NA)
