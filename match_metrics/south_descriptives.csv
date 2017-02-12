@@ -1,20 +1,19 @@
-"","Matched","Unmatched unique census","Unmatched unique socsec","Unmatched unique all","Unmatched non-unique census","Unmatched non-unique socsec","Unmatched non-unique all"
-"median age",24,27,28,28,23,27,28
-"IQR age",23,32,22,23,28,19,20
-"median AAD",74,NA,78,NA,NA,77,NA
-"IQR AAD",17,NA,78,NA,NA,77,NA
-"median income",260,180,NA,NA,200,NA,NA
-"med inc modal age",0,0,NA,NA,0,NA,NA
-"prop inc missing",0.316,0.334,NA,NA,0.375,NA,NA
-"prop inc zero",0.246,0.269,NA,NA,0.235,NA,NA
-"Prop white",0.801,0.725,NA,NA,0.637,NA,NA
-"prop black",0.196,0.27,NA,NA,0.356,NA,NA
-"prop other",0.002,0.003,NA,NA,0.004,NA,NA
-"prop race missing",0.002,0.003,NA,NA,0.003,NA,NA
-"prop own",0.152,0.171,NA,NA,0.13,NA,NA
-"prop rent",0.26,0.263,NA,NA,0.246,NA,NA
-"prop own/rent missing",0.585,0.564,NA,NA,0.622,NA,NA
-"prop rural",0.163,0.16,NA,NA,0.16,NA,NA
-"prop urban",0.69,0.675,NA,NA,0.665,NA,NA
-"prop rural/urban missing",0.147,0.165,NA,NA,0.175,NA,NA
-"# obs",837810,4223174,48923466,53146640,1577877,26173780,27751657
+"","Matched","Unmatched unique census","Unmatched unique socsec","Unmatched unique all","Unmatched non-unique census","Unmatched non-unique socsec","Unmatched non-unique all","conditionage"
+"median age",24,27,28,28,23,27,28,25
+"IQR age",23,32,22,23,28,19,20,25
+"median AAD",74,NA,78,NA,NA,77,NA,25
+"IQR AAD",17,NA,16,NA,NA,16,NA,25
+"median income",468,390,NA,NA,396,NA,NA,25
+"prop inc missing",0.071,0.086,NA,NA,0.086,NA,NA,25
+"prop inc zero",0.184,0.189,NA,NA,0.172,NA,NA,25
+"Prop white",0.814,0.713,NA,NA,0.612,NA,NA,25
+"prop black",0.183,0.282,NA,NA,0.381,NA,NA,25
+"prop other",0.002,0.003,NA,NA,0.005,NA,NA,25
+"prop race missing",0.001,0.003,NA,NA,0.003,NA,NA,25
+"prop own",0.078,0.067,NA,NA,0.062,NA,NA,25
+"prop rent",0.422,0.409,NA,NA,0.42,NA,NA,25
+"prop own/rent missing",0.493,0.519,NA,NA,0.513,NA,NA,25
+"prop rural",0.211,0.212,NA,NA,0.208,NA,NA,25
+"prop urban",0.72,0.712,NA,NA,0.721,NA,NA,25
+"prop rural/urban missing",0.069,0.076,NA,NA,0.071,NA,NA,25
+"# obs",837810,4223174,48923466,53146640,1577877,26173780,27751657,25
