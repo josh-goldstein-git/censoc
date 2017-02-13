@@ -3,7 +3,7 @@ get.match.descriptives <- function(censoc,
                                    census.uniq.unmatched,
                                    census.nonuniq.unmatched,
                                    socsec.uniq.unmatched,
-                                   covariates = c("income","race", "renter", "rural"),
+                                   covariates = c("income","race", "renter", "rural", "ssn"),
                                    condition.age = 25){
   
   ## create a vector for each type of data set (to cbind at the end)
@@ -49,59 +49,6 @@ get.match.descriptives <- function(censoc,
     des.list[[i]] <- rbind(des.list[[i]], med.age, iqr.age, med.aad, iqr.aad)
   }
   
-  # med.age.matched <- median(censoc$census_age.x)
-  # iqr.age.matched <- quantile(censoc$census_age.x, 0.75) - quantile(censoc$census_age.x, 0.25)
-  # des.matched <- rbind(des.matched, med.age.matched, iqr.age.matched)
-  # 
-  # med.age.unmatched.census.uniq <- median(census.uniq.unmatched$census_age)
-  # iqr.age.unmatched.census.uniq <- quantile(census.uniq.unmatched$census_age, 0.75) - quantile(census.uniq.unmatched$census_age, 0.25)
-  # des.unmatched.census.uniq <- rbind(des.unmatched.census.uniq, med.age.unmatched.census.uniq, iqr.age.unmatched.census.uniq)
-  # 
-  # med.age.unmatched.socsec.uniq <- median(socsec.uniq.unmatched$census_age)
-  # iqr.age.unmatched.socsec.uniq <- quantile(socsec.uniq.unmatched$census_age, 0.75) - quantile(socsec.uniq.unmatched$census_age, 0.25)
-  # des.unmatched.socsec.uniq <- rbind(des.unmatched.socsec.uniq, med.age.unmatched.socsec.uniq, iqr.age.unmatched.socsec.uniq)
-  # 
-  # med.age.unmatched.all.uniq <- median(c(census.uniq.unmatched$census_age, socsec.uniq.unmatched$census_age))
-  # iqr.age.unmatched.all.uniq <- quantile(c(census.uniq.unmatched$census_age, socsec.uniq.unmatched$census_age), 0.75) - quantile(c(census.uniq.unmatched$census_age, socsec.uniq.unmatched$census_age), 0.25)
-  # des.unmatched.all.uniq <- rbind(des.unmatched.all.uniq, med.age.unmatched.all.uniq, iqr.age.unmatched.all.uniq)
-  # 
-  # med.age.unmatched.census.nonuniq <- median(census.nonuniq.unmatched$census_age)
-  # iqr.age.unmatched.census.nonuniq <- quantile(census.nonuniq.unmatched$census_age, 0.75) - quantile(census.nonuniq.unmatched$census_age, 0.25)
-  # des.unmatched.census.nonuniq <- rbind(des.unmatched.census.nonuniq, med.age.unmatched.census.nonuniq, iqr.age.unmatched.census.nonuniq)
-  # 
-  # med.age.unmatched.socsec.nonuniq <- median(socsec$census_age[socsec$n_clean_key>1])
-  # iqr.age.unmatched.socsec.nonuniq <- quantile(socsec$census_age[socsec$n_clean_key>1], 0.75) - quantile(socsec$census_age[socsec$n_clean_key>1], 0.25)
-  # des.unmatched.socsec.nonuniq <- rbind(des.unmatched.socsec.nonuniq, med.age.unmatched.socsec.nonuniq, iqr.age.unmatched.socsec.nonuniq)
-  # 
-  # med.age.unmatched.all.nonuniq <- median(c(census.nonuniq.unmatched$census_age,
-  #                                           socsec$census_age[socsec$n_clean_key>1]))
-  # iqr.age.unmatched.all.nonuniq <- quantile(c(census.nonuniq.unmatched$census_age,
-  #                                             socsec$census_age[socsec$n_clean_key>1]), 0.75) - quantile(c(census.nonuniq.unmatched$census_age,
-  #                                                                                                          socsec$census_age[socsec$n_clean_key>1]), 0.25)
-  # des.unmatched.all.nonuniq <- rbind(des.unmatched.all.nonuniq, med.age.unmatched.all.uniq, iqr.age.unmatched.all.nonuniq)
-  # 
-  ## age at death
-  # censoc[, age.at.death := dyear - byear]
-  # socsec[, age.at.death := dyear - byear]
-  # socsec.uniq.unmatched[, age.at.death := dyear - byear]
-  # 
-  # med.aad.matched <- median(censoc$age.at.death)
-  # iqr.aad.matched <- quantile(censoc$age.at.death, 0.75) - quantile(censoc$age.at.death, 0.25)
-  # des.matched <- rbind(des.matched, med.aad.matched, iqr.aad.matched)
-  # 
-  # med.aad.unmatched.uniq <- median(socsec.uniq.unmatched$age.at.death)
-  # iqr.aad.unmatched.uniq <- quantile(socsec.uniq.unmatched$age.at.death, 0.75) - quantile(socsec.uniq.unmatched$age.at.death, 0.25)
-  # des.unmatched.socsec.uniq <- rbind(des.unmatched.socsec.uniq, med.aad.unmatched.uniq, iqr.aad.unmatched.uniq)
-  # 
-  # med.aad.unmatched.nonuniq <- median(socsec$age.at.death[socsec$n_clean_key>1])
-  # iqr.aad.unmatched.nonuniq <- quantile(socsec$age.at.death[socsec$n_clean_key>1], 0.75) - quantile(socsec$age.at.death[socsec$n_clean_key>1], 0.25)
-  # des.unmatched.socsec.nonuniq <- rbind(des.unmatched.socsec.nonuniq, med.aad.unmatched.nonuniq, iqr.aad.unmatched.nonuniq)
-  # 
-  # des.unmatched.census.uniq <- rbind(des.unmatched.census.uniq, NA, NA)
-  # des.unmatched.census.nonuniq <- rbind(des.unmatched.census.nonuniq, NA, NA)
-  # des.unmatched.all.uniq <- rbind(des.unmatched.all.uniq, NA, NA)
-  # des.unmatched.all.nonuniq <- rbind(des.unmatched.all.nonuniq, NA, NA)
-  
   ######## INCOME
   
   if("income" %in% covariates){
@@ -125,7 +72,7 @@ get.match.descriptives <- function(censoc,
   ######## RACE
   
   if("race" %in% covariates){
-    des.rownames <- c(des.rownames, "Prop white", "prop black", "prop other", "prop race missing")
+    des.rownames <- c(des.rownames, "prop white", "prop black", "prop other", "prop race missing")
     for(i in 1:length(df.combinations)){
       if(!grepl("socsec", df.combinations[i])){
         this.df <- eval(parse(text = df.combinations[i]))
@@ -181,6 +128,26 @@ get.match.descriptives <- function(censoc,
         ru.missing <- NA
       }
       des.list[[i]] <- rbind(des.list[[i]], rural, urban, ru.missing)
+    }
+  }
+  
+  ######### RURAL
+  
+  if("ssn" %in% covariates){
+    des.rownames <- c(des.rownames, "prop yes", "prop no", "prop ssn info missing")
+    for(i in 1:length(df.combinations)){
+      if(!grepl("socsec", df.combinations[i])){
+        this.df <- eval(parse(text = df.combinations[i]))
+        ssn.yes <- sum(this.df$ssn[this.df$census_age==condition.age]=="Yes")/nrow(this.df[this.df$census_age==condition.age])
+        ssn.no <- sum(this.df$ssn[this.df$census_age==condition.age]=="No")/nrow(this.df[this.df$census_age==condition.age])
+        ssn.info.missing <-sum(this.df$ssn[this.df$census_age==condition.age]=="")/nrow(this.df[this.df$census_age==condition.age])
+      }
+      else{
+        ssn.yes <- NA
+        ssn.no <- NA
+        ssn.info.missing <- NA
+      }
+      des.list[[i]] <- rbind(des.list[[i]], ssn.yes, ssn.no, ssn.info.missing)
     }
   }
   

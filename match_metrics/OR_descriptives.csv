@@ -6,7 +6,7 @@
 "median income",800,720,NA,NA,700,NA,NA,25
 "prop inc missing",0.04,0.053,NA,NA,0.049,NA,NA,25
 "prop inc zero",0.122,0.118,NA,NA,0.117,NA,NA,25
-"Prop white",0.993,0.981,NA,NA,0.987,NA,NA,25
+"prop white",0.993,0.981,NA,NA,0.987,NA,NA,25
 "prop black",0,0.003,NA,NA,0.004,NA,NA,25
 "prop other",0,0.001,NA,NA,0,NA,NA,25
 "prop race missing",0.006,0.015,NA,NA,0.009,NA,NA,25
@@ -16,4 +16,7 @@
 "prop rural",0.188,0.208,NA,NA,0.151,NA,NA,25
 "prop urban",0.778,0.753,NA,NA,0.802,NA,NA,25
 "prop rural/urban missing",0.034,0.039,NA,NA,0.047,NA,NA,25
+"prop yes",0,0.034,NA,NA,0.045,NA,NA,25
+"prop no",0,0.007,NA,NA,0.002,NA,NA,25
+"prop ssn info missing",0,0.959,NA,NA,0.953,NA,NA,25
 "# obs",114859,410114,507107,917221,28651,20409,49060,25

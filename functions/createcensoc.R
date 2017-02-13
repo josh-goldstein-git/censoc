@@ -8,7 +8,8 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           counts.file.name = "counts.txt",
                           descriptives.file.name = "descriptives.csv",
                           matched.file.name = "matched.csv",
-                          des.covs = c("income","race", "renter", "rural"),
+                          des.covs = c("income","race", "renter", "rural", "ssn"),
+                          condition.age = c(25),
                           return.unmatched = FALSE){
   
   ######### 1. READ IN DATA ######### 
@@ -18,8 +19,8 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   names.census <- fread(names.file, nrows = 2)
   setnames(census, names(names.census))
   ## only keep variables of interest for now
-  ## state, own/rent, name, gender, race, age, schooling, citizenship, city/rural, income, HHID, HHORDER
-  census <- census[,c(3,22,26,27,32,33,34,37,41,42, 56,84,85)]
+  ## state, own/rent, name, gender, race, age, schooling, citizenship, city/rural, income, ssn, HHID, HHORDER
+  census <- census[,c(3,22,26,27,32,33,34,37,41,42, 56,65,84,85)]
   
   cat("Reading socsec data.\n")
   ## read in socsec
@@ -106,13 +107,15 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census[,"rural":=NA]
   census[self_residence_place_city_multiple_1=="Rural",rural:=TRUE]
   census[!(self_residence_place_city_multiple_1 %in% c("Rural", "")), rural:=FALSE]
+  # ssn recode
+  census[,"ssn":=general_SSN]
+  census[!(ssn %in% c("Yes", "No")),ssn:=""]
   ## HHID_NUMERIC is unique HHID for each household
   ## HHORDER is the order of the person in unique HH
   census[,"hhid" := HHID_NUMERIC]
   census[,"recno" := HHORDER]
   
-  census <- census[,.(hhid, recno, fname, lname, age, census_age, sex, race, own_rent, rural,
-                      income)]
+  census <- census[,.(hhid, recno, fname, lname, age, census_age, sex, race, own_rent, rural, ssn, income)]
   
   # remove those without ages
   census.missing.age <- census[is.na(census$census_age),]
@@ -171,7 +174,9 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   # number of unique keys not matched
   ## summaries for matched, non-matched unique, non-matched non-unique
   
-  df <- get.match.descriptives(censoc, socsec, census.uniq.unmatched, census.nonuniq.unmatched, socsec.uniq.unmatched, des.covs)
+  df <- get.match.descriptives(censoc, socsec, 
+                               census.uniq.unmatched, census.nonuniq.unmatched, 
+                               socsec.uniq.unmatched, des.covs, condition.age)
   
   ######### 5. SAVE #############
   
