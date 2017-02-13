@@ -9,7 +9,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           descriptives.file.name = "descriptives.csv",
                           matched.file.name = "matched.csv",
                           des.covs = c("income","race", "renter", "rural", "ssn"),
-                          condition.age = c(25),
+                          condition.ages = c(25, 30),
                           return.unmatched = FALSE){
   
   ######### 1. READ IN DATA ######### 
@@ -20,7 +20,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   setnames(census, names(names.census))
   ## only keep variables of interest for now
   ## state, own/rent, name, gender, race, age, schooling, citizenship, city/rural, income, ssn, HHID, HHORDER
-  census <- census[,c(3,22,26,27,32,33,34,37,41,42, 56,65,84,85)]
+  census <- census[,c(3,22,26,27,32,33,34,37,41,42, 56, 65, 84,85)]
   
   cat("Reading socsec data.\n")
   ## read in socsec
@@ -148,17 +148,17 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   n.socsec.uniq <- nrow(socsec.uniq)
   n.census.uniq <- nrow(census.uniq)
   
-  ## Drop if not male
-  census.uniq.male <- census.uniq[census.uniq$sex == sex.to.keep,]
+  ## Drop if not required sex
+  census.uniq.sex <- census.uniq[census.uniq$sex == sex.to.keep,]
   # METRIC
-  n.census.sex.uniq <- nrow(census.uniq.male)
+  n.census.sex.uniq <- nrow(census.uniq.sex)
   ## Reset keys
   setkey(socsec.uniq, clean_key)
-  setkey(census.uniq.male, clean_key)
+  setkey(census.uniq.sex, clean_key)
   
   ## Merge on unique keys
   #out <- socsec.uniq[census.uniq.male]
-  out <- merge(census.uniq.male, socsec.uniq, on = clean_key)
+  out <- merge(census.uniq.sex, socsec.uniq, on = clean_key)
   # METRIC
   n.censoc <- nrow(out)
   censoc <- out
@@ -170,15 +170,25 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census.uniq.unmatched <- census.uniq.male[!(census.uniq.male$clean_key %in% censoc$clean_key),]
   socsec.uniq.unmatched <- socsec.uniq[!(socsec.uniq$clean_key %in% censoc$clean_key),]
   census.nonuniq.unmatched <- census[census$n_clean_key>1&census$sex==sex.to.keep,]
-  
-  # number of unique keys not matched
+
   ## summaries for matched, non-matched unique, non-matched non-unique
-  
-  df <- get.match.descriptives(censoc, socsec, 
-                               census.uniq.unmatched, census.nonuniq.unmatched, 
-                               socsec.uniq.unmatched, des.covs, condition.age)
+  df.all.ages <- c()
+  for(i in 1:length(condition.ages)){
+    df <- get.match.descriptives(censoc, socsec, 
+                                 census.uniq.unmatched, census.nonuniq.unmatched, 
+                                 socsec.uniq.unmatched, des.covs, condition.age = condition.ages[i])
+    df.all.ages <- rbind(df.all.ages, df)
+  }
+
   
   ######### 5. SAVE #############
+  
+  match.rates.ages <- c()
+  for(i in 1:length(condition.ages)){
+    match.rates.ages <- c(match.rates.ages, paste0("Match rate at age ", 
+                                                   condition.ages[i],": ", 
+                                                   round(nrow(censoc[censoc$census_age.x==condition.ages[i]])/nrow(census.uniq.sex[census.uniq.sex$census_age==condition.ages[i]]), 3), "\n"))
+  }
   
   diagnostics <- c(paste0("Raw number of people in census: ", n.census.raw, "\n"),
                    paste0("Raw number of people in socsec: ", n.socsec.raw, "\n"),
@@ -202,7 +212,8 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           sex.to.keep, ": ", n.census.sex.uniq, "\n"),
                    paste0("Number of matches: ", n.censoc, "\n"),
                    paste0("Match rate: ", round(n.censoc/n.census.sex.uniq, 3), "\n"),
-                   paste0("Modal age of matched people: ", mode.age, "\n")
+                   paste0("Modal age of matched people: ", mode.age, "\n"),
+                   match.rates.ages
   )
   
   cat("Saving counts of matched and unmatched datasets.\n")
@@ -211,7 +222,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   close(fileConn)
   
   cat("Saving descriptives of matched and unmatched datasets.\n")
-  write.csv(df, file = descriptives.file.name)
+  write.csv(df.all.ages, file = descriptives.file.name, row.names=F)
   
   ## just want to keep unique identifier, byear, dyear, bmonth, dmonth
   censoc[,"id":=as.numeric(paste0(hhid, recno))]

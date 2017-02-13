@@ -12,3 +12,5 @@ Raw number of people in census: 1093220
  Number of matches: 114859
  Match rate: 0.219
  Modal age of matched people: 30
+ Match rate at age 25: 0.315
+ Match rate at age 30: 0.331

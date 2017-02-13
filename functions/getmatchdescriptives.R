@@ -172,6 +172,8 @@ get.match.descriptives <- function(censoc,
                         "Unmatched unique census", "Unmatched unique socsec", "Unmatched unique all", 
                         "Unmatched non-unique census", "Unmatched non-unique socsec", "Unmatched non-unique all")
   des.df$conditionage = condition.age
+  des.df$variable = rownames(des.df)
+  des.df <- des.df[,c((ncol(des.df)),(ncol(des.df)-1), 1:((ncol(des.df)-2)))]
   return(des.df)
 
 }
