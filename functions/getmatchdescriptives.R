@@ -49,6 +49,18 @@ get.match.descriptives <- function(censoc,
     des.list[[i]] <- rbind(des.list[[i]], med.age, iqr.age, med.aad, iqr.aad)
   }
   
+  ######### N OBSERVATIONS
+  des.rownames <- c(des.rownames, "# obs")
+  for(i in 1:length(df.combinations)){
+    this.df <- eval(parse(text = df.combinations[i]))
+    if(is.vector(this.df)){
+      des.list[[i]] <- rbind(des.list[[i]], length(unlist(this.df)))
+    }
+    else{
+      des.list[[i]] <- rbind(des.list[[i]], nrow(this.df))
+    }
+  }
+  
   ######## INCOME
   
   if("income" %in% covariates){
@@ -134,13 +146,13 @@ get.match.descriptives <- function(censoc,
   ######### RURAL
   
   if("ssn" %in% covariates){
-    des.rownames <- c(des.rownames, "prop yes", "prop no", "prop ssn info missing")
+    des.rownames <- c(des.rownames, "prop ssn yes", "prop ssn no", "prop ssn info missing")
     for(i in 1:length(df.combinations)){
       if(!grepl("socsec", df.combinations[i])){
         this.df <- eval(parse(text = df.combinations[i]))
-        ssn.yes <- sum(this.df$ssn[this.df$census_age==condition.age]=="Yes")/nrow(this.df[this.df$census_age==condition.age])
-        ssn.no <- sum(this.df$ssn[this.df$census_age==condition.age]=="No")/nrow(this.df[this.df$census_age==condition.age])
-        ssn.info.missing <-sum(this.df$ssn[this.df$census_age==condition.age]=="")/nrow(this.df[this.df$census_age==condition.age])
+        ssn.yes <- sum(this.df$ssn.census[this.df$census_age==condition.age]=="Yes")/nrow(this.df[this.df$census_age==condition.age])
+        ssn.no <- sum(this.df$ssn.census[this.df$census_age==condition.age]=="No")/nrow(this.df[this.df$census_age==condition.age])
+        ssn.info.missing <-sum(this.df$ssn.census[this.df$census_age==condition.age]=="")/nrow(this.df[this.df$census_age==condition.age])
       }
       else{
         ssn.yes <- NA
@@ -148,18 +160,6 @@ get.match.descriptives <- function(censoc,
         ssn.info.missing <- NA
       }
       des.list[[i]] <- rbind(des.list[[i]], ssn.yes, ssn.no, ssn.info.missing)
-    }
-  }
-  
-  ######### N OBSERVATIONS
-  des.rownames <- c(des.rownames, "# obs")
-  for(i in 1:length(df.combinations)){
-    this.df <- eval(parse(text = df.combinations[i]))
-    if(is.vector(this.df)){
-      des.list[[i]] <- rbind(des.list[[i]], length(unlist(this.df)))
-    }
-    else{
-      des.list[[i]] <- rbind(des.list[[i]], nrow(this.df))
     }
   }
   
@@ -174,6 +174,9 @@ get.match.descriptives <- function(censoc,
   des.df$conditionage = condition.age
   des.df$variable = rownames(des.df)
   des.df <- des.df[,c((ncol(des.df)),(ncol(des.df)-1), 1:((ncol(des.df)-2)))]
+  #remove condition age for unconditional
+  des.df[des.df$variable %in% c("median age", "IQR age",
+                                          "median AAD", "IQR ADD", "# obs"), "conditionage"] <- NA
   return(des.df)
 
 }

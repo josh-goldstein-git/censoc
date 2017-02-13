@@ -108,14 +108,14 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census[self_residence_place_city_multiple_1=="Rural",rural:=TRUE]
   census[!(self_residence_place_city_multiple_1 %in% c("Rural", "")), rural:=FALSE]
   # ssn recode
-  census[,"ssn":=general_SSN]
-  census[!(ssn %in% c("Yes", "No")),ssn:=""]
+  census[,"ssn.census":=general_SSN]
+  census[!(ssn.census %in% c("Yes", "No")),ssn.census:=""]
   ## HHID_NUMERIC is unique HHID for each household
   ## HHORDER is the order of the person in unique HH
   census[,"hhid" := HHID_NUMERIC]
   census[,"recno" := HHORDER]
   
-  census <- census[,.(hhid, recno, fname, lname, age, census_age, sex, race, own_rent, rural, ssn, income)]
+  census <- census[,.(hhid, recno, fname, lname, age, census_age, sex, race, own_rent, rural, ssn.census, income)]
   
   # remove those without ages
   census.missing.age <- census[is.na(census$census_age),]
@@ -179,6 +179,9 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                                  socsec.uniq.unmatched, des.covs, condition.age = condition.ages[i])
     df.all.ages <- rbind(df.all.ages, df)
   }
+  
+  # remove duplicates
+  df.all.ages <- df.all.ages[!duplicated(df.all.ages), ]
 
   
   ######### 5. SAVE #############
