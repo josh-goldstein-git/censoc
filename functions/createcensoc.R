@@ -9,13 +9,13 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           descriptives.file.name = "descriptives.csv",
                           matched.file.name = "matched.csv",
                           des.covs = c("income","race", "renter", "rural", "ssn"),
-                          condition.ages = c(25, 30),
+                          condition.ages = c(20, 25, 30, 35, 40),
                           return.unmatched = FALSE){
   
   ######### 1. READ IN DATA ######### 
   cat("Reading census data.\n")
   ## read in census
-  census <- fread(census.file,fill = T)
+  census <- fread(census.file)
   names.census <- fread(names.file, nrows = 2)
   setnames(census, names(names.census))
   ## only keep variables of interest for now
