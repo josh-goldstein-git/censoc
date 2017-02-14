@@ -167,7 +167,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   
   ############ 4. DESCRIPTIVES #############
   
-  census.uniq.unmatched <- census.uniq.male[!(census.uniq.male$clean_key %in% censoc$clean_key),]
+  census.uniq.unmatched <- census.uniq.male[!(census.uniq.sex$clean_key %in% censoc$clean_key),]
   socsec.uniq.unmatched <- socsec.uniq[!(socsec.uniq$clean_key %in% censoc$clean_key),]
   census.nonuniq.unmatched <- census[census$n_clean_key>1&census$sex==sex.to.keep,]
 
