@@ -60,7 +60,7 @@ census.orig <- census # set aside so we don't have to re-read if a problem with 
 
 ```{r}
 ## we read it in as fixed width (ssdm3 has the california geography as part of it)
-tt <- readr::read_fwf("ssdm3",
+tt <- readr::read_fwf("~/progs/ssdm/ssdm3",
                       fwf_widths(c(1,9, 20, 4, 15, 15, 1, 8, 8),
                                  col_names = c("mode", "ssn", "lname",
                                                "name_suffix", "fname", "mname",
@@ -111,8 +111,10 @@ census[,"hhid" := HHID_NUMERIC]
 census[,"recno" := HHORDER]
 
 ## Keep only a minimal subset of the census variables
+
 census <- census[,.(hhid, recno, fname, lname, age, census_age, sex,
                     income)]
+
 dim(census)
 
 ```
