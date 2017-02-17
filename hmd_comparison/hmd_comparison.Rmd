@@ -1,0 +1,194 @@
+---
+title: "HMD comparison: Social Security Death Masterfile Coverage"
+author: "Joshua R. Goldstein"
+date: "Sept. 25, 2016"
+output:
+  pdf_document:
+    fig_width: 7
+    fig_height: 9
+    fig_caption: true
+---
+
+```{r}
+## compare total deaths (both sexes) in ssdm with hmd
+library(data.table)
+
+## need to get the HMD file (I transferred hear via /90days)
+hmd <- fread("Deaths_1x1.txt", skip = 2)
+
+## ssdm table
+out <- load("death_freq_tab.RData")
+d.tab <- death.freq.tab
+
+## now turn HMD into table format, rows are ages , col are year
+year.vec <- names(table(hmd$Year))
+age.vec <- 0:110
+hmd.tab <- matrix(NA, length(age.vec), length(year.vec))
+dimnames(hmd.tab) <- list(age.vec, year.vec)
+for (i in 1:length(year.vec))
+    {
+        this.year <- year.vec[i]
+        hmd.tab[,i] <- hmd$Total[hmd$Year == this.year]
+    }
+
+
+## ok, now let's compare in the year 2000
+
+hmd.2000 <- hmd.tab[,"2000"]
+ssdm.2000 <- d.tab[,"2000"]
+ratio.2000 <- ssdm.2000[names(ssdm.2000) %in% age.vec]/hmd.2000
+par(mfrow = c(2,1))
+plot(names(ssdm.2000), ssdm.2000, type = "l")
+lines(names(hmd.2000), hmd.2000, lty = 2, col = "red")
+plot(age.vec, ratio.2000, type = "l")
+abline(h = 1, col = "grey")
+
+## we see here that SSDM has some weird ages of death (e.g -30, or
+## 150), but very few cases.  HMD has many more deaths for infants,
+## also for young adults, and also at peak ages
+
+
+hmd.1990 <- hmd.tab[,"1990"]
+ssdm.1990 <- d.tab[,"1990"]
+ratio.1990 <- ssdm.1990[names(ssdm.1990) %in% age.vec]/hmd.1990
+par(mfrow = c(2,1))
+plot(names(ssdm.1990), ssdm.1990, type = "l")
+lines(names(hmd.1990), hmd.1990, lty = 2, col = "red")
+plot(age.vec, ratio.1990, type = "l", ylim = c(0, 1.1))
+abline(h = 1, col = "grey")
+
+## 1990 is worse than 2000
+
+hmd.1980 <- hmd.tab[,"1980"]
+ssdm.1980 <- d.tab[,"1980"]
+ratio.1980 <- ssdm.1980[names(ssdm.1980) %in% age.vec]/hmd.1980
+par(mfrow = c(2,1))
+plot(names(ssdm.1980), ssdm.1980, type = "l")
+lines(names(hmd.1980), hmd.1980, lty = 2, col = "red")
+plot(age.vec, ratio.1980, type = "l", ylim = c(0, 1.1))
+abline(h = 1, col = "grey")
+## 1980 is again pretty good
+
+## ok, let's try the whole surface
+
+d.tab.conform <- d.tab[rownames(d.tab) %in% age.vec,
+                       colnames(d.tab) %in% colnames(hmd.tab)]
+
+ratio.mat <- d.tab.conform / hmd.tab[, colnames(hmd.tab) %in% colnames(d.tab.conform)]
+
+ratio.mat[,"2000"]
+
+
+my.breaks <- c(0, .8, .9, .95, .975, .99, 1)
+my.col <- c("blue", "red", "yellow", "green", "purple", "orange")
+par(mfrow = c(1,1))
+image(as.numeric(rownames(t(ratio.mat))),
+      as.numeric(colnames(t(ratio.mat))),
+      t(ratio.mat),
+      col = rainbow(n = length(my.breaks) - 1, alpha = .5),
+##       col = topo.colors(n = length(my.breaks) - 1, alpha = .5),
+##            col = my.col,
+      breaks = my.breaks,
+      useRaster = T,
+      xlab = "Year", ylab = "Age",
+      xlim = c(1960, 2012),
+      ylim = c(20, 110))
+ contour(as.numeric(rownames(t(ratio.mat))),
+       as.numeric(colnames(t(ratio.mat))),
+       t(ratio.mat),
+       labcex = 1,
+       vfont = c("sans serif", "bold"),
+       add = T,
+       levels = my.breaks)
+
+## We see that we have coverage over 90% and mostly over 95% for ages
+## 65+ between 1975 and 2005. This is very good news.
+
+
+
+############ now let's do total deaths by year
+
+hmd.deaths.by.year <- apply(hmd.tab,2, sum)
+ssdm.deaths.by.year <- apply(d.tab,2, sum)
+
+plot(names(hmd.deaths.by.year), hmd.deaths.by.year, type = "n",
+     ylim = c(1, 3*10^6), log = "")
+abline(v = seq(1900, 2010, 10), col = "grey")
+lines(names(hmd.deaths.by.year), hmd.deaths.by.year)
+lines(names(ssdm.deaths.by.year), ssdm.deaths.by.year, lty = 2)
+title("Deaths by year")
+text(1950, 2 * 10^6, "HMD")
+text(1975, 1 * 10^6, "SSDM")
+
+## Bad ages by year
+
+ssdm.age.vec <- as.numeric(rownames(d.tab))
+s <- ssdm.age.vec > 110 | ssdm.age.vec < 0 | is.na(ssdm.age.vec)
+bad.ssdm.deaths.by.year <- apply(d.tab[s,], 2, sum)
+lines(names(bad.ssdm.deaths.by.year),
+      bad.ssdm.deaths.by.year, col = "red")
+
+## We see that total coverage is good after 1975 and also that "bad
+## ages" make no difference at all.
+
+
+## now plot 1960 to 2011
+
+year.ratio <- ssdm.deaths.by.year[paste(1960:2011)]/
+    hmd.deaths.by.year[paste(1960:2011)]
+
+plot(names(year.ratio), year.ratio, type = "n",
+     ylim = c(0, 1))
+abline(h = seq(0, 1, .1), col = "grey")
+abline(h = seq(0, 1, .1) + .05, col = "grey", lty = 2)
+abline(v = seq(1960, 2010, 10), col = "grey")
+abline(v = seq(1960, 2010, 10) + 5, col = "grey", lty = 2)
+lines(names(year.ratio), year.ratio)
+title("Ratio of deaths (ssdm : hmd), all ages")
+
+
+########### now let's redo only for deaths over age 65
+
+hmd.tab.65 <- hmd.tab[paste(65:110),]
+d.tab.65 <- d.tab[paste(65:110),]
+
+hmd.deaths.by.year.65 <- apply(hmd.tab.65, 2, sum)
+ssdm.deaths.by.year.65 <- apply(d.tab.65,2, sum)
+
+plot(names(hmd.deaths.by.year.65), hmd.deaths.by.year.65, type = "n",
+     ylim = c(1, 3*10^6), log = "")
+abline(v = seq(1900, 2010, 10), col = "grey")
+lines(names(hmd.deaths.by.year.65), hmd.deaths.by.year.65)
+lines(names(ssdm.deaths.by.year.65), ssdm.deaths.by.year.65, lty = 2)
+title("Deaths by year, ages 65+")
+text(1950, 2 * 10^6, "HMD")
+text(1975, 1 * 10^6, "SSDM")
+
+## now plot 1960 to 2011
+
+year.ratio.65 <- ssdm.deaths.by.year.65[paste(1960:2011)]/
+    hmd.deaths.by.year.65[paste(1960:2011)]
+
+plot(names(year.ratio.65), year.ratio.65, type = "n",
+     ylim = c(0, 1))
+abline(h = seq(0, 1, .1), col = "grey")
+abline(h = seq(0, 1, .1) + .05, col = "grey", lty = 2)
+abline(v = seq(1960, 2010, 10), col = "grey")
+abline(v = seq(1960, 2010, 10) + 5, col = "grey", lty = 2)
+lines(names(year.ratio.65), year.ratio.65)
+title("Ratio of deaths (ssdm : hmd), 65+")
+
+## Bottom line is that coverage is 95% + between 1975 and 2005
+
+```
+
+
+Bottom line is that coverage is above 95%  between 1975 and 2005.
+
+One could extend this by imputing sex to names, and breaking down
+coverage by male and female.
+
+One should also be slightly concerned about cohort artifacts (it looks
+like there is some diagonal striping in the figure.)
+
+
