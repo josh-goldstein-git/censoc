@@ -69,12 +69,17 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   ## METRIC: number socsec born after 1940
   n.socsec.post.1940 <- nrow(socsec[which(socsec$census_age<0),])
   
-  ## get rid of these
-  socsec.missing.age <- socsec[socsec$census_age==1940|socsec$census_age==1939,]
+  ## METRIC: number deaths before 1975
+  n.socsec.pre.1975 <- nrow(socsec[which(socsec$dyear<1975),])
+  
   ## METRIC: number socsec missing age info
+  socsec.missing.age <- socsec[socsec$census_age==1940|socsec$census_age==1939,]
   n.socsec.age.missing <- nrow(socsec.missing.age)
+  
+  ## get rid of these
   socsec <- socsec[socsec$census_age!=1940&socsec$census_age!=1939,]
   socsec <- socsec[socsec$census_age>=0,]
+  socsec <- socsec[socsec$dyear>=1975,]
   
   # create key
   socsec[,"tmp_key" := paste0(lname, fname, census_age)]
@@ -199,6 +204,8 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           n.socsec.post.1940, " (proportion:", round(n.socsec.post.1940/n.socsec.raw, 3), ")", "\n"),
                    paste0("Number of people with age info missing in socsec: ", 
                           n.socsec.age.missing, " (proportion:", round(n.socsec.age.missing/n.socsec.raw, 3), ")","\n"),
+                   paste0("Number of deaths before 1975 in socsec: ", 
+                          n.socsec.pre.1975, " (proportion:", round(n.socsec.pre.1975/n.socsec.raw, 3), ")","\n"),
                    paste0("Number of people with age info missing in census: ", 
                           n.census.age.missing, " (proportion:", round(n.census.age.missing/n.census.raw, 3), ")", "\n"),
                    paste0("Number of people with name info missing in census: ", 
