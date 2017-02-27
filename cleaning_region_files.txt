@@ -1,0 +1,18 @@
+sed -e '38572287s/|jr/jr/g' SOUTH.txt > ../../SOUTH_clean.txt
+sed -i -e '38572393s/|sr/sr/g' ../../SOUTH_clean.txt
+sed -i -e '38628990s/Sh|/Sh/g' ../../SOUTH_clean.txt
+
+sed -e '354079s/|No|no|no|no|s|No|no|no|/|/g' NORTHEAST.txt > ../../NORTHEAST_clean.txt
+sed -i -e '6119628s/||anelesmith/|anelesmith/g' ../../NORTHEAST_clean.txt
+sed -i -e '16102284s/Mender|howery/Mender howery/g' ../../NORTHEAST_clean.txt
+sed -i -e '17108449s/||Wage/|Wage/g' ../../NORTHEAST_clean.txt
+sed -i -e '20174401s/||secretsual/|secretsual/g' ../../NORTHEAST_clean.txt
+sed -i -e '22640058s/work||2ELECTRICAL/work|2ELECTRICAL/g' ../../NORTHEAST_clean.txt
+sed -i -e '23568077s/Laborer||Wage/Laborer|Wage/g' ../../NORTHEAST_clean.txt
+sed -i -e '23568078s/Laborer||Wage/Laborer|Wage/g' ../../NORTHEAST_clean.txt
+sed -i -e '23568079s/Laborer||Wage/Laborer|Wage/g' ../../NORTHEAST_clean.txt
+sed -i -e '24115289s/VV 1||/VV 1|/g' ../../NORTHEAST_clean.txt
+sed -i -e '24115299s/866 VV 1||/866 VV 1|/g' ../../NORTHEAST_clean.txt
+sed -i -e '24115300s/866 VV 1||/866 VV 1|/g' ../../NORTHEAST_clean.txt
+
+sed -e '17317785s/Po|/Po/g' MIDWEST.txt > ../../MIDWEST_clean.txt

@@ -1,3 +1,0 @@
-sed -e '38572287s/|jr/jr/g' SOUTH.txt > ../../SOUTH_clean.txt
-sed -i -e '38572393s/|sr/sr/g' ../../SOUTH_clean.txt
-sed -i -e '38628990s/Sh|/Sh/g' ../../SOUTH_clean.txt
