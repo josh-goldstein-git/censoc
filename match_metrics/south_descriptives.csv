@@ -1,86 +1,86 @@
 "variable","conditionage","Matched","Unmatched unique census","Unmatched unique socsec","Unmatched unique all","Unmatched non-unique census","Unmatched non-unique socsec","Unmatched non-unique all"
-"median age",NA,25,27,28,27,23,27,23
-"IQR age",NA,23,32,21,32,28,19,28
-"median AAD",NA,74,NA,78,NA,NA,77,NA
-"IQR AAD",NA,16,NA,16,NA,NA,16,NA
-"# obs",NA,2321994,11734020,47439282,59173302,6367686,26173780,32541466
-"median income",20,150,142,NA,NA,150,NA,NA
+"median age",NA,22,28,25,28,23,24,23
+"IQR age",NA,19,32,19,32,28,16,28
+"median AAD",NA,76,NA,79,NA,NA,78,NA
+"IQR AAD",NA,15,NA,16,NA,NA,15,NA
+"# obs",NA,1908148,12147866,39020762,51168628,6367686,20182825,26550511
+"median income",20,150,144,NA,NA,150,NA,NA
 "prop inc missing",20,0.102,0.116,NA,NA,0.115,NA,NA
-"prop inc zero",20,0.33,0.331,NA,NA,0.315,NA,NA
-"prop white",20,0.852,0.765,NA,NA,0.701,NA,NA
-"prop black",20,0.142,0.226,NA,NA,0.291,NA,NA
+"prop inc zero",20,0.333,0.331,NA,NA,0.315,NA,NA
+"prop white",20,0.853,0.766,NA,NA,0.701,NA,NA
+"prop black",20,0.141,0.225,NA,NA,0.291,NA,NA
 "prop other",20,0.002,0.003,NA,NA,0.003,NA,NA
 "prop race missing",20,0.004,0.006,NA,NA,0.005,NA,NA
 "prop own",20,0.011,0.013,NA,NA,0.011,NA,NA
-"prop rent",20,0.098,0.11,NA,NA,0.113,NA,NA
-"prop own/rent missing",20,0.886,0.873,NA,NA,0.871,NA,NA
-"prop rural",20,0.182,0.196,NA,NA,0.197,NA,NA
-"prop urban",20,0.626,0.603,NA,NA,0.624,NA,NA
-"prop rural/urban missing",20,0.193,0.202,NA,NA,0.179,NA,NA
+"prop rent",20,0.097,0.11,NA,NA,0.113,NA,NA
+"prop own/rent missing",20,0.888,0.873,NA,NA,0.871,NA,NA
+"prop rural",20,0.181,0.196,NA,NA,0.197,NA,NA
+"prop urban",20,0.627,0.603,NA,NA,0.624,NA,NA
+"prop rural/urban missing",20,0.192,0.202,NA,NA,0.179,NA,NA
 "prop ssn yes",20,0.022,0.02,NA,NA,0.021,NA,NA
 "prop ssn no",20,0.019,0.02,NA,NA,0.021,NA,NA
 "prop ssn info missing",20,0.959,0.96,NA,NA,0.958,NA,NA
 "median income",25,465,360,NA,NA,382,NA,NA
 "prop inc missing",25,0.067,0.085,NA,NA,0.084,NA,NA
-"prop inc zero",25,0.207,0.217,NA,NA,0.2,NA,NA
-"prop white",25,0.863,0.762,NA,NA,0.691,NA,NA
-"prop black",25,0.132,0.231,NA,NA,0.301,NA,NA
+"prop inc zero",25,0.208,0.216,NA,NA,0.2,NA,NA
+"prop white",25,0.863,0.764,NA,NA,0.691,NA,NA
+"prop black",25,0.132,0.229,NA,NA,0.301,NA,NA
 "prop other",25,0.001,0.002,NA,NA,0.003,NA,NA
-"prop race missing",25,0.003,0.005,NA,NA,0.004,NA,NA
-"prop own",25,0.089,0.075,NA,NA,0.071,NA,NA
-"prop rent",25,0.425,0.408,NA,NA,0.421,NA,NA
-"prop own/rent missing",25,0.483,0.514,NA,NA,0.505,NA,NA
+"prop race missing",25,0.004,0.005,NA,NA,0.004,NA,NA
+"prop own",25,0.089,0.076,NA,NA,0.071,NA,NA
+"prop rent",25,0.423,0.409,NA,NA,0.421,NA,NA
+"prop own/rent missing",25,0.484,0.513,NA,NA,0.505,NA,NA
 "prop rural",25,0.207,0.212,NA,NA,0.211,NA,NA
 "prop urban",25,0.64,0.624,NA,NA,0.644,NA,NA
 "prop rural/urban missing",25,0.153,0.164,NA,NA,0.145,NA,NA
-"prop ssn yes",25,0.029,0.026,NA,NA,0.026,NA,NA
-"prop ssn no",25,0.014,0.017,NA,NA,0.015,NA,NA
+"prop ssn yes",25,0.029,0.027,NA,NA,0.026,NA,NA
+"prop ssn no",25,0.014,0.016,NA,NA,0.015,NA,NA
 "prop ssn info missing",25,0.957,0.957,NA,NA,0.959,NA,NA
-"median income",30,540,400,NA,NA,420,NA,NA
-"prop inc missing",30,0.065,0.084,NA,NA,0.081,NA,NA
-"prop inc zero",30,0.218,0.226,NA,NA,0.209,NA,NA
-"prop white",30,0.857,0.74,NA,NA,0.666,NA,NA
-"prop black",30,0.139,0.252,NA,NA,0.326,NA,NA
+"median income",30,528,400,NA,NA,420,NA,NA
+"prop inc missing",30,0.066,0.083,NA,NA,0.081,NA,NA
+"prop inc zero",30,0.221,0.225,NA,NA,0.209,NA,NA
+"prop white",30,0.857,0.744,NA,NA,0.666,NA,NA
+"prop black",30,0.139,0.248,NA,NA,0.326,NA,NA
 "prop other",30,0.001,0.002,NA,NA,0.003,NA,NA
-"prop race missing",30,0.003,0.006,NA,NA,0.005,NA,NA
-"prop own",30,0.191,0.152,NA,NA,0.145,NA,NA
-"prop rent",30,0.529,0.507,NA,NA,0.523,NA,NA
-"prop own/rent missing",30,0.278,0.339,NA,NA,0.33,NA,NA
+"prop race missing",30,0.003,0.005,NA,NA,0.005,NA,NA
+"prop own",30,0.193,0.153,NA,NA,0.145,NA,NA
+"prop rent",30,0.522,0.509,NA,NA,0.523,NA,NA
+"prop own/rent missing",30,0.283,0.336,NA,NA,0.33,NA,NA
 "prop rural",30,0.185,0.192,NA,NA,0.19,NA,NA
-"prop urban",30,0.662,0.644,NA,NA,0.662,NA,NA
-"prop rural/urban missing",30,0.153,0.164,NA,NA,0.148,NA,NA
-"prop ssn yes",30,0.028,0.025,NA,NA,0.026,NA,NA
+"prop urban",30,0.661,0.644,NA,NA,0.662,NA,NA
+"prop rural/urban missing",30,0.154,0.163,NA,NA,0.148,NA,NA
+"prop ssn yes",30,0.027,0.026,NA,NA,0.026,NA,NA
 "prop ssn no",30,0.015,0.017,NA,NA,0.016,NA,NA
-"prop ssn info missing",30,0.957,0.958,NA,NA,0.957,NA,NA
-"median income",35,600,432,NA,NA,480,NA,NA
-"prop inc missing",35,0.07,0.082,NA,NA,0.082,NA,NA
-"prop inc zero",35,0.24,0.242,NA,NA,0.221,NA,NA
-"prop white",35,0.866,0.756,NA,NA,0.681,NA,NA
-"prop black",35,0.129,0.236,NA,NA,0.311,NA,NA
+"prop ssn info missing",30,0.958,0.958,NA,NA,0.957,NA,NA
+"median income",35,600,450,NA,NA,480,NA,NA
+"prop inc missing",35,0.071,0.081,NA,NA,0.082,NA,NA
+"prop inc zero",35,0.244,0.241,NA,NA,0.221,NA,NA
+"prop white",35,0.864,0.762,NA,NA,0.681,NA,NA
+"prop black",35,0.132,0.231,NA,NA,0.311,NA,NA
 "prop other",35,0.001,0.002,NA,NA,0.002,NA,NA
 "prop race missing",35,0.003,0.005,NA,NA,0.005,NA,NA
-"prop own",35,0.281,0.226,NA,NA,0.214,NA,NA
-"prop rent",35,0.512,0.512,NA,NA,0.531,NA,NA
-"prop own/rent missing",35,0.205,0.261,NA,NA,0.253,NA,NA
-"prop rural",35,0.158,0.167,NA,NA,0.167,NA,NA
-"prop urban",35,0.684,0.667,NA,NA,0.684,NA,NA
-"prop rural/urban missing",35,0.158,0.166,NA,NA,0.149,NA,NA
-"prop ssn yes",35,0.028,0.026,NA,NA,0.026,NA,NA
-"prop ssn no",35,0.015,0.018,NA,NA,0.017,NA,NA
+"prop own",35,0.288,0.227,NA,NA,0.214,NA,NA
+"prop rent",35,0.505,0.514,NA,NA,0.531,NA,NA
+"prop own/rent missing",35,0.206,0.258,NA,NA,0.253,NA,NA
+"prop rural",35,0.16,0.166,NA,NA,0.167,NA,NA
+"prop urban",35,0.679,0.669,NA,NA,0.684,NA,NA
+"prop rural/urban missing",35,0.161,0.165,NA,NA,0.149,NA,NA
+"prop ssn yes",35,0.027,0.026,NA,NA,0.026,NA,NA
+"prop ssn no",35,0.015,0.017,NA,NA,0.017,NA,NA
 "prop ssn info missing",35,0.957,0.957,NA,NA,0.958,NA,NA
-"median income",40,500,360,NA,NA,384,NA,NA
-"prop inc missing",40,0.076,0.092,NA,NA,0.089,NA,NA
-"prop inc zero",40,0.278,0.279,NA,NA,0.259,NA,NA
-"prop white",40,0.843,0.716,NA,NA,0.63,NA,NA
-"prop black",40,0.151,0.275,NA,NA,0.362,NA,NA
-"prop other",40,0.002,0.003,NA,NA,0.003,NA,NA
-"prop race missing",40,0.003,0.006,NA,NA,0.006,NA,NA
-"prop own",40,0.353,0.282,NA,NA,0.26,NA,NA
-"prop rent",40,0.479,0.496,NA,NA,0.519,NA,NA
-"prop own/rent missing",40,0.166,0.221,NA,NA,0.22,NA,NA
-"prop rural",40,0.143,0.153,NA,NA,0.156,NA,NA
-"prop urban",40,0.682,0.673,NA,NA,0.684,NA,NA
-"prop rural/urban missing",40,0.175,0.174,NA,NA,0.161,NA,NA
-"prop ssn yes",40,0.026,0.024,NA,NA,0.024,NA,NA
-"prop ssn no",40,0.018,0.019,NA,NA,0.018,NA,NA
-"prop ssn info missing",40,0.956,0.957,NA,NA,0.958,NA,NA
+"median income",40,500,364,NA,NA,384,NA,NA
+"prop inc missing",40,0.076,0.091,NA,NA,0.089,NA,NA
+"prop inc zero",40,0.28,0.278,NA,NA,0.259,NA,NA
+"prop white",40,0.841,0.723,NA,NA,0.63,NA,NA
+"prop black",40,0.154,0.267,NA,NA,0.362,NA,NA
+"prop other",40,0.001,0.003,NA,NA,0.003,NA,NA
+"prop race missing",40,0.004,0.006,NA,NA,0.006,NA,NA
+"prop own",40,0.361,0.285,NA,NA,0.26,NA,NA
+"prop rent",40,0.469,0.496,NA,NA,0.519,NA,NA
+"prop own/rent missing",40,0.168,0.217,NA,NA,0.22,NA,NA
+"prop rural",40,0.142,0.152,NA,NA,0.156,NA,NA
+"prop urban",40,0.682,0.674,NA,NA,0.684,NA,NA
+"prop rural/urban missing",40,0.176,0.174,NA,NA,0.161,NA,NA
+"prop ssn yes",40,0.027,0.024,NA,NA,0.024,NA,NA
+"prop ssn no",40,0.018,0.018,NA,NA,0.018,NA,NA
+"prop ssn info missing",40,0.955,0.957,NA,NA,0.958,NA,NA
