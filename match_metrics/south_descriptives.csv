@@ -20,6 +20,9 @@
 "prop ssn yes",20,0.022,0.02,NA,NA,0.021,NA,NA
 "prop ssn no",20,0.019,0.02,NA,NA,0.021,NA,NA
 "prop ssn info missing",20,0.959,0.96,NA,NA,0.958,NA,NA
+"prop head",20,0.114,0.128,NA,NA,0.129,NA,NA
+"prop not head",20,0.863,0.852,NA,NA,0.848,NA,NA
+"prop hh_head missing",20,0.023,0.02,NA,NA,0.022,NA,NA
 "median income",25,465,360,NA,NA,382,NA,NA
 "prop inc missing",25,0.067,0.085,NA,NA,0.084,NA,NA
 "prop inc zero",25,0.208,0.216,NA,NA,0.2,NA,NA
@@ -36,6 +39,9 @@
 "prop ssn yes",25,0.029,0.027,NA,NA,0.026,NA,NA
 "prop ssn no",25,0.014,0.016,NA,NA,0.015,NA,NA
 "prop ssn info missing",25,0.957,0.957,NA,NA,0.959,NA,NA
+"prop head",25,0.525,0.497,NA,NA,0.505,NA,NA
+"prop not head",25,0.457,0.486,NA,NA,0.475,NA,NA
+"prop hh_head missing",25,0.018,0.017,NA,NA,0.021,NA,NA
 "median income",30,528,400,NA,NA,420,NA,NA
 "prop inc missing",30,0.066,0.083,NA,NA,0.081,NA,NA
 "prop inc zero",30,0.221,0.225,NA,NA,0.209,NA,NA
@@ -52,6 +58,9 @@
 "prop ssn yes",30,0.027,0.026,NA,NA,0.026,NA,NA
 "prop ssn no",30,0.015,0.017,NA,NA,0.016,NA,NA
 "prop ssn info missing",30,0.958,0.958,NA,NA,0.957,NA,NA
+"prop head",30,0.731,0.679,NA,NA,0.684,NA,NA
+"prop not head",30,0.259,0.309,NA,NA,0.301,NA,NA
+"prop hh_head missing",30,0.01,0.013,NA,NA,0.015,NA,NA
 "median income",35,600,450,NA,NA,480,NA,NA
 "prop inc missing",35,0.071,0.081,NA,NA,0.082,NA,NA
 "prop inc zero",35,0.244,0.241,NA,NA,0.221,NA,NA
@@ -68,6 +77,9 @@
 "prop ssn yes",35,0.027,0.026,NA,NA,0.026,NA,NA
 "prop ssn no",35,0.015,0.017,NA,NA,0.017,NA,NA
 "prop ssn info missing",35,0.957,0.957,NA,NA,0.958,NA,NA
+"prop head",35,0.81,0.758,NA,NA,0.763,NA,NA
+"prop not head",35,0.18,0.23,NA,NA,0.223,NA,NA
+"prop hh_head missing",35,0.009,0.012,NA,NA,0.014,NA,NA
 "median income",40,500,364,NA,NA,384,NA,NA
 "prop inc missing",40,0.076,0.091,NA,NA,0.089,NA,NA
 "prop inc zero",40,0.28,0.278,NA,NA,0.259,NA,NA
@@ -84,3 +96,6 @@
 "prop ssn yes",40,0.027,0.024,NA,NA,0.024,NA,NA
 "prop ssn no",40,0.018,0.018,NA,NA,0.018,NA,NA
 "prop ssn info missing",40,0.955,0.957,NA,NA,0.958,NA,NA
+"prop head",40,0.848,0.799,NA,NA,0.797,NA,NA
+"prop not head",40,0.143,0.189,NA,NA,0.189,NA,NA
+"prop hh_head missing",40,0.009,0.011,NA,NA,0.013,NA,NA

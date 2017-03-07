@@ -20,6 +20,9 @@
 "prop ssn yes",20,0.03,0.03,NA,NA,0.03,NA,NA
 "prop ssn no",20,0.013,0.013,NA,NA,0.013,NA,NA
 "prop ssn info missing",20,0.958,0.957,NA,NA,0.957,NA,NA
+"prop head",20,0.031,0.038,NA,NA,0.038,NA,NA
+"prop not head",20,0.954,0.947,NA,NA,0.941,NA,NA
+"prop hh_head missing",20,0.014,0.015,NA,NA,0.021,NA,NA
 "median income",25,840,800,NA,NA,828,NA,NA
 "prop inc missing",25,0.053,0.065,NA,NA,0.069,NA,NA
 "prop inc zero",25,0.123,0.138,NA,NA,0.127,NA,NA
@@ -35,7 +38,10 @@
 "prop rural/urban missing",25,0.023,0.03,NA,NA,0.028,NA,NA
 "prop ssn yes",25,0.039,0.037,NA,NA,0.036,NA,NA
 "prop ssn no",25,0.008,0.008,NA,NA,0.009,NA,NA
-"prop ssn info missing",25,0.954,0.955,NA,NA,0.955,NA,NA
+"prop ssn info missing",25,0.953,0.955,NA,NA,0.955,NA,NA
+"prop head",25,0.369,0.327,NA,NA,0.335,NA,NA
+"prop not head",25,0.618,0.658,NA,NA,0.647,NA,NA
+"prop hh_head missing",25,0.013,0.015,NA,NA,0.018,NA,NA
 "median income",30,1092,1000,NA,NA,1040,NA,NA
 "prop inc missing",30,0.047,0.062,NA,NA,0.065,NA,NA
 "prop inc zero",30,0.118,0.131,NA,NA,0.122,NA,NA
@@ -51,7 +57,10 @@
 "prop rural/urban missing",30,0.019,0.025,NA,NA,0.023,NA,NA
 "prop ssn yes",30,0.036,0.035,NA,NA,0.036,NA,NA
 "prop ssn no",30,0.01,0.01,NA,NA,0.01,NA,NA
-"prop ssn info missing",30,0.955,0.955,NA,NA,0.954,NA,NA
+"prop ssn info missing",30,0.954,0.955,NA,NA,0.954,NA,NA
+"prop head",30,0.659,0.579,NA,NA,0.581,NA,NA
+"prop not head",30,0.332,0.408,NA,NA,0.404,NA,NA
+"prop hh_head missing",30,0.009,0.012,NA,NA,0.015,NA,NA
 "median income",35,1200,1050,NA,NA,1170,NA,NA
 "prop inc missing",35,0.053,0.065,NA,NA,0.067,NA,NA
 "prop inc zero",35,0.134,0.146,NA,NA,0.133,NA,NA
@@ -68,6 +77,9 @@
 "prop ssn yes",35,0.034,0.035,NA,NA,0.034,NA,NA
 "prop ssn no",35,0.01,0.01,NA,NA,0.011,NA,NA
 "prop ssn info missing",35,0.956,0.955,NA,NA,0.955,NA,NA
+"prop head",35,0.774,0.697,NA,NA,0.693,NA,NA
+"prop not head",35,0.218,0.292,NA,NA,0.294,NA,NA
+"prop hh_head missing",35,0.008,0.011,NA,NA,0.013,NA,NA
 "median income",40,1200,1040,NA,NA,1150,NA,NA
 "prop inc missing",40,0.064,0.073,NA,NA,0.076,NA,NA
 "prop inc zero",40,0.161,0.172,NA,NA,0.154,NA,NA
@@ -84,3 +96,6 @@
 "prop ssn yes",40,0.034,0.033,NA,NA,0.034,NA,NA
 "prop ssn no",40,0.012,0.012,NA,NA,0.012,NA,NA
 "prop ssn info missing",40,0.954,0.955,NA,NA,0.954,NA,NA
+"prop head",40,0.826,0.746,NA,NA,0.735,NA,NA
+"prop not head",40,0.167,0.243,NA,NA,0.252,NA,NA
+"prop hh_head missing",40,0.007,0.011,NA,NA,0.014,NA,NA
