@@ -60,7 +60,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   socsec[,"dyear" := as.numeric(substr(dod, 5, 9))]
   ## birth and death month
   socsec[,"bmonth" := as.numeric(substr(dob, 1, 2))]
-  socsec[,"dmonth" := as.numeric(substr(dob, 1, 2))]
+  socsec[,"dmonth" := as.numeric(substr(dod, 1, 2))]
   ## now get census_age (hopefully census was on April 1)
   socsec[,"census_age" := ifelse(bmonth < 4,
                                  1940 - byear,
