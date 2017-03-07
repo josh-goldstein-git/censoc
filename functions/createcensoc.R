@@ -8,7 +8,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           counts.file.name = "counts.txt",
                           descriptives.file.name = "descriptives.csv",
                           matched.file.name = "matched.csv",
-                          des.covs = c("income","race", "renter", "rural", "ssn"),
+                          des.covs = c("income","race", "renter", "rural", "ssn", "hh_head"),
                           condition.ages = c(20, 25, 30, 35, 40),
                           return.unmatched = FALSE){
   
@@ -19,8 +19,8 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   names.census <- fread(names.file, nrows = 2)
   setnames(census, names(names.census))
   ## only keep variables of interest for now
-  ## state, own/rent, name, gender, race, age, schooling, citizenship, city/rural, income, ssn, HHID, HHORDER
-  census <- census[,c(3,22,26,27,32,33,34,37,41,42, 56, 65, 84,85)]
+  ## state, own/rent, name, household position, gender, race, age, schooling, citizenship, city/rural, income, ssn, HHID, HHORDER
+  census <- census[,c(3,22,26,27,31,32,33,34,37,41,42, 56, 65, 84,85)]
   
   cat("Reading socsec data.\n")
   ## read in socsec
@@ -94,6 +94,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census[,"census_age" := age]
   census[,"sex" := self_empty_info_gender]
   census[,"fname" := get.first.word(fname)]
+  census[,"hh_position":=self_empty_info_relationtohead]
   ## covariates
   # income 
   census[,"income" := general_income,]
@@ -113,14 +114,18 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census[self_residence_place_city_multiple_1=="Rural",rural:=TRUE]
   census[!(self_residence_place_city_multiple_1 %in% c("Rural", "")), rural:=FALSE]
   # ssn recode
-  census[,"ssn.census":=general_SSN]
-  census[!(ssn.census %in% c("Yes", "No")),ssn.census:=""]
+  census[,"ssn_census":=general_SSN]
+  census[!(ssn_census %in% c("Yes", "No")),ssn.census:=""]
+  # hh head recode
+  census[,"hh_head":="No"]
+  census[hh_position=="Head",hh_head:="Yes"]
+  census[hh_position=="", hh_head:=""]
   ## HHID_NUMERIC is unique HHID for each household
   ## HHORDER is the order of the person in unique HH
   census[,"hhid" := HHID_NUMERIC]
   census[,"recno" := HHORDER]
   
-  census <- census[,.(hhid, recno, fname, lname, age, census_age, sex, race, own_rent, rural, ssn.census, income)]
+  census <- census[,.(hhid, recno, fname, lname, age, census_age, sex, hh_head, race, own_rent, rural, ssn_census, income)]
   
   # remove those without ages
   census.missing.age <- census[is.na(census$census_age),]

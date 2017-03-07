@@ -3,7 +3,7 @@ get.match.descriptives <- function(censoc,
                                    census.uniq.unmatched,
                                    census.nonuniq.unmatched,
                                    socsec.uniq.unmatched,
-                                   covariates = c("income","race", "renter", "rural", "ssn"),
+                                   covariates = c("income","race", "renter", "rural", "ssn", "hh_head"),
                                    condition.age = 25){
   
   ## create a vector for each type of data set (to cbind at the end)
@@ -143,16 +143,16 @@ get.match.descriptives <- function(censoc,
     }
   }
   
-  ######### RURAL
+  ######### SSN
   
   if("ssn" %in% covariates){
     des.rownames <- c(des.rownames, "prop ssn yes", "prop ssn no", "prop ssn info missing")
     for(i in 1:length(df.combinations)){
       if(!grepl("socsec", df.combinations[i])){
         this.df <- eval(parse(text = df.combinations[i]))
-        ssn.yes <- sum(this.df$ssn.census[this.df$census_age==condition.age]=="Yes")/nrow(this.df[this.df$census_age==condition.age])
-        ssn.no <- sum(this.df$ssn.census[this.df$census_age==condition.age]=="No")/nrow(this.df[this.df$census_age==condition.age])
-        ssn.info.missing <-sum(this.df$ssn.census[this.df$census_age==condition.age]=="")/nrow(this.df[this.df$census_age==condition.age])
+        ssn.yes <- sum(this.df$ssn_census[this.df$census_age==condition.age]=="Yes")/nrow(this.df[this.df$census_age==condition.age])
+        ssn.no <- sum(this.df$ssn_census[this.df$census_age==condition.age]=="No")/nrow(this.df[this.df$census_age==condition.age])
+        ssn.info.missing <-sum(this.df$ssn_census[this.df$census_age==condition.age]=="")/nrow(this.df[this.df$census_age==condition.age])
       }
       else{
         ssn.yes <- NA
@@ -160,6 +160,26 @@ get.match.descriptives <- function(censoc,
         ssn.info.missing <- NA
       }
       des.list[[i]] <- rbind(des.list[[i]], ssn.yes, ssn.no, ssn.info.missing)
+    }
+  }
+  
+  ######### SSN
+  
+  if("hh_head" %in% covariates){
+    des.rownames <- c(des.rownames, "prop head", "prop not head", "prop hh_head missing")
+    for(i in 1:length(df.combinations)){
+      if(!grepl("socsec", df.combinations[i])){
+        this.df <- eval(parse(text = df.combinations[i]))
+        head.yes <- sum(this.df$hh_head[this.df$census_age==condition.age]=="Yes")/nrow(this.df[this.df$census_age==condition.age])
+        head.no <- sum(this.df$hh_head[this.df$census_age==condition.age]=="No")/nrow(this.df[this.df$census_age==condition.age])
+        head.info.missing <-sum(hh_head$ssn_census[this.df$census_age==condition.age]=="")/nrow(this.df[this.df$census_age==condition.age])
+      }
+      else{
+        head.yes <- NA
+        head.no <- NA
+        head.info.missing <- NA
+      }
+      des.list[[i]] <- rbind(des.list[[i]], head.yes, head.no, head.info.missing)
     }
   }
   
