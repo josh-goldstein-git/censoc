@@ -242,19 +242,19 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   
   ## create unique id
   censoc[,"id":=as.numeric(paste0(hhid, recno))]
-  if(!return.census.covariates){ ## just want to keep unique identifier, byear, dyear, bmonth, dmonth
-    censoc <- censoc[,.(id, census_age.x,byear, bmonth, dyear, dmonth)]
-  }
-  
+  ## just want to keep unique identifier, byear, dyear, bmonth, dmonth
+  censoc_red <- censoc[,.(id, census_age.x,byear, bmonth, dyear, dmonth)]
   
   cat("Saving matched dataset (ID and birth/death info). \n")
-  write.csv(censoc, file = matched.file.name, row.names = F)
+  write.csv(censoc_red, file = matched.file.name, row.names = F)
+  
+  censoc_return <- ifelse(return.census.covariates, censoc, censoc_red)
   
   if(return.unmatched){ #only return census..
-    to.return <- list(censoc = censoc, census = census)
+    to.return <- list(censoc = censoc_return, census = census)
   }
   else{
-    to.return <- list(censoc = censoc)
+    to.return <- list(censoc = censoc_return)
   }
   return(to.return)
 }
