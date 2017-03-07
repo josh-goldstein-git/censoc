@@ -248,7 +248,12 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   cat("Saving matched dataset (ID and birth/death info). \n")
   write.csv(censoc_red, file = matched.file.name, row.names = F)
   
-  censoc_return <- ifelse(return.census.covariates, censoc, censoc_red)
+  if(return.census.covariates){
+    censoc_return <- censoc
+  }
+  else{
+    censoc_return <- censoc_red
+  }
   
   if(return.unmatched){ #only return census..
     to.return <- list(censoc = censoc_return, census = census)
