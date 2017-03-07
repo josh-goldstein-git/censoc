@@ -172,7 +172,7 @@ get.match.descriptives <- function(censoc,
         this.df <- eval(parse(text = df.combinations[i]))
         head.yes <- sum(this.df$hh_head[this.df$census_age==condition.age]=="Yes")/nrow(this.df[this.df$census_age==condition.age])
         head.no <- sum(this.df$hh_head[this.df$census_age==condition.age]=="No")/nrow(this.df[this.df$census_age==condition.age])
-        head.info.missing <-sum(hh_head$ssn_census[this.df$census_age==condition.age]=="")/nrow(this.df[this.df$census_age==condition.age])
+        head.info.missing <-sum(this.df$hh_head[this.df$census_age==condition.age]=="")/nrow(this.df[this.df$census_age==condition.age])
       }
       else{
         head.yes <- NA

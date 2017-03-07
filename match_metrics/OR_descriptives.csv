@@ -1,38 +1,101 @@
 "variable","conditionage","Matched","Unmatched unique census","Unmatched unique socsec","Unmatched unique all","Unmatched non-unique census","Unmatched non-unique socsec","Unmatched non-unique all"
-"median age",NA,29,35,29,35,30,28,30
-"IQR age",NA,22,36,22,36,34,19,34
-"median AAD",NA,77,NA,80,NA,NA,78,NA
-"IQR AAD",NA,15,NA,16,NA,NA,16,NA
-"# obs",NA,114859,410114,507107,917221,28651,20409,49060
+"median age",NA,25,36,27,36,30,25,30
+"IQR age",NA,17,35,19,35,34,14,34
+"median AAD",NA,78,NA,81,NA,NA,79,NA
+"IQR AAD",NA,15,NA,16,NA,NA,15,NA
+"# obs",NA,83594,441379,411489,852868,28651,14589,43240
+"median income",20,250,250,NA,NA,300,NA,NA
+"prop inc missing",20,0.085,0.098,NA,NA,0.1,NA,NA
+"prop inc zero",20,0.219,0.222,NA,NA,0.189,NA,NA
+"prop white",20,0.991,0.976,NA,NA,0.99,NA,NA
+"prop black",20,0.001,0.003,NA,NA,0.002,NA,NA
+"prop other",20,0.001,0.001,NA,NA,0,NA,NA
+"prop race missing",20,0.008,0.02,NA,NA,0.008,NA,NA
+"prop own",20,0.015,0.017,NA,NA,0.012,NA,NA
+"prop rent",20,0.07,0.071,NA,NA,0.081,NA,NA
+"prop own/rent missing",20,0.913,0.91,NA,NA,0.902,NA,NA
+"prop rural",20,0.155,0.18,NA,NA,0.193,NA,NA
+"prop urban",20,0.794,0.762,NA,NA,0.755,NA,NA
+"prop rural/urban missing",20,0.051,0.057,NA,NA,0.052,NA,NA
+"prop ssn yes",20,0.03,0.03,NA,NA,0.044,NA,NA
+"prop ssn no",20,0.012,0.014,NA,NA,0.013,NA,NA
+"prop ssn info missing",20,0.958,0.957,NA,NA,0.942,NA,NA
+"prop head",20,0.082,0.086,NA,NA,0.087,NA,NA
+"prop not head",20,0.912,0.889,NA,NA,0.888,NA,NA
+"prop hh_head missing",20,0.007,0.025,NA,NA,0.025,NA,NA
 "median income",25,800,720,NA,NA,700,NA,NA
-"prop inc missing",25,0.04,0.053,NA,NA,0.049,NA,NA
-"prop inc zero",25,0.122,0.118,NA,NA,0.117,NA,NA
-"prop white",25,0.993,0.981,NA,NA,0.987,NA,NA
+"prop inc missing",25,0.039,0.052,NA,NA,0.049,NA,NA
+"prop inc zero",25,0.124,0.118,NA,NA,0.117,NA,NA
+"prop white",25,0.994,0.981,NA,NA,0.987,NA,NA
 "prop black",25,0,0.003,NA,NA,0.004,NA,NA
 "prop other",25,0,0.001,NA,NA,0,NA,NA
 "prop race missing",25,0.006,0.015,NA,NA,0.009,NA,NA
-"prop own",25,0.159,0.124,NA,NA,0.104,NA,NA
-"prop rent",25,0.38,0.345,NA,NA,0.355,NA,NA
-"prop own/rent missing",25,0.46,0.527,NA,NA,0.54,NA,NA
-"prop rural",25,0.188,0.208,NA,NA,0.151,NA,NA
-"prop urban",25,0.778,0.753,NA,NA,0.802,NA,NA
-"prop rural/urban missing",25,0.034,0.039,NA,NA,0.047,NA,NA
-"prop ssn yes",25,0.045,0,NA,NA,0.045,NA,NA
-"prop ssn no",25,0.008,0,NA,NA,0.002,NA,NA
-"prop ssn info missing",25,0.947,0,NA,NA,0.953,NA,NA
-"median income",30,1021,900,NA,NA,960,NA,NA
-"prop inc missing",30,0.038,0.052,NA,NA,0.044,NA,NA
-"prop inc zero",30,0.131,0.134,NA,NA,0.107,NA,NA
-"prop white",30,0.995,0.98,NA,NA,0.988,NA,NA
-"prop black",30,0,0.004,NA,NA,0.005,NA,NA
+"prop own",25,0.161,0.125,NA,NA,0.104,NA,NA
+"prop rent",25,0.371,0.35,NA,NA,0.355,NA,NA
+"prop own/rent missing",25,0.465,0.522,NA,NA,0.54,NA,NA
+"prop rural",25,0.185,0.208,NA,NA,0.151,NA,NA
+"prop urban",25,0.78,0.754,NA,NA,0.802,NA,NA
+"prop rural/urban missing",25,0.035,0.038,NA,NA,0.047,NA,NA
+"prop ssn yes",25,0.047,0.034,NA,NA,0.045,NA,NA
+"prop ssn no",25,0.008,0.007,NA,NA,0.002,NA,NA
+"prop ssn info missing",25,0.946,0.959,NA,NA,0.953,NA,NA
+"prop head",25,0.535,0.479,NA,NA,0.47,NA,NA
+"prop not head",25,0.456,0.493,NA,NA,0.496,NA,NA
+"prop hh_head missing",25,0.009,0.028,NA,NA,0.034,NA,NA
+"median income",30,1044,900,NA,NA,960,NA,NA
+"prop inc missing",30,0.04,0.05,NA,NA,0.044,NA,NA
+"prop inc zero",30,0.133,0.133,NA,NA,0.107,NA,NA
+"prop white",30,0.995,0.981,NA,NA,0.988,NA,NA
+"prop black",30,0,0.003,NA,NA,0.005,NA,NA
 "prop other",30,0,0.001,NA,NA,0,NA,NA
-"prop race missing",30,0.004,0.016,NA,NA,0.007,NA,NA
-"prop own",30,0.322,0.244,NA,NA,0.232,NA,NA
-"prop rent",30,0.458,0.437,NA,NA,0.405,NA,NA
-"prop own/rent missing",30,0.219,0.316,NA,NA,0.359,NA,NA
-"prop rural",30,0.18,0.191,NA,NA,0.198,NA,NA
-"prop urban",30,0.796,0.779,NA,NA,0.771,NA,NA
-"prop rural/urban missing",30,0.025,0.029,NA,NA,0.032,NA,NA
-"prop ssn yes",30,0.039,0,NA,NA,0.037,NA,NA
-"prop ssn no",30,0.011,0,NA,NA,0.01,NA,NA
-"prop ssn info missing",30,0.95,0,NA,NA,0.954,NA,NA
+"prop race missing",30,0.004,0.015,NA,NA,0.007,NA,NA
+"prop own",30,0.326,0.248,NA,NA,0.232,NA,NA
+"prop rent",30,0.455,0.44,NA,NA,0.405,NA,NA
+"prop own/rent missing",30,0.219,0.309,NA,NA,0.359,NA,NA
+"prop rural",30,0.18,0.19,NA,NA,0.198,NA,NA
+"prop urban",30,0.792,0.782,NA,NA,0.771,NA,NA
+"prop rural/urban missing",30,0.027,0.028,NA,NA,0.032,NA,NA
+"prop ssn yes",30,0.035,0.036,NA,NA,0.037,NA,NA
+"prop ssn no",30,0.011,0.011,NA,NA,0.01,NA,NA
+"prop ssn info missing",30,0.953,0.953,NA,NA,0.954,NA,NA
+"prop head",30,0.786,0.694,NA,NA,0.656,NA,NA
+"prop not head",30,0.205,0.285,NA,NA,0.295,NA,NA
+"prop hh_head missing",30,0.009,0.021,NA,NA,0.049,NA,NA
+"median income",35,1020,936,NA,NA,960,NA,NA
+"prop inc missing",35,0.036,0.053,NA,NA,0.065,NA,NA
+"prop inc zero",35,0.183,0.168,NA,NA,0.157,NA,NA
+"prop white",35,0.997,0.981,NA,NA,0.988,NA,NA
+"prop black",35,0.001,0.004,NA,NA,0.009,NA,NA
+"prop other",35,0.001,0.001,NA,NA,0,NA,NA
+"prop race missing",35,0.002,0.013,NA,NA,0.003,NA,NA
+"prop own",35,0.445,0.334,NA,NA,0.29,NA,NA
+"prop rent",35,0.411,0.427,NA,NA,0.447,NA,NA
+"prop own/rent missing",35,0.141,0.236,NA,NA,0.263,NA,NA
+"prop rural",35,0.174,0.176,NA,NA,0.157,NA,NA
+"prop urban",35,0.803,0.798,NA,NA,0.817,NA,NA
+"prop rural/urban missing",35,0.023,0.026,NA,NA,0.027,NA,NA
+"prop ssn yes",35,0.037,0.033,NA,NA,0.024,NA,NA
+"prop ssn no",35,0.015,0.012,NA,NA,0.012,NA,NA
+"prop ssn info missing",35,0.947,0.955,NA,NA,0.964,NA,NA
+"prop head",35,0.864,0.773,NA,NA,0.749,NA,NA
+"prop not head",35,0.133,0.202,NA,NA,0.222,NA,NA
+"prop hh_head missing",35,0.003,0.025,NA,NA,0.03,NA,NA
+"median income",40,1040,800,NA,NA,720,NA,NA
+"prop inc missing",40,0.048,0.065,NA,NA,0.072,NA,NA
+"prop inc zero",40,0.214,0.219,NA,NA,0.188,NA,NA
+"prop white",40,0.996,0.98,NA,NA,0.992,NA,NA
+"prop black",40,0.001,0.005,NA,NA,0,NA,NA
+"prop other",40,0,0.001,NA,NA,0,NA,NA
+"prop race missing",40,0.004,0.015,NA,NA,0.008,NA,NA
+"prop own",40,0.551,0.407,NA,NA,0.38,NA,NA
+"prop rent",40,0.345,0.375,NA,NA,0.375,NA,NA
+"prop own/rent missing",40,0.104,0.217,NA,NA,0.244,NA,NA
+"prop rural",40,0.144,0.148,NA,NA,0.152,NA,NA
+"prop urban",40,0.832,0.821,NA,NA,0.807,NA,NA
+"prop rural/urban missing",40,0.024,0.03,NA,NA,0.041,NA,NA
+"prop ssn yes",40,0.036,0.035,NA,NA,0.036,NA,NA
+"prop ssn no",40,0.016,0.013,NA,NA,0.015,NA,NA
+"prop ssn info missing",40,0.948,0.952,NA,NA,0.949,NA,NA
+"prop head",40,0.898,0.796,NA,NA,0.761,NA,NA
+"prop not head",40,0.094,0.169,NA,NA,0.18,NA,NA
+"prop hh_head missing",40,0.009,0.035,NA,NA,0.059,NA,NA

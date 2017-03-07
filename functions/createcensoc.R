@@ -10,6 +10,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           matched.file.name = "matched.csv",
                           des.covs = c("income","race", "renter", "rural", "ssn", "hh_head"),
                           condition.ages = c(20, 25, 30, 35, 40),
+                          return.census.covariates = FALSE, # to use for national match 
                           return.unmatched = FALSE){
   
   ######### 1. READ IN DATA ######### 
@@ -239,15 +240,18 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   cat("Saving descriptives of matched and unmatched datasets.\n")
   write.csv(df.all.ages, file = descriptives.file.name, row.names=F)
   
-  ## just want to keep unique identifier, byear, dyear, bmonth, dmonth
+  ## create unique id
   censoc[,"id":=as.numeric(paste0(hhid, recno))]
-  censoc <- censoc[,.(id, census_age.x,byear, bmonth, dyear, dmonth)]
+  if(!return.census.covariates){ ## just want to keep unique identifier, byear, dyear, bmonth, dmonth
+    censoc <- censoc[,.(id, census_age.x,byear, bmonth, dyear, dmonth)]
+  }
+  
   
   cat("Saving matched dataset (ID and birth/death info). \n")
   write.csv(censoc, file = matched.file.name, row.names = F)
   
-  if(return.unmatched){
-    to.return <- list(censoc = censoc, census = census, socsec = socsec)
+  if(return.unmatched){ #only return census..
+    to.return <- list(censoc = censoc, census = census)
   }
   else{
     to.return <- list(censoc = censoc)
