@@ -1,37 +1,50 @@
 get.match.descriptives <- function(censoc, 
-                                   socsec,
+                                   socsec = NULL,
                                    census.uniq.unmatched,
                                    census.nonuniq.unmatched,
-                                   socsec.uniq.unmatched,
+                                   socsec.uniq.unmatched = NULL,
                                    covariates = c("income","race", "renter", "rural", "ssn", "hh_head"),
+                                   census.only = FALSE,
                                    condition.age = 25){
   
   ## create a vector for each type of data set (to cbind at the end)
   des.matched <- c()
   des.unmatched.census.uniq <- c()
-  des.unmatched.socsec.uniq <- c()
-  des.unmatched.all.uniq <- c()
   des.unmatched.census.nonuniq <- c()
-  des.unmatched.socsec.nonuniq <- c()
-  des.unmatched.all.nonuniq <- c()
-  
   des.rownames <- c("median age", "IQR age", "median AAD", "IQR AAD")
+  
+  if(census.only==FALSE){
+    des.unmatched.socsec.uniq <- c()
+    des.unmatched.all.uniq <- c()
+    des.unmatched.socsec.nonuniq <- c()
+    des.unmatched.all.nonuniq <- c()
+    
+    des.list <- list(des.matched, des.unmatched.census.uniq, des.unmatched.socsec.uniq, des.unmatched.all.uniq, 
+                     des.unmatched.census.nonuniq, des.unmatched.socsec.nonuniq, des.unmatched.all.nonuniq)
+    
+    df.combinations <- c("censoc", "census.uniq.unmatched", "socsec.uniq.unmatched", 
+                         'c(census.uniq.unmatched[,"census_age"],socsec.uniq.unmatched[,"census_age"])', 
+                         "census.nonuniq.unmatched", "socsec[socsec$n_clean_key>1]", 
+                         'c(census.nonuniq.unmatched[,"census_age"],socsec[socsec$n_clean_key>1,"census_age"])')
+  }
+  
+  if(census.only==TRUE){
+    des.list <- list(des.matched, des.unmatched.census.uniq, 
+                     des.unmatched.census.nonuniq)
+    
+    df.combinations <- c("censoc", "census.uniq.unmatched", 
+                         "census.nonuniq.unmatched")
+  }
 
-  des.list <- list(des.matched, des.unmatched.census.uniq, des.unmatched.socsec.uniq, des.unmatched.all.uniq, 
-                   des.unmatched.census.nonuniq, des.unmatched.socsec.nonuniq, des.unmatched.all.nonuniq)
-  
-  df.combinations <- c("censoc", "census.uniq.unmatched", "socsec.uniq.unmatched", 
-                       'c(census.uniq.unmatched[,"census_age"],socsec.uniq.unmatched[,"census_age"])', 
-                       "census.nonuniq.unmatched", "socsec[socsec$n_clean_key>1]", 
-                       'c(census.nonuniq.unmatched[,"census_age"],socsec[socsec$n_clean_key>1,"census_age"])')
-  
   ## rename age in censoc
   censoc[, census_age := census_age.x]
   ## create age at death variable
   censoc[, age.at.death := dyear - byear]
-  socsec[, age.at.death := dyear - byear]
-  socsec.uniq.unmatched[, age.at.death := dyear - byear]
-    
+  if(census.only==FALSE){
+    socsec[, age.at.death := dyear - byear]
+    socsec.uniq.unmatched[, age.at.death := dyear - byear]
+  }
+
   ##### AGE CHARACTERISTICS
   
   for(i in 1:length(df.combinations)){
@@ -188,9 +201,17 @@ get.match.descriptives <- function(censoc,
   des.df <- round(as.data.frame(do.call(cbind, des.list)), 3)
   
   rownames(des.df) <- des.rownames
-  colnames(des.df) <- c("Matched", 
-                        "Unmatched unique census", "Unmatched unique socsec", "Unmatched unique all", 
-                        "Unmatched non-unique census", "Unmatched non-unique socsec", "Unmatched non-unique all")
+  if(census.only==FALSE){
+    colnames(des.df) <- c("Matched", 
+                          "Unmatched unique census", "Unmatched unique socsec", "Unmatched unique all", 
+                          "Unmatched non-unique census", "Unmatched non-unique socsec", "Unmatched non-unique all")
+  }
+  
+  if(census.only==TRUE){
+    colnames(des.df) <- c("Matched", 
+                          "Unmatched unique census",  
+                          "Unmatched non-unique census")
+  }
   des.df$conditionage = condition.age
   des.df$variable = rownames(des.df)
   des.df <- des.df[,c((ncol(des.df)),(ncol(des.df)-1), 1:((ncol(des.df)-2)))]
