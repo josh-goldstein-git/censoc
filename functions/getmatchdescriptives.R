@@ -3,7 +3,7 @@ get.match.descriptives <- function(censoc,
                                    census.uniq.unmatched,
                                    census.nonuniq.unmatched,
                                    socsec.uniq.unmatched = NULL,
-                                   covariates = c("income","race", "renter", "rural", "ssn", "hh_head"),
+                                   covariates = c("income","race", "educ", "renter", "rural", "ssn", "hh_head"),
                                    census.only = FALSE,
                                    condition.age = 25){
   
@@ -27,7 +27,6 @@ get.match.descriptives <- function(censoc,
                          "census.nonuniq.unmatched", "socsec[socsec$n_clean_key>1]", 
                          'c(census.nonuniq.unmatched[,"census_age"],socsec[socsec$n_clean_key>1,"census_age"])')
   }
-  
   if(census.only==TRUE){
     des.list <- list(des.matched, des.unmatched.census.uniq, 
                      des.unmatched.census.nonuniq)
@@ -113,6 +112,28 @@ get.match.descriptives <- function(censoc,
         other.race <- NA
       }
       des.list[[i]] <- rbind(des.list[[i]], white, black, race.missing, other.race)
+    }
+  }
+  
+  ######## EDUC
+  
+  if("educ" %in% covariates){
+    des.rownames <- c(des.rownames, "prop high school", "prop college", "median educ", "prop educ missing")
+    for(i in 1:length(df.combinations)){
+      if(!grepl("socsec", df.combinations[i])){
+        this.df <- eval(parse(text = df.combinations[i]))
+        hs <- sum(this.df$educ[this.df$census_age==condition.age]>=12, na.rm = T)/nrow(this.df[this.df$census_age==condition.age])
+        cg <- sum(this.df$educ[this.df$census_age==condition.age]>=16, na.rm = T)/nrow(this.df[this.df$census_age==condition.age])
+        med.educ <- median(this.df$educ[this.df$census_age==condition.age], na.rm=T)
+        educ.missing <- sum(is.na(this.df$educ[this.df$census_age==condition.age]))/nrow(this.df[this.df$census_age==condition.age])
+      }
+      else{
+        hs <- NA
+        cg <- NA
+        med.educ <- NA
+        educ.missing <- NA
+      }
+      des.list[[i]] <- rbind(des.list[[i]], hs, cg, med.educ, educ.missing)
     }
   }
   
