@@ -8,7 +8,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           counts.file.name = "counts.txt",
                           descriptives.file.name = "descriptives.csv",
                           matched.file.name = "matched.csv",
-                          des.covs = c("income","race", "renter", "rural", "ssn", "hh_head"),
+                          des.covs = c("income","race", "educ", "renter", "rural", "ssn", "hh_head"),
                           condition.ages = c(20, 25, 30, 35, 40),
                           return.census.covariates = FALSE, # to use for national match 
                           return.unmatched = FALSE){
@@ -97,6 +97,8 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census[,"fname" := get.first.word(fname)]
   census[,"hh_position":=self_empty_info_relationtohead]
   ## covariates
+  # state 
+  census[,"state" := self_residence_place_state,]
   # income 
   census[,"income" := general_income,]
   census[,"income" := gsub(",", "", income)]
@@ -106,6 +108,30 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census[race=="Negro",race:="Black"]
   census[!(race %in% c("Black", "White", "Chinese", "Japanese", "Filipino", "")), race:="Other"]
   census[race=="", race:=NA]
+  # education 
+  census[, "grade" := general_gradecompleted] # save typing
+  census[, educ := -1]
+  census[grade == "High School, 1st year", educ := 9]
+  census[grade == "High School, 2nd year", educ := 10]
+  census[grade == "High School, 3rd year", educ := 11]
+  census[grade == "High School, 4th year", educ := 12]
+  census[grade == "College, 1st year", educ := 13]
+  census[grade == "College, 2nd year", educ := 14]
+  census[grade == "College, 3rd year", educ := 15]
+  census[grade == "College, 4th year", educ := 16]
+  census[grade == "College, 5th or subsequent year", educ := 17]
+  census[grade == "Elementary school, 1st grade", educ := 1]
+  census[grade == "Elementary school, 2nd grade", educ := 2]
+  census[grade == "Elementary school, 3rd grade", educ := 3]
+  census[grade == "Elementary school, 4th grade", educ := 4]
+  census[grade == "Elementary school, 5th grade", educ := 5]
+  census[grade == "Elementary school, 6th grade", educ := 6]
+  census[grade == "Elementary school, 7th grade", educ := 7]
+  census[grade == "Elementary school, 8th grade", educ := 8]
+  census[grade == "None", educ := 0]
+  census[grade == "College", educ := 16]
+  census[grade == "High School", educ := 12]
+  census[educ == -1, educ := NA]
   # own/rent recode
   census[,"own_rent":=general_homeownrent]
   census[!(own_rent%in%c("Owned", "Rented", "")), own_rent:="Other"]
@@ -126,7 +152,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census[,"hhid" := HHID_NUMERIC]
   census[,"recno" := HHORDER]
   
-  census <- census[,.(hhid, recno, fname, lname, age, census_age, sex, hh_head, race, own_rent, rural, ssn_census, income)]
+  census <- census[,.(hhid, recno, fname, lname, state, age, census_age, sex, hh_head, race, educ, own_rent, rural, ssn_census, income)]
   
   # remove those without ages
   census.missing.age <- census[is.na(census$census_age),]
