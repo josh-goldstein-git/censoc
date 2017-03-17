@@ -11,6 +11,10 @@
 "prop black",20,0.141,0.225,NA,NA,0.291,NA,NA
 "prop other",20,0.002,0.003,NA,NA,0.003,NA,NA
 "prop race missing",20,0.004,0.006,NA,NA,0.005,NA,NA
+"prop high school",20,0.312,0.255,NA,NA,0.257,NA,NA
+"prop college",20,0.006,0.006,NA,NA,0.005,NA,NA
+"median educ",20,9,8,NA,NA,8,NA,NA
+"prop educ missing",20,0.023,0.029,NA,NA,0.027,NA,NA
 "prop own",20,0.011,0.013,NA,NA,0.011,NA,NA
 "prop rent",20,0.097,0.11,NA,NA,0.113,NA,NA
 "prop own/rent missing",20,0.888,0.873,NA,NA,0.871,NA,NA
@@ -30,6 +34,10 @@
 "prop black",25,0.132,0.229,NA,NA,0.301,NA,NA
 "prop other",25,0.001,0.002,NA,NA,0.003,NA,NA
 "prop race missing",25,0.004,0.005,NA,NA,0.004,NA,NA
+"prop high school",25,0.319,0.25,NA,NA,0.252,NA,NA
+"prop college",25,0.062,0.043,NA,NA,0.045,NA,NA
+"median educ",25,9,8,NA,NA,8,NA,NA
+"prop educ missing",25,0.025,0.033,NA,NA,0.032,NA,NA
 "prop own",25,0.089,0.076,NA,NA,0.071,NA,NA
 "prop rent",25,0.423,0.409,NA,NA,0.421,NA,NA
 "prop own/rent missing",25,0.484,0.513,NA,NA,0.505,NA,NA
@@ -49,6 +57,10 @@
 "prop black",30,0.139,0.248,NA,NA,0.326,NA,NA
 "prop other",30,0.001,0.002,NA,NA,0.003,NA,NA
 "prop race missing",30,0.003,0.005,NA,NA,0.005,NA,NA
+"prop high school",30,0.271,0.205,NA,NA,0.201,NA,NA
+"prop college",30,0.066,0.044,NA,NA,0.043,NA,NA
+"median educ",30,8,8,NA,NA,7,NA,NA
+"prop educ missing",30,0.027,0.036,NA,NA,0.034,NA,NA
 "prop own",30,0.193,0.153,NA,NA,0.145,NA,NA
 "prop rent",30,0.522,0.509,NA,NA,0.523,NA,NA
 "prop own/rent missing",30,0.283,0.336,NA,NA,0.33,NA,NA
@@ -68,6 +80,10 @@
 "prop black",35,0.132,0.231,NA,NA,0.311,NA,NA
 "prop other",35,0.001,0.002,NA,NA,0.002,NA,NA
 "prop race missing",35,0.003,0.005,NA,NA,0.005,NA,NA
+"prop high school",35,0.247,0.19,NA,NA,0.185,NA,NA
+"prop college",35,0.068,0.046,NA,NA,0.045,NA,NA
+"median educ",35,8,7,NA,NA,7,NA,NA
+"prop educ missing",35,0.031,0.036,NA,NA,0.036,NA,NA
 "prop own",35,0.288,0.227,NA,NA,0.214,NA,NA
 "prop rent",35,0.505,0.514,NA,NA,0.531,NA,NA
 "prop own/rent missing",35,0.206,0.258,NA,NA,0.253,NA,NA
@@ -87,6 +103,10 @@
 "prop black",40,0.154,0.267,NA,NA,0.362,NA,NA
 "prop other",40,0.001,0.003,NA,NA,0.003,NA,NA
 "prop race missing",40,0.004,0.006,NA,NA,0.006,NA,NA
+"prop high school",40,0.201,0.155,NA,NA,0.143,NA,NA
+"prop college",40,0.054,0.036,NA,NA,0.033,NA,NA
+"median educ",40,8,7,NA,NA,7,NA,NA
+"prop educ missing",40,0.031,0.041,NA,NA,0.039,NA,NA
 "prop own",40,0.361,0.285,NA,NA,0.26,NA,NA
 "prop rent",40,0.469,0.496,NA,NA,0.519,NA,NA
 "prop own/rent missing",40,0.168,0.217,NA,NA,0.22,NA,NA
