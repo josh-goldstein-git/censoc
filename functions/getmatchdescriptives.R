@@ -69,7 +69,7 @@ get.match.descriptives <- function(censoc,
       des.list[[i]] <- rbind(des.list[[i]], length(unlist(this.df)))
     }
     else{
-      des.list[[i]] <- rbind(des.list[[i]], nrow(this.df))
+      des.list[[i]] <- rbind(des.list[[i]], nrow(this.df[this.df$census_age==condition.age]))
     }
   }
   
@@ -238,7 +238,7 @@ get.match.descriptives <- function(censoc,
   des.df <- des.df[,c((ncol(des.df)),(ncol(des.df)-1), 1:((ncol(des.df)-2)))]
   #remove condition age for unconditional
   des.df[des.df$variable %in% c("median age", "IQR age",
-                                          "median AAD", "IQR AAD", "# obs"), "conditionage"] <- NA
+                                          "median AAD", "IQR AAD"), "conditionage"] <- NA
   return(des.df)
 
 }

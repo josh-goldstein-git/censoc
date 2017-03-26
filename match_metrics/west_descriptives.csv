@@ -3,7 +3,7 @@
 "IQR age",NA,20,34,18,34,31,16,31
 "median AAD",NA,78,NA,79,NA,NA,78,NA
 "IQR AAD",NA,15,NA,16,NA,NA,15,NA
-"# obs",NA,958638,4845672,39970272,44815944,1232332,20182825,21415157
+"# obs",20,23745,71210,1100789,44815944,21991,632150,21415157
 "median income",20,250,240,NA,NA,250,NA,NA
 "prop inc missing",20,0.072,0.083,NA,NA,0.085,NA,NA
 "prop inc zero",20,0.271,0.277,NA,NA,0.264,NA,NA
@@ -27,6 +27,7 @@
 "prop head",20,0.087,0.097,NA,NA,0.097,NA,NA
 "prop not head",20,0.872,0.862,NA,NA,0.852,NA,NA
 "prop hh_head missing",20,0.041,0.041,NA,NA,0.051,NA,NA
+"# obs",25,26738,74657,1154080,44815944,21728,645408,21415157
 "median income",25,832,765,NA,NA,800,NA,NA
 "prop inc missing",25,0.039,0.054,NA,NA,0.049,NA,NA
 "prop inc zero",25,0.129,0.134,NA,NA,0.121,NA,NA
@@ -50,6 +51,7 @@
 "prop head",25,0.533,0.482,NA,NA,0.499,NA,NA
 "prop not head",25,0.436,0.485,NA,NA,0.461,NA,NA
 "prop hh_head missing",25,0.031,0.033,NA,NA,0.04,NA,NA
+"# obs",30,26124,77854,1041361,44815944,21898,574973,21415157
 "median income",30,1055.5,900,NA,NA,1000,NA,NA
 "prop inc missing",30,0.04,0.052,NA,NA,0.05,NA,NA
 "prop inc zero",30,0.142,0.143,NA,NA,0.136,NA,NA
@@ -73,6 +75,7 @@
 "prop head",30,0.753,0.67,NA,NA,0.699,NA,NA
 "prop not head",30,0.229,0.303,NA,NA,0.272,NA,NA
 "prop hh_head missing",30,0.018,0.027,NA,NA,0.028,NA,NA
+"# obs",35,20530,73510,846222,44815944,19245,425663,21415157
 "median income",35,1166.5,956,NA,NA,1025,NA,NA
 "prop inc missing",35,0.046,0.055,NA,NA,0.058,NA,NA
 "prop inc zero",35,0.169,0.171,NA,NA,0.154,NA,NA
@@ -96,6 +99,7 @@
 "prop head",35,0.822,0.744,NA,NA,0.766,NA,NA
 "prop not head",35,0.161,0.23,NA,NA,0.205,NA,NA
 "prop hh_head missing",35,0.017,0.026,NA,NA,0.03,NA,NA
+"# obs",40,17827,78519,628896,44815944,20161,276143,21415157
 "median income",40,1080,850,NA,NA,950,NA,NA
 "prop inc missing",40,0.058,0.063,NA,NA,0.065,NA,NA
 "prop inc zero",40,0.212,0.213,NA,NA,0.197,NA,NA
