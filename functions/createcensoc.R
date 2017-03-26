@@ -244,7 +244,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           n.census.names.missing, " (proportion:", round(n.census.names.missing/n.census.raw, 3), ")","\n"),
                    paste0("Number in census after cleaning: ", 
                           n.census, " (proportion:", round(n.census/n.census.raw, 3), ")", "\n"),
-                   paste0("Number in census after cleaning: ", 
+                   paste0("Number in socsec after cleaning: ", 
                           n.socsec, " (proportion:", round(n.socsec/n.socsec.raw, 3), ")","\n"),
                    paste0("Number of unique keys in census: ", 
                           n.census.uniq, " (proportion:", round(n.census.uniq/n.census, 3), ")","\n"),
