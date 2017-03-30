@@ -6,7 +6,7 @@ Raw number of people in census: 13931789
  Number of people with age info missing in census: 206587 (proportion:0.015)
  Number of people with name info missing in census: 16307 (proportion:0.001)
  Number in census after cleaning: 13708895 (proportion:0.984)
- Number in census after cleaning: 61111735 (proportion:0.712)
+ Number in socsec after cleaning: 61111735 (proportion:0.712)
  Number of unique keys in census: 11534528 (proportion:0.841)
  Number of unique keys in socsec: 40928910 (proportion:0.67)
  Number of unique keys in census for Male: 5804310
