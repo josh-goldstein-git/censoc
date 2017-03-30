@@ -10,7 +10,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           matched.file.name = "matched.csv",
                           des.covs = c("income","race", "educ", "renter", "rural", "ssn", "hh_head"),
                           condition.ages = c(20, 25, 30, 35, 40),
-                          return.census.covariates = FALSE, # to use for national match 
+                          return.census.covariates = TRUE, # to use for national match 
                           return.unmatched = FALSE){
   
   ######### 1. READ IN DATA ######### 
@@ -20,8 +20,8 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   names.census <- fread(names.file, nrows = 2)
   setnames(census, names(names.census))
   ## only keep variables of interest for now
-  ## state, own/rent, name, household position, gender, race, age, schooling, citizenship, city/rural, income, ssn, HHID, HHORDER
-  census <- census[,c(3,22,26,27,31,32,33,34,37,41,42, 56, 65, 84,85)]
+  ## state, own/rent, name, household position, gender, race, age, schooling, birth place citizenship, city/rural, income, ssn, HHID, HHORDER
+  census <- census[,c(3,22,26,27,31,32,33,34,37,39, 41,42, 56, 65, 84,85)]
   
   cat("Reading socsec data.\n")
   ## read in socsec
@@ -89,6 +89,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   socsec[,"n_clean_key" := .N, by = clean_key]
   
   ## B. clean the census data
+  census[,"name" := self_empty_name_given]
   census[,"fname" := str_to_upper(self_empty_name_given)]
   census[,"lname" := str_to_upper(self_empty_name_surname)]
   census[,"age" := as.numeric(self_residence_info_age)]
@@ -99,6 +100,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   ## covariates
   # state 
   census[,"state" := self_residence_place_state,]
+  census[,"birth_place" := self_birth_place_empty]
   # income 
   census[,"income" := general_income,]
   census[,"income" := gsub(",", "", income)]
@@ -152,7 +154,8 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census[,"hhid" := HHID_NUMERIC]
   census[,"recno" := HHORDER]
   
-  census <- census[,.(hhid, recno, fname, lname, state, age, census_age, sex, hh_head, race, educ, own_rent, rural, ssn_census, income)]
+  census <- census[,.(hhid, recno, name, fname, lname, birth_place, 
+                      state, age, census_age, sex, hh_head, race, educ, own_rent, rural, ssn_census, income)]
   
   # remove those without ages
   census.missing.age <- census[is.na(census$census_age),]
