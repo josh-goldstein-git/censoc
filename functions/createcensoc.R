@@ -9,7 +9,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
                           descriptives.file.name = "descriptives.csv",
                           matched.file.name = "matched.csv",
                           des.covs = c("income","race", "educ", "renter", "rural", "ssn", "hh_head"),
-                          condition.ages = c(20, 25, 30, 35, 40),
+                          condition.ages = seq(0, 75, by = 5),
                           return.census.covariates = TRUE, # to use for national match 
                           return.unmatched = FALSE){
   
@@ -52,6 +52,8 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   
   ## A. clean the socsec data
   ## shorten names by removing blank space at end
+  socsec[,"lname_orginal_socsec" := lname]
+  socsec[,"fname_orginal_socsec" := fname]
   socsec[,lname := gsub(pattern = "\\s*$",
                         replacement = "", x = lname)]
   socsec[,fname := gsub(pattern = "\\s*$",
@@ -89,7 +91,8 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   socsec[,"n_clean_key" := .N, by = clean_key]
   
   ## B. clean the census data
-  census[,"name" := self_empty_name_given]
+  census[,"fname_original_census" := self_empty_name_given]
+  census[,"lname_original_census" := self_empty_name_surname]
   census[,"fname" := str_to_upper(self_empty_name_given)]
   census[,"lname" := str_to_upper(self_empty_name_surname)]
   census[,"age" := as.numeric(self_residence_info_age)]
@@ -154,7 +157,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census[,"hhid" := HHID_NUMERIC]
   census[,"recno" := HHORDER]
   
-  census <- census[,.(hhid, recno, name, fname, lname, birth_place, 
+  census <- census[,.(hhid, recno, fname_original_census, lname_original_census, fname, lname, birth_place, 
                       state, age, census_age, sex, hh_head, race, educ, own_rent, rural, ssn_census, income)]
   
   # remove those without ages
@@ -184,6 +187,14 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   
   socsec.uniq <- socsec[n_clean_key == 1,]
   census.uniq <- census[n_clean_key == 1,]
+  
+  socsec.nonuniq.keys <- socsec[n_clean_key > 1,clean_key]
+  census.nonuniq.keys <- census[n_clean_key > 1,clean_key]
+  
+  # remove non-unique keys from other database (upadte 3/30)
+  socsec.uniq <- socsec.uniq[!(clean_key %in% census.nonuniq.keys),]
+  census.uniq <- census.uniq[!(clean_key %in% socsec.nonuniq.keys),]
+  
   # METRICS
   n.socsec.uniq <- nrow(socsec.uniq)
   n.census.uniq <- nrow(census.uniq)

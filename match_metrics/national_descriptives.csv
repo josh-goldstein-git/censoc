@@ -3,6 +3,102 @@
 "IQR age",NA,19,34,31
 "median AAD",NA,77,NA,NA
 "IQR AAD",NA,15,NA,NA
+"# obs",0,10108,65662,9364
+"median income",0,0,0,0
+"prop inc missing",0,0.963,0.958,0.964
+"prop inc zero",0,0.032,0.033,0.03
+"prop white",0,0.898,0.888,0.81
+"prop black",0,0.095,0.102,0.182
+"prop other",0,0.001,0.002,0.003
+"prop race missing",0,0.006,0.008,0.006
+"prop high school",0,0.003,0.004,0.002
+"prop college",0,0,0,0
+"median educ",0,0,0,0
+"prop educ missing",0,0.299,0.304,0.297
+"prop own",0,0.003,0.004,0.003
+"prop rent",0,0.006,0.007,0.008
+"prop own/rent missing",0,0.989,0.986,0.986
+"prop rural",0,0,0,0
+"prop urban",0,0,0,0
+"prop rural/urban missing",0,1,1,1
+"prop ssn yes",0,0.001,0.002,0.001
+"prop ssn no",0,0.016,0.016,0.015
+"prop ssn info missing",0,0.983,0.982,0.983
+"prop head",0,0.003,0.005,0.003
+"prop not head",0,0.993,0.989,0.989
+"prop hh_head missing",0,0.005,0.006,0.007
+"# obs",5,106326,661139,310510
+"median income",5,0,0,0
+"prop inc missing",5,0.964,0.958,0.962
+"prop inc zero",5,0.034,0.037,0.035
+"prop white",5,0.917,0.889,0.831
+"prop black",5,0.077,0.101,0.163
+"prop other",5,0.001,0.002,0.002
+"prop race missing",5,0.005,0.008,0.004
+"prop high school",5,0.001,0.002,0.001
+"prop college",5,0,0,0
+"median educ",5,0,0,0
+"prop educ missing",5,0.276,0.279,0.283
+"prop own",5,0.001,0.002,0.002
+"prop rent",5,0.002,0.003,0.003
+"prop own/rent missing",5,0.996,0.994,0.995
+"prop rural",5,0.116,0.116,0.131
+"prop urban",5,0.685,0.666,0.636
+"prop rural/urban missing",5,0.199,0.219,0.233
+"prop ssn yes",5,0.001,0.001,0.001
+"prop ssn no",5,0.018,0.018,0.018
+"prop ssn info missing",5,0.981,0.981,0.98
+"prop head",5,0.001,0.002,0.001
+"prop not head",5,0.997,0.995,0.995
+"prop hh_head missing",5,0.003,0.003,0.003
+"# obs",10,143882,681521,332334
+"median income",10,0,0,0
+"prop inc missing",10,0.95,0.943,0.947
+"prop inc zero",10,0.047,0.053,0.05
+"prop white",10,0.927,0.89,0.834
+"prop black",10,0.067,0.1,0.16
+"prop other",10,0.001,0.002,0.002
+"prop race missing",10,0.005,0.008,0.004
+"prop high school",10,0.004,0.005,0.005
+"prop college",10,0.001,0.002,0.001
+"median educ",10,4,4,4
+"prop educ missing",10,0.019,0.023,0.023
+"prop own",10,0.001,0.002,0.001
+"prop rent",10,0.002,0.002,0.002
+"prop own/rent missing",10,0.996,0.995,0.996
+"prop rural",10,0.11,0.115,0.13
+"prop urban",10,0.787,0.764,0.74
+"prop rural/urban missing",10,0.103,0.121,0.13
+"prop ssn yes",10,0.001,0.001,0.001
+"prop ssn no",10,0.019,0.019,0.019
+"prop ssn info missing",10,0.98,0.98,0.98
+"prop head",10,0,0.001,0.001
+"prop not head",10,0.996,0.994,0.995
+"prop hh_head missing",10,0.003,0.004,0.004
+"# obs",15,192230,679131,334861
+"median income",15,0,0,0
+"prop inc missing",15,0.247,0.263,0.263
+"prop inc zero",15,0.708,0.689,0.681
+"prop white",15,0.942,0.898,0.846
+"prop black",15,0.053,0.092,0.148
+"prop other",15,0.001,0.002,0.002
+"prop race missing",15,0.004,0.008,0.004
+"prop high school",15,0.008,0.009,0.008
+"prop college",15,0,0,0
+"median educ",15,8,8,8
+"prop educ missing",15,0.018,0.022,0.023
+"prop own",15,0.001,0.002,0.002
+"prop rent",15,0.002,0.003,0.003
+"prop own/rent missing",15,0.995,0.994,0.995
+"prop rural",15,0.096,0.104,0.117
+"prop urban",15,0.818,0.789,0.771
+"prop rural/urban missing",15,0.086,0.106,0.113
+"prop ssn yes",15,0.002,0.002,0.002
+"prop ssn no",15,0.033,0.033,0.033
+"prop ssn info missing",15,0.965,0.965,0.965
+"prop head",15,0.001,0.002,0.002
+"prop not head",15,0.994,0.992,0.991
+"prop hh_head missing",15,0.005,0.006,0.007
 "# obs",20,202186,640555,297223
 "median income",20,200,200,195
 "prop inc missing",20,0.093,0.108,0.111
@@ -123,3 +219,171 @@
 "prop head",40,0.851,0.774,0.773
 "prop not head",40,0.141,0.212,0.212
 "prop hh_head missing",40,0.009,0.014,0.015
+"# obs",45,71396,627328,226641
+"median income",45,840,720,700
+"prop inc missing",45,0.078,0.083,0.087
+"prop inc zero",45,0.27,0.256,0.248
+"prop white",45,0.947,0.905,0.846
+"prop black",45,0.049,0.086,0.149
+"prop other",45,0.001,0.001,0.002
+"prop race missing",45,0.003,0.008,0.004
+"prop high school",45,0.235,0.188,0.193
+"prop college",45,0.061,0.046,0.044
+"median educ",45,8,8,8
+"prop educ missing",45,0.029,0.038,0.036
+"prop own",45,0.467,0.376,0.354
+"prop rent",45,0.398,0.43,0.448
+"prop own/rent missing",45,0.134,0.193,0.197
+"prop rural",45,0.077,0.074,0.083
+"prop urban",45,0.865,0.861,0.846
+"prop rural/urban missing",45,0.057,0.065,0.071
+"prop ssn yes",45,0.028,0.028,0.027
+"prop ssn no",45,0.016,0.016,0.016
+"prop ssn info missing",45,0.955,0.956,0.957
+"prop head",45,0.88,0.819,0.816
+"prop not head",45,0.111,0.168,0.17
+"prop hh_head missing",45,0.009,0.013,0.014
+"# obs",50,41520,632635,224089
+"median income",50,651,600,560
+"prop inc missing",50,0.081,0.088,0.092
+"prop inc zero",50,0.31,0.291,0.283
+"prop white",50,0.949,0.907,0.85
+"prop black",50,0.047,0.084,0.145
+"prop other",50,0.001,0.001,0.002
+"prop race missing",50,0.003,0.007,0.003
+"prop high school",50,0.213,0.168,0.171
+"prop college",50,0.061,0.044,0.042
+"median educ",50,8,8,8
+"prop educ missing",50,0.031,0.041,0.04
+"prop own",50,0.513,0.417,0.39
+"prop rent",50,0.365,0.398,0.419
+"prop own/rent missing",50,0.121,0.184,0.189
+"prop rural",50,0.075,0.071,0.082
+"prop urban",50,0.867,0.864,0.845
+"prop rural/urban missing",50,0.057,0.065,0.073
+"prop ssn yes",50,0.024,0.026,0.025
+"prop ssn no",50,0.019,0.018,0.019
+"prop ssn info missing",50,0.956,0.956,0.957
+"prop head",50,0.893,0.829,0.825
+"prop not head",50,0.099,0.159,0.162
+"prop hh_head missing",50,0.008,0.012,0.014
+"# obs",55,14478,496782,153857
+"median income",55,472,450,450
+"prop inc missing",55,0.086,0.093,0.095
+"prop inc zero",55,0.345,0.326,0.315
+"prop white",55,0.942,0.924,0.878
+"prop black",55,0.054,0.068,0.118
+"prop other",55,0.001,0.001,0.001
+"prop race missing",55,0.003,0.007,0.003
+"prop high school",55,0.198,0.152,0.154
+"prop college",55,0.056,0.039,0.036
+"median educ",55,8,8,8
+"prop educ missing",55,0.032,0.043,0.04
+"prop own",55,0.538,0.46,0.434
+"prop rent",55,0.332,0.367,0.385
+"prop own/rent missing",55,0.13,0.172,0.18
+"prop rural",55,0.074,0.069,0.081
+"prop urban",55,0.866,0.865,0.845
+"prop rural/urban missing",55,0.06,0.066,0.074
+"prop ssn yes",55,0.024,0.024,0.024
+"prop ssn no",55,0.019,0.019,0.019
+"prop ssn info missing",55,0.957,0.956,0.957
+"prop head",55,0.885,0.841,0.834
+"prop not head",55,0.105,0.147,0.153
+"prop hh_head missing",55,0.01,0.012,0.013
+"# obs",60,3250,448201,142889
+"median income",60,260,200,216
+"prop inc missing",60,0.092,0.106,0.109
+"prop inc zero",60,0.391,0.39,0.379
+"prop white",60,0.929,0.914,0.864
+"prop black",60,0.064,0.077,0.131
+"prop other",60,0.001,0.001,0.002
+"prop race missing",60,0.007,0.008,0.003
+"prop high school",60,0.192,0.147,0.145
+"prop college",60,0.054,0.038,0.035
+"median educ",60,8,8,8
+"prop educ missing",60,0.036,0.045,0.043
+"prop own",60,0.562,0.485,0.459
+"prop rent",60,0.295,0.331,0.349
+"prop own/rent missing",60,0.142,0.183,0.192
+"prop rural",60,0.076,0.07,0.082
+"prop urban",60,0.855,0.859,0.837
+"prop rural/urban missing",60,0.069,0.071,0.081
+"prop ssn yes",60,0.022,0.02,0.02
+"prop ssn no",60,0.023,0.022,0.022
+"prop ssn info missing",60,0.955,0.957,0.958
+"prop head",60,0.874,0.829,0.822
+"prop not head",60,0.116,0.159,0.165
+"prop hh_head missing",60,0.01,0.012,0.013
+"# obs",65,365,374000,121061
+"median income",65,0,0,0
+"prop inc missing",65,0.096,0.12,0.121
+"prop inc zero",65,0.51,0.486,0.475
+"prop white",65,0.885,0.908,0.856
+"prop black",65,0.107,0.084,0.139
+"prop other",65,0,0.001,0.002
+"prop race missing",65,0.008,0.006,0.003
+"prop high school",65,0.178,0.129,0.125
+"prop college",65,0.044,0.035,0.031
+"median educ",65,8,8,8
+"prop educ missing",65,0.049,0.048,0.046
+"prop own",65,0.545,0.498,0.474
+"prop rent",65,0.321,0.303,0.319
+"prop own/rent missing",65,0.134,0.199,0.206
+"prop rural",65,0.093,0.072,0.085
+"prop urban",65,0.838,0.852,0.826
+"prop rural/urban missing",65,0.068,0.076,0.089
+"prop ssn yes",65,0.025,0.017,0.016
+"prop ssn no",65,0.033,0.026,0.026
+"prop ssn info missing",65,0.942,0.957,0.958
+"prop head",65,0.877,0.814,0.808
+"prop not head",65,0.107,0.176,0.181
+"prop hh_head missing",65,0.016,0.011,0.011
+"# obs",70,37,262111,76002
+"median income",70,0,0,0
+"prop inc missing",70,0.135,0.148,0.147
+"prop inc zero",70,0.622,0.625,0.62
+"prop white",70,0.811,0.919,0.879
+"prop black",70,0.189,0.074,0.116
+"prop other",70,0,0.001,0.002
+"prop race missing",70,0,0.006,0.003
+"prop high school",70,0.108,0.121,0.114
+"prop college",70,0,0.033,0.029
+"median educ",70,7,8,8
+"prop educ missing",70,0.162,0.05,0.049
+"prop own",70,0.378,0.508,0.492
+"prop rent",70,0.432,0.262,0.272
+"prop own/rent missing",70,0.189,0.229,0.235
+"prop rural",70,0.108,0.07,0.081
+"prop urban",70,0.838,0.854,0.832
+"prop rural/urban missing",70,0.054,0.076,0.087
+"prop ssn yes",70,0.027,0.008,0.009
+"prop ssn no",70,0.027,0.033,0.032
+"prop ssn info missing",70,0.946,0.959,0.959
+"prop head",70,0.865,0.783,0.777
+"prop not head",70,0.135,0.206,0.211
+"prop hh_head missing",70,0,0.012,0.012
+"# obs",75,13,153351,34118
+"median income",75,0,0,0
+"prop inc missing",75,0.154,0.165,0.165
+"prop inc zero",75,0.538,0.7,0.7
+"prop white",75,0.923,0.924,0.895
+"prop black",75,0.077,0.071,0.101
+"prop other",75,0,0.001,0.001
+"prop race missing",75,0,0.005,0.002
+"prop high school",75,0.077,0.107,0.097
+"prop college",75,0,0.028,0.024
+"median educ",75,8,8,8
+"prop educ missing",75,0.077,0.055,0.052
+"prop own",75,0.385,0.491,0.475
+"prop rent",75,0.154,0.226,0.233
+"prop own/rent missing",75,0.462,0.283,0.29
+"prop rural",75,0.077,0.067,0.073
+"prop urban",75,0.846,0.86,0.845
+"prop rural/urban missing",75,0.077,0.073,0.082
+"prop ssn yes",75,0,0.005,0.004
+"prop ssn no",75,0,0.035,0.035
+"prop ssn info missing",75,1,0.96,0.96
+"prop head",75,0.615,0.727,0.722
+"prop not head",75,0.308,0.259,0.264
+"prop hh_head missing",75,0.077,0.013,0.014

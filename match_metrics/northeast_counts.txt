@@ -7,14 +7,25 @@ Raw number of people in census: 36041741
  Number of people with name info missing in census: 52786 (proportion:0.001)
  Number in census after cleaning: 35551868 (proportion:0.986)
  Number in socsec after cleaning: 61111735 (proportion:0.712)
- Number of unique keys in census: 28042577 (proportion:0.789)
- Number of unique keys in socsec: 40928910 (proportion:0.67)
- Number of unique keys in census for Male: 13590995
+ Number of unique keys in census: 26875892 (proportion:0.756)
+ Number of unique keys in socsec: 40504719 (proportion:0.663)
+ Number of unique keys in census for Male: 12988570
  Number of matches: 2133430
- Match rate: 0.157
+ Match rate: 0.164
  Modal age of matched people: 18
- Match rate at age 20: 0.257
- Match rate at age 25: 0.248
- Match rate at age 30: 0.23
- Match rate at age 35: 0.192
- Match rate at age 40: 0.149
+ Match rate at age 0: 0.155
+ Match rate at age 5: 0.167
+ Match rate at age 10: 0.207
+ Match rate at age 15: 0.263
+ Match rate at age 20: 0.279
+ Match rate at age 25: 0.27
+ Match rate at age 30: 0.247
+ Match rate at age 35: 0.203
+ Match rate at age 40: 0.154
+ Match rate at age 45: 0.106
+ Match rate at age 50: 0.063
+ Match rate at age 55: 0.03
+ Match rate at age 60: 0.007
+ Match rate at age 65: 0.001
+ Match rate at age 70: 0
+ Match rate at age 75: 0
