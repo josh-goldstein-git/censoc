@@ -1,0 +1,50 @@
+Raw number of people in census: 131947830
+ Raw number of people in socsec: 85822194
+ Number of people born after 1940 in socsec: 9765817 (proportion:0.114)
+ Number of people with age info missing in socsec: 121321 (proportion:0.001)
+ Number of deaths before 1975 in socsec: 15203777 (proportion:0.177)
+ Number of people with age info missing in census: 1913483 (proportion:0.015)
+ Number of people with name info missing in census: 160541 (proportion:0.001)
+ Number in census after cleaning: 129873806 (proportion:0.984)
+ Number in socsec after cleaning: 61111735 (proportion:0.712)
+ Number of unique keys in census: 94745537 (proportion:0.73)
+ Number of unique keys in socsec: 40504719 (proportion:0.663)
+ Number of unique keys in census for Male: 46412925
+ Number of matches: 7081383
+ Number of matches dropped from regional match: 629105 (proportion:0.082)
+ Match rate (unique keys): 0.153
+ Match rate (all keys): 0.11
+ Modal age of matched people: 18
+ Median age of matched people: 23
+ Match rate (unique keys) at age 0-4: 0.135
+ Match rate (unique keys) at age 5-9: 0.181
+ Match rate (unique keys) at age 10-14: 0.239
+ Match rate (unique keys) at age 15-19: 0.293
+ Match rate (unique keys) at age 20-24: 0.312
+ Match rate (unique keys) at age 25-29: 0.303
+ Match rate (unique keys) at age 30-34: 0.272
+ Match rate (unique keys) at age 35-39: 0.215
+ Match rate (unique keys) at age 40-44: 0.156
+ Match rate (unique keys) at age 45-49: 0.1
+ Match rate (unique keys) at age 50-54: 0.052
+ Match rate (unique keys) at age 55-59: 0.02
+ Match rate (unique keys) at age 60-64: 0.005
+ Match rate (unique keys) at age 65-69: 0.001
+ Match rate (unique keys) at age 70-74: 0
+ Match rate (unique keys) at age 75+: 0
+ Match rate at age 0-4: 0.093
+ Match rate at age 5-9: 0.123
+ Match rate at age 10-14: 0.161
+ Match rate at age 15-19: 0.197
+ Match rate at age 20-24: 0.216
+ Match rate at age 25-29: 0.213
+ Match rate at age 30-34: 0.193
+ Match rate at age 35-39: 0.154
+ Match rate at age 40-44: 0.114
+ Match rate at age 45-49: 0.074
+ Match rate at age 50-54: 0.039
+ Match rate at age 55-59: 0.015
+ Match rate at age 60-64: 0.004
+ Match rate at age 65-69: 0
+ Match rate at age 70-74: 0
+ Match rate at age 75+: 0
