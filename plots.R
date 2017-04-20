@@ -22,7 +22,7 @@ ggplot(all_data %>% filter(matched==1, income>0, income<30000)) +
                position="stack", alpha=0.6, adjust = 3.5, aes(x = log(income), fill = "Unmatched"))+
   scale_colour_manual(name="",values=c("blue", "red")) + 
   scale_fill_manual(name="",values=c("blue", "red"))+
-  theme_bw() + ggtitle("Log-income distribution of matched and unmatched samples")
+  theme_bw() + ggtitle("Log-income distribution of matched \nand unmatched samples")
 ggsave("./fig/lincome_distribution.pdf")
 
 
