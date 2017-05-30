@@ -20,9 +20,9 @@ ggsave(p, "./fig/age_distribution.pdf")
 #lines(m$data[[2]]$x, m$data[[2]]$y)
 
 p <- ggplot(all_data %>% filter(matched==1, income>0, income<30000)) + 
-  geom_density(position="stack", alpha=1, adjust =2, aes(x = log(income), fill = "Matched")) +
+  geom_density(position="stack", alpha=1, adjust =2.5, aes(x = log(income), fill = "Matched")) +
   geom_density(data = all_data %>% filter(matched==0, income>0, income<30000), 
-               position="stack", alpha=0.6, adjust = 3.5, aes(x = log(income), fill = "Unmatched"))+
+               position="stack", alpha=0.6, adjust = 3.2, aes(x = log(income), fill = "Unmatched"))+
   scale_colour_manual(name="",values=c("black", "lightgrey")) + 
   scale_fill_manual(name="",values=c("black", "lightgrey"))+
   theme_bw() #+ ggtitle("Log-income distribution of matched \nand unmatched samples")
