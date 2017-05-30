@@ -6,25 +6,31 @@ all_data$matched_factor <- factor(all_data$matched, labels = c("Unmatched", "Mat
 
 #[sample(1:nrow(all_data), 1000),]
 
-ggplot(all_data %>% filter(matched==1, age<110)) + 
+p <- ggplot(all_data %>% filter(matched==1, age<110)) + 
   geom_density(position="stack", alpha=0.6, adjust =2.5, aes(x = age, fill = "Matched")) +
   geom_density(data = all_data %>% filter(matched==0, age<110), 
                position="stack", alpha=0.6, adjust = 3, aes(x = age, fill = "Unmatched"))+
   scale_colour_manual(name="",values=c("blue", "red")) + 
   scale_fill_manual(name="",values=c("blue", "red"))+
   theme_bw() + ggtitle("Age distribution of matched and unmatched samples")
-ggsave("./fig/age_distribution.pdf")
+ggsave(p, "./fig/age_distribution.pdf")
 
+#m <- print(p)
+#plot(m$data[[1]]$x, m$data[[1]]$y)
+#lines(m$data[[2]]$x, m$data[[2]]$y)
 
-ggplot(all_data %>% filter(matched==1, income>0, income<30000)) + 
-  geom_density(position="stack", alpha=0.6, adjust =2, aes(x = log(income), fill = "Matched")) +
+p <- ggplot(all_data %>% filter(matched==1, income>0, income<30000)) + 
+  geom_density(position="stack", alpha=1, adjust =2, aes(x = log(income), fill = "Matched")) +
   geom_density(data = all_data %>% filter(matched==0, income>0, income<30000), 
                position="stack", alpha=0.6, adjust = 3.5, aes(x = log(income), fill = "Unmatched"))+
-  scale_colour_manual(name="",values=c("blue", "red")) + 
-  scale_fill_manual(name="",values=c("blue", "red"))+
-  theme_bw() + ggtitle("Log-income distribution of matched \nand unmatched samples")
+  scale_colour_manual(name="",values=c("#5e3c99", "#f1a340")) + 
+  scale_fill_manual(name="",values=c("#5e3c99", "#f1a340"))+
+  theme_bw() #+ ggtitle("Log-income distribution of matched \nand unmatched samples")
+
 ggsave("./fig/lincome_distribution.pdf")
 
+linc <- print(p)
+save(linc, file = "./fig/linc.RData")
 
 ggplot(all_data %>% filter(income>0, income<30000, age <70, age>14), 
        aes(y = log(income), x = census_age_group, fill=matched_factor))+
@@ -33,6 +39,29 @@ ggplot(all_data %>% filter(income>0, income<30000, age <70, age>14),
   xlab("Age")+ggtitle("Log-income by age")+ theme_bw() + ylim(c(2, 10))
 ggsave("./fig/lincome_box.pdf")  
 
+p <- ggplot(all_data %>% filter(matched==1, income>0, income<30000, age <70, age>14)) + 
+  geom_density(position="stack", alpha=1, adjust =2, aes(x = educ, fill = "Matched")) +
+  geom_density(data = all_data %>% filter(matched==0, income>0, income<30000, age <70, age>14), 
+               position="stack", alpha=0.6, adjust = 3.5, aes(x = educ, fill = "Unmatched"))+
+  scale_colour_manual(name="",values=c("#5e3c99", "#f1a340")) + 
+  scale_fill_manual(name="",values=c("#5e3c99", "#f1a340"))+
+  theme_bw() #+ ggtitle("Log-income distribution of matched \nand unmatched samples")
+ggsave("./fig/educ.pdf")
+
+educ <- print(p)
+save(educ, file = "./fig/educ.RData")
+
+p <- ggplot(all_data %>% filter(matched==1, income>0, income<30000, age <50, age>=40)) + 
+  geom_density(position="stack", alpha=1, adjust =2, aes(x = educ, fill = "Matched")) +
+  geom_density(data = all_data %>% filter(matched==0, income>0, income<30000, age <50, age>=40), 
+               position="stack", alpha=0.6, adjust = 3.5, aes(x = educ, fill = "Unmatched"))+
+  scale_colour_manual(name="",values=c("#5e3c99", "#f1a340")) + 
+  scale_fill_manual(name="",values=c("#5e3c99", "#f1a340"))+
+  theme_bw() #+ ggtitle("Log-income distribution of matched \nand unmatched samples")
+ggsave("./fig/educ_40_50.pdf")
+
+educ_40_50 <- print(p)
+save(educ_40_50, file = "./fig/educ_40_50.RData")
 
 ggplot(all_data %>% filter(income>0, income<30000, age <70, age>14), 
        aes(y = educ, x = census_age_group, fill=matched_factor))+
