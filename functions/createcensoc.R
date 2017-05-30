@@ -158,7 +158,7 @@ create.censoc <- function(census.file = "/home/ipums/josh-ipums/mydata/my1940/CA
   census[,"recno" := HHORDER]
   
   census <- census[,.(hhid, recno, fname_original_census, lname_original_census, fname, lname, birth_place, 
-                      state, age, census_age, sex, hh_head, race, educ, own_rent, rural, ssn_census, income)]
+                      state, age, census_age, sex, hh_position, hh_head, race, educ, own_rent, rural, ssn_census, income)]
   
   # remove those without ages
   census.missing.age <- census[is.na(census$census_age),]
