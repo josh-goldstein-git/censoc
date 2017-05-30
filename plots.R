@@ -64,11 +64,11 @@ educ_40_50 <- print(p)
 save(educ_40_50, file = "./fig/educ_40_50.RData")
 
 p <- ggplot(all_data %>% filter(matched==1, income>0, income<30000, age <=30, age>=25)) + 
-  geom_density(position="stack", alpha=1, adjust =1.9, aes(x = educ, fill = "Matched")) +
+  geom_density(position="stack", alpha=0.9, adjust =1.9, aes(x = educ, fill = "Matched")) +
   geom_density(data = all_data %>% filter(matched==0, income>0, income<30000, age <=30, age>=20), 
                position="stack", alpha=0.6, adjust = 3.1, aes(x = educ, fill = "Unmatched"))+
-  scale_colour_manual(name="",values=c("#5e3c99", "#f1a340")) + 
-  scale_fill_manual(name="",values=c("#5e3c99", "#f1a340"))+
+  scale_colour_manual(name="",values=c("darkgrey", "lightgrey")) + 
+  scale_fill_manual(name="",values=c("darkgrey", "lightgrey"))+
   theme_bw() #+ ggtitle("Log-income distribution of matched \nand unmatched samples")
 ggsave("./fig/educ_25_30.pdf")
 
